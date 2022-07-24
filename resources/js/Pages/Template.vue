@@ -1,10 +1,12 @@
 <template>
     <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(fields).length}">
-        <div class="max-w-3xl mx-auto space-y-[30px]">
+        
+        <div class="max-w-3xl mx-auto space-y-[30px]" id="fields">
 
-            <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.hash">
+            <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.hash" :data-id="field.hash">
+                <input type="hidden" v-model="fields[index]['order']">
                 <template-field
-                    @clone="cloneField(index)"
+                    @cloneField="cloneField(index)"
                     @delete="deleteField(index)"
                     v-model="fields[index]"
                     :field-data="field"
@@ -74,9 +76,8 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-
 import TemplateField from '@/Components/TemplateField.vue'
-
+import Sortable from 'sortablejs';
 import {cloneDeep} from "lodash";
 
 export default {
@@ -88,7 +89,8 @@ export default {
     data() {
         return {
             editor: null,
-            fields: []
+            fields: [],
+            order: 0
         }
     },
 
@@ -103,6 +105,28 @@ export default {
                 })
             ],
         })
+
+        let $this = this;
+
+        var el = document.getElementById('fields');
+        var sortable = Sortable.create(el, {
+            onChange: function (evt) {
+
+                let list = this.toArray();
+
+                list.forEach(function (hash, index) {
+
+                    let field = _.findKey($this.fields, {
+                        hash: hash
+                    })
+
+                    console.log(field)
+
+                    $this.fields[field].order = index
+                })
+            },
+        });
+
     },
 
     beforeUnmount() {
@@ -114,14 +138,22 @@ export default {
         addField(type) {
             this.fields.push({
                 'type': type,
-                hash: new Date().getTime()
+                hash: new Date().getTime().toString(),
+                order: this.order
             })
+
+            this.order++
         },
 
         cloneField(index) {
+
             let field = cloneDeep(this.fields[index])
 
-            field.hash = new Date().getTime()
+            field.hash = new Date().getTime().toString()
+
+            field.order = this.order
+
+            this.order++
 
             this.fields.push(field)
         },
