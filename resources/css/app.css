@@ -1,0 +1,13 @@
+@import "https://rsms.me/inter/inter.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-bar {
+    @apply bg-white bg-opacity-[0.5];
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.ProseMirror.ProseMirror-focused {
+    outline: none;
+}
