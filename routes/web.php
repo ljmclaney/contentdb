@@ -32,6 +32,10 @@ Route::get('/template', function () {
     return Inertia::render('Template');
 });
 
+Route::get('/projects', function () {
+    return Inertia::render('Projects');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
