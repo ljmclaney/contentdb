@@ -18,6 +18,12 @@
             <button class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50" :class="{ 'bg-indigo-100': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">
                 Italic
             </button>
+            <button class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50" @click="setLink" :class="{ 'bg-indigo-100': editor.isActive('link') }">
+                Add link
+            </button>
+            <button class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50" @click="editor.chain().focus().unsetLink().run()" :disabled="!editor.isActive('link')">
+                Remove link
+            </button>
         </div>
         </div>
         <editor-content :editor="editor" class="focus:ring-0"/>
@@ -27,6 +33,7 @@
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import Placeholder from '@tiptap/extension-placeholder'
+import Link from '@tiptap/extension-link'
 
 export default {
     components: {
@@ -70,7 +77,10 @@ export default {
                 StarterKit,
                 Placeholder.configure({
                     placeholder: 'Write something …',
-                })
+                }),
+                Link.configure({
+                    openOnClick: false,
+                }),
             ],
             editorProps: {
                 attributes: {
@@ -91,6 +101,38 @@ export default {
     beforeUnmount() {
         this.editor.destroy()
     },
+
+    methods: {
+        setLink() {
+            const previousUrl = this.editor.getAttributes('link').href
+            const url = window.prompt('URL', previousUrl)
+
+            // cancelled
+            if (url === null) {
+                return
+            }
+
+            // empty
+            if (url === '') {
+                this.editor
+                    .chain()
+                    .focus()
+                    .extendMarkRange('link')
+                    .unsetLink()
+                    .run()
+
+                return
+            }
+
+            // update link
+            this.editor
+                .chain()
+                .focus()
+                .extendMarkRange('link')
+                .setLink({ href: url })
+                .run()
+        },
+    }
 }
 </script>
 <style>
