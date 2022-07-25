@@ -10,8 +10,8 @@
                 </ul>
 
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
-                    <Link :href="route('pageStructure', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-default">Edit structure</Link>
-                    <button @click="saveFields()" class="btn-default">Save</button>
+                    <Link :href="route('pageStructure', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Edit structure</Link>
+                    <button @click="saveFields()" class="btn-primary">Save</button>
                 </div>
             </div>
 

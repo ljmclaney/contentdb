@@ -10,8 +10,8 @@
                 </ul>
 
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
-                    <Link :href="route('viewPage', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-default">Add content</Link>
-                    <button @click="saveFields()" class="btn-default">Save</button>
+                    <Link :href="route('viewPage', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Add content</Link>
+                    <button @click="saveFields()" class="btn-primary">Save</button>
                 </div>
             </div>
 

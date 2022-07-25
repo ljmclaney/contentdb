@@ -65,7 +65,7 @@ class PageController extends Controller
                     'sort_order'=> $field['sort_order'],
                     'settings' => !empty($field['settings']) ? $field['settings'] : null,
                     'json_content' => !empty($field['json_content']) ? $field['json_content'] : null,
-                    'html_content' => !empty($field['html_content']) ? clean($field['html_content']) : null
+                    'html_content' => !empty($field['html_content']) ? ($field['html_content']) : null
                 ]
             );
         }
