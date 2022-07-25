@@ -17,16 +17,30 @@ class PageController extends Controller
         Page::create([
             'account_id' => 1,
             'project_id' => $project->id,
-            'name' => $request->input('newPage'),
-            'uuid' => Str::uuid()->toString()
+            'name' => $request->input('newPage')
         ]);
+
+        $project->touch();
 
         return back();
     }
 
     public function view(Project $project, Page $page)
     {
+        if ($page->fields->isEmpty()) {
+            return redirect()->route('pageStructure', [$project->id, $page->id]);
+        }
+
         return Inertia::render('Projects/Page', [
+            'project' => $project,
+            'page' => $page,
+            'fields' => $page->fields()->orderBy('sort_order')->get()
+        ]);
+    }
+
+    public function pageStructure(Project $project, Page $page)
+    {
+        return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
             'fields' => $page->fields()->orderBy('sort_order')->get()
@@ -46,7 +60,7 @@ class PageController extends Controller
                     'page_id' => $page->id,
                     'type' => $field['type'],
                     'uuid' => $field['uuid'],
-                    'label' => !empty($field['label']) ? $field['label'] : null,
+                    'label' => !empty($field['label']) ? $field['label'] : 'Enter content here...',
                     'instructions' => !empty($field['instructions']) ? $field['instructions'] : null,
                     'sort_order'=> $field['sort_order'],
                     'settings' => !empty($field['settings']) ? $field['settings'] : null,
@@ -57,10 +71,11 @@ class PageController extends Controller
         }
 
         $page->touch();
+        $project->touch();
 
         session()->flash('toast', [
             'title'   => 'Saved',
-            'message' => 'Your awesome model was successfully saved.',
+            'message' => 'Content fields saved.',
             'type'    => 'success'
         ]);
 

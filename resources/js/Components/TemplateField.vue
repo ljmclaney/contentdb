@@ -8,7 +8,7 @@
                 </svg>
             </div>
 
-            <input v-model="label" @keyup="update()" type="text" class="border-0 hover:bg-gray-100 focus:bg-gray-100 active:focus:outline-none focus:ring-0 w-full font-bold text-lg" placeholder="Enter a label">
+            <input v-model="label" @keyup="update()" type="text" class="border-0 hover:bg-gray-100 bg-gray-100 active:focus:outline-none focus:ring-0 w-full font-bold text-lg" placeholder="Enter a label">
         </div>
         <div class="p-5 border-b border-gray-200" v-if="fieldData.type !== 'divider'">
             <div class="space-y-2.5 max-w-lg" v-if="fieldData.type === 'text'">

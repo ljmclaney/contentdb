@@ -13,8 +13,7 @@ class Page extends Model
     protected $fillable = [
         'account_id',
         'project_id',
-        'name',
-        'uuid'
+        'name'
     ];
 
     public function project()

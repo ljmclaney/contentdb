@@ -4,9 +4,9 @@
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div v-if="Object.keys(projects).length" v-for="(project, index) in projects" :key="project.hash" :data-id="project.hash">
+                <div v-if="Object.keys(projects).length" class="bg-white rounded shadow border border-gray-200 py-5">
 
-                    <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="px-5">
                         <div class="sm:flex sm:items-center">
                             <div class="sm:flex-auto">
                                 <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
@@ -123,6 +123,7 @@ export default {
             )
 
             this.createProject = false
+            this.newProject = null
         }
     }
 }
