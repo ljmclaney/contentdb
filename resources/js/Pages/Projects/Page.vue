@@ -1,8 +1,20 @@
 <template>
     <Layout>
-        <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(fields).length}">
+        <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="max-w-3xl mx-auto space-y-[30px]" id="fields">
+
+                <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
+                    <ul class="text-2xl font-bold flex items-center space-x-[10px]">
+                        <li><Link :href="route('viewProject', project.id)" class="text-gray-500">{{ project.name }}</Link></li>
+                        <li class="text-gray-500">/</li>
+                        <li>{{ page.name }}</li>
+                    </ul>
+
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <button @click="saveFields()" class="btn-default">Save</button>
+                    </div>
+                </div>
 
                 <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.hash" :data-id="field.hash">
                     <input type="hidden" v-model="fields[index]['order']">
@@ -14,11 +26,11 @@
                     />
                 </div>
 
-                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center h-screen -mt-[100px] text-gray-500 text-center">
+                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-gray-500 text-center">
 
                     <div>
-                    Let's start building your page structure!<br>
-                    Select a field from the bottom.
+                        <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>
+                        <p class="text-gray-500">Select a field from the bottom.</p>
                     </div>
 
                 </div>
@@ -77,6 +89,7 @@
 </template>
 <script>
 
+import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
@@ -86,9 +99,15 @@ import {cloneDeep} from "lodash";
 
 export default {
     components: {
+        Link,
         Layout,
         EditorContent,
         TemplateField
+    },
+
+    props: {
+        page: Object,
+        project: Object
     },
 
     data() {
@@ -167,6 +186,10 @@ export default {
             console.log(index)
             this.fields.splice(index, 1)
         },
+
+        saveFields() {
+            
+        }
     }
 }
 </script>

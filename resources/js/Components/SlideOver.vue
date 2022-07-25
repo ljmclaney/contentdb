@@ -1,19 +1,19 @@
 <template>
     <TransitionRoot as="template" :show="sliderOpen">
         <Dialog as="div" class="relative z-[999]" @close="closeSlider()">
-            <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
+            <TransitionChild as="template" enter="ease-in-out duration-200" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-200" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
             </TransitionChild>
 
             <div class="fixed inset-0 overflow-hidden">
                 <div class="absolute inset-0 overflow-hidden">
                     <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                        <TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="translate-x-full">
+                        <TransitionChild as="template" enter="transform transition ease-in-out duration-200 sm:duration-200" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-200 sm:duration-200" leave-from="translate-x-0" leave-to="translate-x-full">
                             <DialogPanel class="pointer-events-auto w-screen max-w-md">
                                 <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                                     <div class="px-4 sm:px-6">
                                         <div class="flex items-start justify-between">
-                                            <DialogTitle class="text-lg font-medium text-gray-900"> Panel title </DialogTitle>
+                                            <DialogTitle class="text-lg font-medium text-gray-900"> {{ title }} </DialogTitle>
                                             <div class="ml-3 flex h-7 items-center">
                                                 <button type="button" class="rounded-md bg-white text-gray-400 hover:text-gray-500" @click="closeSlider()">
                                                     <span class="sr-only">Close panel</span>
@@ -46,7 +46,8 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 
 export default {
     props: {
-        open: Boolean
+        open: Boolean,
+        title: String
     },
 
     components: {

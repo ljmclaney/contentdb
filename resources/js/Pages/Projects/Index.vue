@@ -1,19 +1,27 @@
 <template>
     <Layout>
-        <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(projects).length}">
+        <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div v-if="Object.keys(projects).length" v-for="(project, index) in projects" :key="project.hash" :data-id="project.hash">
+                <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
+                    <h3 class="text-2xl font-bold">{{ project.name }}</h3>
 
-                    <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <button @click="createPage = true" class="btn-default">Share</button>
+                    </div>
+                </div>
+
+                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-200 py-5">
+
+                    <div class="px-5">
                         <div class="sm:flex sm:items-center">
                             <div class="sm:flex-auto">
-                                <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
+                                <h1 class="text-xl font-bold ">Pages</h1>
 
                             </div>
                             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <button @click="createProject = true" class="btn-primary">Create a project</button>
+                                <button @click="createPage = true" class="btn-primary">Create a page</button>
                             </div>
                         </div>
                         <div class="mt-8 flex flex-col">
@@ -22,23 +30,23 @@
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <thead>
                                         <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Last updated</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold  sm:pl-6 md:pl-0">Name</th>
+                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold ">Last updated</th>
                                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 md:pr-0">
                                                 <span class="sr-only">Edit</span>
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
-                                        <tr v-for="project in projects">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0">
-                                                <Link :href="route('viewProject', project.id )" class="text-indigo-600 hover:text-indigo-900">{{ project.name }}</Link>
+                                        <tr v-for="page in pages">
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6 md:pl-0">
+                                                <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
                                             </td>
                                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
-                                                {{ project.updated_at }}
+                                                {{ page.updated_at }}
                                             </td>
                                             <!--<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
-                                                <Link :href="route('editProject', project.id )" class="text-indigo-600 hover:text-indigo-900">Edit</Link>
+                                                <Link :href="route('editProject', page.id )" class="text-indigo-600 hover:text-indigo-900">Edit</Link>
                                             </td>-->
                                         </tr>
 
@@ -52,15 +60,14 @@
 
                 </div>
 
-                <div v-if="!Object.keys(projects).length" class="flex flex-col justify-center items-center h-screen -mt-[100px] text-center">
+                <div v-if="!Object.keys(pages).length" class="flex flex-col justify-center items-center text-center pt-[100px]">
 
                     <div class="mb-[30px]">
-                        <h3 class="text-xl font-bold mb-[15px]">You haven't created a project yet</h3>
-                        <p class="text-gray-500">Projects are spaces to manage pages, content and media assets.<br>
-                            To get started, create your first project.</p>
+                        <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
+                        <p class="text-gray-500">Add your content here. Start by creating your first page.</p>
                     </div>
 
-                    <button @click="createProject = true" type="button" class="btn-primary">Create a project</button>
+                    <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
 
                 </div>
 
@@ -68,13 +75,13 @@
 
         </div>
 
-        <slide-over :open="createProject" @closeSlider="createProject = false" title="Create a project">
+        <slide-over :open="createPage" @closeSlider="createPage = false" title="Create a page">
 
             <div class="space-y-[15px]">
                 <div>
-                    <label for="project" class="block text-sm font-medium text-gray-700">Project name</label>
+                    <label for="page" class="block text-sm font-medium text-gray-700">Page name</label>
                     <div class="mt-1">
-                        <input type="text" name="project" id="project" v-model="newProject" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="e.g. website name, client name or company name" />
+                        <input type="text" name="page" id="page" v-model="newPage" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="e.g. Home, About page, December Newsletter" />
                     </div>
                 </div>
 
@@ -100,29 +107,32 @@ export default {
     },
 
     props: {
-        projects: Object
+        project: Object,
+        pages: Object
     },
 
     data() {
         return {
-            createProject: false,
-            newProject: null
+            createPage: false,
+            newPage: null
         }
     },
 
     methods: {
 
         saveProject() {
-            this.$inertia.post('/projects/create',
+            this.$inertia.post('/projects/' + this.project.id + '/pages/create',
                 {
-                    newProject: this.newProject
+                    projectID: this.project.id,
+                    newPage: this.newPage
                 },
                 {
                     preserveScroll: true
                 }
             )
 
-            this.createProject = false
+            this.newPage = null
+            this.createPage = false
         }
     }
 }
