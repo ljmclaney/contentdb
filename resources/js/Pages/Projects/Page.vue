@@ -1,23 +1,23 @@
 <template>
     <Layout>
-        <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
+        <div class="max-w-3xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
-            <div class="max-w-3xl mx-auto space-y-[30px]" id="fields">
+            <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between mb-[30px]">
+                <ul class="text-2xl font-bold flex items-center space-x-[10px]">
+                    <li><Link :href="route('viewProject', project.id)" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
+                    <li class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
+                    <li>{{ page.name }}</li>
+                </ul>
 
-                <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
-                    <ul class="text-2xl font-bold flex items-center space-x-[10px]">
-                        <li><Link :href="route('viewProject', project.id)" class="text-gray-500">{{ project.name }}</Link></li>
-                        <li class="text-gray-500">/</li>
-                        <li>{{ page.name }}</li>
-                    </ul>
-
-                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                        <button @click="saveFields()" class="btn-default">Save</button>
-                    </div>
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                    <button @click="saveFields()" class="btn-default">Save</button>
                 </div>
+            </div>
 
-                <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.hash" :data-id="field.hash">
-                    <input type="hidden" v-model="fields[index]['order']">
+            <div class="space-y-[30px]" id="fields">
+
+                <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.uuid" :data-id="field.uuid">
+                    <input type="hidden" v-model="fields[index]['sort_order']">
                     <template-field
                         @cloneField="cloneField(index)"
                         @delete="deleteField(index)"
@@ -82,6 +82,15 @@
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </button>
+
+                    <button @click="addField('divider')" class="h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-200 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit"><circle cx="12" cy="12" r="4"></circle><line x1="1.05" y1="12" x2="7" y2="12"></line><line x1="17.01" y1="12" x2="22.96" y2="12"></line></svg>
+
+                        <div id="tooltip-light" role="tooltip" class="inline-flex justify-center absolute -top-[50px] z-10 py-2 px-3 text-sm font-medium text-white bg-gray-800 rounded shadow-sm opacity-0 tooltip group-hover:opacity-100 w-[130px]">
+                            Divider
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -96,6 +105,7 @@ import StarterKit from '@tiptap/starter-kit'
 import TemplateField from '@/Components/TemplateField.vue'
 import Sortable from 'sortablejs';
 import {cloneDeep} from "lodash";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     components: {
@@ -107,14 +117,14 @@ export default {
 
     props: {
         page: Object,
-        project: Object
+        project: Object,
+        fields: Object
     },
 
     data() {
         return {
             editor: null,
-            fields: [],
-            order: 0
+            sortOrder: 0
         }
     },
 
@@ -138,15 +148,15 @@ export default {
 
                 let list = this.toArray();
 
-                list.forEach(function (hash, index) {
+                console.log(list)
+
+                list.forEach(function (uuid, index) {
 
                     let field = _.findKey($this.fields, {
-                        hash: hash
+                        uuid: uuid
                     })
 
-                    console.log(field)
-
-                    $this.fields[field].order = index
+                    $this.fields[field].sort_order = index
                 })
             },
         });
@@ -162,22 +172,22 @@ export default {
         addField(type) {
             this.fields.push({
                 'type': type,
-                hash: new Date().getTime().toString(),
-                order: this.order
+                uuid: uuidv4(),
+                sort_order: this.sortOrder
             })
 
-            this.order++
+            this.sortOrder++
         },
 
         cloneField(index) {
 
             let field = cloneDeep(this.fields[index])
 
-            field.hash = new Date().getTime().toString()
+            field.uuid = uuidv4()
 
-            field.order = this.order
+            field.sort_order = this.sortOrder
 
-            this.order++
+            this.sortOrder++
 
             this.fields.push(field)
         },
@@ -188,7 +198,14 @@ export default {
         },
 
         saveFields() {
-            
+            this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
+                {
+                    fields: this.fields
+                },
+                {
+                    preserveScroll: true
+                }
+            )
         }
     }
 }

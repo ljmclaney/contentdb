@@ -61,6 +61,7 @@ Route::controller(ProjectController::class)->prefix('projects')->group(function(
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
         Route::get('/{page}', 'view')->name('viewPage');
+        Route::post('/{page}/fields', 'saveFields')->name('saveFields');
     });
 });
 

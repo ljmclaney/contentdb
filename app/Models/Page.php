@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +13,22 @@ class Page extends Model
     protected $fillable = [
         'account_id',
         'project_id',
-        'name'
+        'name',
+        'uuid'
     ];
 
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function fields()
+    {
+        return $this->hasMany(Field::class);
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
     }
 }

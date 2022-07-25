@@ -17,12 +17,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('page_id');
-            $table->string('label');
+            $table->string('type');
+            $table->string('label')->nullable();
             $table->longText('instructions')->nullable();
             $table->longText('settings')->nullable();
             $table->longText('json_content')->nullable();
             $table->longText('html_content')->nullable();
             $table->unsignedInteger('sort_order');
+            $table->string('uuid');
             $table->timestamps();
         });
     }
