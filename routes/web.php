@@ -63,6 +63,7 @@ Route::controller(ProjectController::class)->prefix('projects')->group(function(
         Route::get('/{page}', 'view')->name('viewPage');
         Route::get('/{page}/structure', 'pageStructure')->name('pageStructure');
         Route::post('/{page}/fields', 'saveFields')->name('saveFields');
+        Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
     });
 });
 

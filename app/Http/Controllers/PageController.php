@@ -43,9 +43,11 @@ class PageController extends Controller
 
         $fields = $page->fields()
             ->select([
+                'id',
                 'label',
                 'instructions',
                 'html_content',
+                'json_content',
                 'sort_order',
                 'type',
                 'settings',
@@ -92,6 +94,39 @@ class PageController extends Controller
             'title'   => 'Saved',
             'message' => 'Content fields saved.',
             'type'    => 'success'
+        ]);
+
+        return back();
+    }
+
+    public function uploadImage(Request $request, Project $project, Page $page)
+    {
+        $uuid = Str::uuid()->toString();
+
+        $file = $request->file('image');
+
+        $image = $file->storeAs('/public/files/account-1', $uuid . '.' . $file->extension());
+
+        $field = Field::where('id', $request->input('field_id'))->first();
+
+        $images = !empty($field->json_content) ? $field->json_content : [];
+
+        $type = 'file';
+
+        if (in_array(strtolower($file->extension()), ['jpg', 'jpeg', 'png', 'svg', 'gif'])) {
+            $type = 'image';
+        }
+
+        $newImage = [
+            'uuid' => $uuid,
+            'file' => str_replace('public', '', $image),
+            'type' => $type
+        ];
+
+        array_unshift($images, $newImage);
+
+        $field->update([
+            'json_content' => $images
         ]);
 
         return back();

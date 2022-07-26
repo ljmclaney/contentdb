@@ -22,6 +22,8 @@
                     <field
                         v-model="fields[index]"
                         :field-data="field"
+                        :page="page"
+                        :project="project"
                     />
                 </div>
 

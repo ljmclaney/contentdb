@@ -18,10 +18,12 @@ class Field extends Model
         'instructions',
         'settings',
         'html_content',
+        'json_content',
         'sort_order'
     ];
 
     protected $casts = [
-        'settings' => 'json'
+        'settings' => 'json',
+        'json_content' => 'json'
     ];
 }

@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div v-if="fieldData.type === 'image'">
+            <div v-if="fieldData.type === 'file'">
                 <div class="w-40 h-40 border border-gray-200 rounded flex justify-center items-center text-gray-500">
 
                     <span>Upload file</span>
