@@ -14,7 +14,7 @@
                 <div class="flex flex-wrap">
 
 
-                    <div v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
+                    <a :href="file.file" :download="file.uuid" v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
 
                         <img v-if="file.type === 'image'" :src="file.file">
 
@@ -24,7 +24,7 @@
                                 <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
                             </svg>
                         </div>
-                    </div>
+                    </a>
 
                     <form @submit.prevent="uploadImage" class="mb-[10px]">
                         <progress v-if="form.progress" :value="form.progress.percentage" max="100">

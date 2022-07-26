@@ -1,0 +1,111 @@
+<template>
+    <Layout>
+        <div class="max-w-3xl mx-auto px-4 relative pt-[50px] pb-[112px]">
+
+            <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between mb-[30px]">
+                <ul class="text-2xl font-bold flex items-center space-x-[10px]">
+                    <li><Link :href="route('viewSharedProject', [project.id, uuid])" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
+                    <li class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
+                    <li>{{ page.name }}</li>
+                </ul>
+
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
+                    <button @click="saveFields()" class="btn-primary">Save</button>
+                </div>
+            </div>
+
+            <div class="space-y-[30px]" id="fields">
+
+                <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.uuid" :data-id="field.uuid">
+                    <input type="hidden" v-model="fields[index]['sort_order']">
+                    <field
+                        v-model="fields[index]"
+                        :field-data="field"
+                        :page="page"
+                        :project="project"
+                    />
+                </div>
+
+                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-gray-500 text-center">
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>
+                        <p class="text-gray-500">Select a field from the bottom.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="fixed bottom-[20px] left-0 w-full flex flex-col items-center justify-center">
+                <div v-if="!Object.keys(fields).length" class="mb-[30px] animate-bounce rounded-full w-[50px] h-[50px] bg-indigo-50 border border-indigo-500 text-indigo-500 flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </Layout>
+</template>
+<script>
+
+import { Link } from '@inertiajs/inertia-vue3'
+import Layout from '@/Layouts/Shared.vue'
+import { Editor, EditorContent } from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
+import Field from '@/Components/Field.vue'
+
+export default {
+    components: {
+        Link,
+        Layout,
+        EditorContent,
+        Field
+    },
+
+    props: {
+        page: Object,
+        project: Object,
+        fields: Object,
+        uuid: String
+    },
+
+    data() {
+        return {
+            editor: null,
+            sortOrder: 0
+        }
+    },
+
+    mounted() {
+        this.editor = new Editor({
+            content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+            extensions: [
+                StarterKit.configure({
+                    heading: {
+                        levels: [1, 2],
+                    }
+                })
+            ],
+        })
+    },
+
+    beforeUnmount() {
+        this.editor.destroy()
+    },
+
+    methods: {
+        saveFields() {
+            this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
+                {
+                    fields: this.fields
+                },
+                {
+                    preserveScroll: true
+                }
+            )
+        }
+    }
+}
+</script>

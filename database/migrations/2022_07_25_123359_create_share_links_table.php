@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('page_id')->nullable();
             $table->string('uuid');
             $table->string('name')->nullable();
             $table->string('email')->nullable();

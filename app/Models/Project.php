@@ -12,12 +12,18 @@ class Project extends Model
 
     protected $fillable = [
         'account_id',
-        'name'
+        'name',
+        'uuid'
     ];
 
     public function pages()
     {
         return $this->hasMany(Page::class);
+    }
+
+    public function shareLinks()
+    {
+        return $this->hasMany(ShareLink::class);
     }
 
     public function getUpdatedAtAttribute($value)

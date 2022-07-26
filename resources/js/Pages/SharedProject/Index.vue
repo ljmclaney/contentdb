@@ -6,10 +6,6 @@
 
                 <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
-
-                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                        <button @click="showShare = !showShare" class="btn-default">Share</button>
-                    </div>
                 </div>
 
                 <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-200 py-5">
@@ -19,9 +15,6 @@
                             <div class="sm:flex-auto">
                                 <h1 class="text-xl font-bold ">Pages</h1>
 
-                            </div>
-                            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <button @click="createPage = true" class="btn-primary">Create a page</button>
                             </div>
                         </div>
                         <div class="mt-8 flex flex-col">
@@ -40,7 +33,7 @@
                                         <tbody class="divide-y divide-gray-200">
                                         <tr v-for="page in pages">
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6 md:pl-0">
-                                                <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
+                                                <Link :href="route('viewSharedPage', [project.id, uuid, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
                                             </td>
                                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                                 {{ page.updated_at }}
@@ -89,18 +82,6 @@
             </div>
 
         </slide-over>
-
-        <modal :open="showShare" @closeModal="showShare = false">
-            <div>
-                <input type="text" :value="route('viewSharedProject', [project.id, project.uuid])" class="w-full border border-gray-300" readonly>
-            </div>
-            <div class="mt-5 sm:mt-6">
-                <button @click="copyShareLink(route('viewSharedProject', [project.id, project.uuid]))" type="button" class="btn-primary">
-                    {{ shareText }}</button>
-            </div>
-        </modal>
-
-
     </Layout>
 </template>
 <script>
@@ -108,29 +89,26 @@
 import {cloneDeep} from "lodash";
 
 import { Link } from '@inertiajs/inertia-vue3'
-import Layout from '@/Layouts/App.vue'
+import Layout from '@/Layouts/Shared.vue'
 import SlideOver from '@/Components/SlideOver.vue'
-import Modal from '@/Components/Modal.vue'
 
 export default {
     components: {
         Link,
         Layout,
-        SlideOver,
-        Modal
+        SlideOver
     },
 
     props: {
         project: Object,
-        pages: Object
+        pages: Object,
+        uuid: String
     },
 
     data() {
         return {
             createPage: false,
-            newPage: null,
-            showShare: false,
-            shareText: 'Copy link'
+            newPage: null
         }
     },
 
@@ -149,11 +127,6 @@ export default {
 
             this.newPage = null
             this.createPage = false
-        },
-
-        copyShareLink(link) {
-            navigator.clipboard.writeText(link)
-            this.shareText = 'Copied!'
         }
     }
 }

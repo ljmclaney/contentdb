@@ -7,7 +7,7 @@
                 <!--<span class="font-bold text-lg mr-[40px]">Author</span>-->
 
                 <ul class="flex items-center space-x-[30px] text-indigo-500 ">
-                    <li><Link href="/dashboard" class="hover:text-gray-800 transition-all">Dashboard</Link></li>
+                    <!--<li><Link href="/dashboard" class="hover:text-gray-800 transition-all">Dashboard</Link></li>-->
                     <li><Link href="/projects" class="hover:text-gray-800 transition-all" :class="{'text-gray-800': $page.url.startsWith('/projects') }">Projects</Link></li>
                 </ul>
             </div>

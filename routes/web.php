@@ -26,15 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/content', function () {
-    return Inertia::render('Content');
-});
-
-Route::get('/template', function () {
-    return Inertia::render('Template');
-});
-
-Route::controller(ProjectController::class)->prefix('projects')->group(function() {
+Route::controller(ProjectController::class)->middleware(['auth'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
 
@@ -65,6 +57,35 @@ Route::controller(ProjectController::class)->prefix('projects')->group(function(
         Route::post('/{page}/fields', 'saveFields')->name('saveFields');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
     });
+});
+
+Route::prefix('share/{project}/{uuid}')->group(function() {
+    Route::get('/', function (\App\Models\Project $project, $uuid) {
+
+        if ($project->uuid !== $uuid) {
+            abort(404);
+        }
+
+        return Inertia::render('SharedProject/Index', [
+            'project' => $project,
+            'pages' => $project->pages,
+            'uuid' => $uuid
+        ]);
+    })->name('viewSharedProject');
+
+    Route::get('/page/{page}', function (\App\Models\Project $project, $uuid, \App\Models\Page $page) {
+
+        if ($project->uuid !== $uuid) {
+            abort(404);
+        }
+
+        return Inertia::render('SharedProject/Page', [
+            'project' => $project,
+            'page' => $page,
+            'fields' => $page->fields()->orderBy('sort_order')->get(),
+            'uuid' => $uuid
+        ]);
+    })->name('viewSharedPage');
 });
 
 Route::get('/dashboard', function () {
