@@ -3,10 +3,10 @@
         <div class="flex items-center border-b border-gray-200 p-5 relative cursor-move">
             <h3 class="text-lg font-bold">{{ fieldData.label }}</h3>
         </div>
-        <div class="p-5 border-b border-gray-200" v-if="fieldData.type !== 'divider'">
+        <div class="p-5" v-if="fieldData.type !== 'divider'">
 
             <div class="space-y-2.5 max-w-lg" v-if="fieldData.type === 'text'">
-                <editor v-model="fieldData.html_content" />
+                <editor v-model="fieldData.html_content" :character-limit="fieldData.settings.character_limit" />
             </div>
 
             <div v-if="fieldData.type === 'image'">
@@ -32,8 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center p-5">
-
+        <div class="flex items-center p-5 border-t border-gray-200" v-if="fieldData.instructions">
             <div class="w-full text-sm">
                 {{ fieldData.instructions }}
             </div>

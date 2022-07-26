@@ -40,10 +40,25 @@ class PageController extends Controller
 
     public function pageStructure(Project $project, Page $page)
     {
+
+        $fields = $page->fields()
+            ->select([
+                'label',
+                'instructions',
+                'html_content',
+                'sort_order',
+                'type',
+                'settings',
+                'uuid',
+            ])
+            ->orderBy('sort_order')
+            ->get();
+
+
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
-            'fields' => $page->fields()->orderBy('sort_order')->get()
+            'fields' => $fields
         ]);
     }
 
@@ -60,7 +75,7 @@ class PageController extends Controller
                     'page_id' => $page->id,
                     'type' => $field['type'],
                     'uuid' => $field['uuid'],
-                    'label' => !empty($field['label']) ? $field['label'] : 'Enter content here...',
+                    'label' => !empty($field['label']) ? $field['label'] : 'Enter content here',
                     'instructions' => !empty($field['instructions']) ? $field['instructions'] : null,
                     'sort_order'=> $field['sort_order'],
                     'settings' => !empty($field['settings']) ? $field['settings'] : null,

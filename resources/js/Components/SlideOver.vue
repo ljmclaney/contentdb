@@ -66,7 +66,6 @@ export default {
 
     methods: {
         closeSlider() {
-            this.sliderOpen = false
 
             this.$emit('closeSlider', true)
         }

@@ -4,7 +4,7 @@
         <header class="bg-white py-4 px-10 border-b border-gray-200 shadow flex justify-between items-center relative z-30">
 
             <div class="flex items-center">
-                <span class="font-bold text-lg mr-[40px]">Author</span>
+                <!--<span class="font-bold text-lg mr-[40px]">Author</span>-->
 
                 <ul class="flex items-center space-x-[30px] text-indigo-500 ">
                     <li><Link href="/dashboard" class="hover:text-gray-800 transition-all">Dashboard</Link></li>

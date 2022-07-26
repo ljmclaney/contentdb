@@ -17,8 +17,11 @@ class Field extends Model
         'label',
         'instructions',
         'settings',
-        'json_content',
         'html_content',
         'sort_order'
+    ];
+
+    protected $casts = [
+        'settings' => 'json'
     ];
 }
