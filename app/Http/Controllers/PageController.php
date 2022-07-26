@@ -15,7 +15,7 @@ class PageController extends Controller
     public function store(Request $request, Project $project)
     {
         Page::create([
-            'account_id' => 1,
+            'account_id' => auth()->user()->account_id,
             'project_id' => $project->id,
             'name' => $request->input('newPage')
         ]);
@@ -73,7 +73,7 @@ class PageController extends Controller
 
             Field::create(
                 [
-                    'account_id' => 1,
+                    'account_id' => auth()->user()->account_id,
                     'page_id' => $page->id,
                     'type' => $field['type'],
                     'uuid' => $field['uuid'],
@@ -105,7 +105,7 @@ class PageController extends Controller
 
         $file = $request->file('image');
 
-        $image = $file->storeAs('/public/files/account-1', $uuid . '.' . $file->extension());
+        $image = $file->storeAs('/public/files/account-' . auth()->user()->account_id, $uuid . '.' . $file->extension());
 
         $field = Field::where('id', $request->input('field_id'))->first();
 

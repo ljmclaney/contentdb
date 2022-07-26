@@ -11,7 +11,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         Project::create([
-            'account_id' => 1,
+            'account_id' => auth()->user()->account_id,
             'name' => $request->input('newProject'),
             'uuid' => Str::uuid()->toString()
         ]);

@@ -9,7 +9,7 @@
                     <li>{{ page.name }}</li>
                 </ul>
 
-                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]" v-if="Object.keys(fields).length">
                     <button @click="saveFields()" class="btn-primary">Save</button>
                 </div>
             </div>
@@ -29,22 +29,14 @@
                 <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-gray-500 text-center">
 
                     <div>
-                        <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>
-                        <p class="text-gray-500">Select a field from the bottom.</p>
+                        <h3 class="text-xl font-bold mb-[15px]">Nothing to see yet!</h3>
+                        <p class="text-gray-500">No page fields have been added yet, please check back later.</p>
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="fixed bottom-[20px] left-0 w-full flex flex-col items-center justify-center">
-                <div v-if="!Object.keys(fields).length" class="mb-[30px] animate-bounce rounded-full w-[50px] h-[50px] bg-indigo-50 border border-indigo-500 text-indigo-500 flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                    </svg>
-                </div>
-
-            </div>
         </div>
     </Layout>
 </template>

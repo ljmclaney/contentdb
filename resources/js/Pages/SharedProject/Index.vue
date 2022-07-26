@@ -56,78 +56,32 @@
                 <div v-if="!Object.keys(pages).length" class="flex flex-col justify-center items-center text-center pt-[100px]">
 
                     <div class="mb-[30px]">
-                        <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
-                        <p class="text-gray-500">Add your content here. Start by creating your first page.</p>
+                        <h3 class="text-xl font-bold mb-[15px]">Nothing to see yet!</h3>
+                        <p class="text-gray-500">No pages have been added yet, please check back later.</p>
                     </div>
-
-                    <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
 
                 </div>
 
             </div>
 
         </div>
-
-        <slide-over :open="createPage" @closeSlider="createPage = false" title="Create a page">
-
-            <div class="space-y-[15px]">
-                <div>
-                    <label for="page" class="block text-sm font-medium text-gray-700">Page name</label>
-                    <div class="mt-1">
-                        <input type="text" name="page" id="page" v-model="newPage" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="e.g. Home, About page, December Newsletter" />
-                    </div>
-                </div>
-
-                <button @click="saveProject()" class="btn-primary">Save</button>
-            </div>
-
-        </slide-over>
     </Layout>
 </template>
 <script>
 
-import {cloneDeep} from "lodash";
-
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/Shared.vue'
-import SlideOver from '@/Components/SlideOver.vue'
 
 export default {
     components: {
         Link,
-        Layout,
-        SlideOver
+        Layout
     },
 
     props: {
         project: Object,
         pages: Object,
         uuid: String
-    },
-
-    data() {
-        return {
-            createPage: false,
-            newPage: null
-        }
-    },
-
-    methods: {
-
-        saveProject() {
-            this.$inertia.post('/projects/' + this.project.id + '/pages/create',
-                {
-                    projectID: this.project.id,
-                    newPage: this.newPage
-                },
-                {
-                    preserveScroll: true
-                }
-            )
-
-            this.newPage = null
-            this.createPage = false
-        }
     }
 }
 </script>

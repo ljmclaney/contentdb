@@ -30,7 +30,7 @@ Route::controller(ProjectController::class)->middleware(['auth'])->prefix('proje
 
     Route::get('/', function () {
 
-        $projects = \App\Models\Project::all();
+        $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)->get();
 
         return Inertia::render('Projects', [
             'projects' => $projects
