@@ -16,7 +16,7 @@
 
                     <a :href="'/storage' + file.file" :download="file.uuid" v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
 
-                        <img v-if="file.type === 'image'" :src="/storage' + file.file">
+                        <img v-if="file.type === 'image'" :src="'/storage' + file.file">
 
                         <div v-if="file.type === 'file'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
