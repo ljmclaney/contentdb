@@ -15,10 +15,17 @@ class PageController extends Controller
 {
     public function store(Request $request, Project $project)
     {
-        Page::create([
+        $page = Page::create([
             'account_id' => auth()->user()->account_id,
             'project_id' => $project->id,
             'name' => $request->input('newPage')
+        ]);
+
+        Section::create([
+            'account_id' => auth()->user()->account_id,
+            'page_id' => $page->id,
+            'name' => 'Content',
+            'sort_order' => 0
         ]);
 
         $project->touch();
@@ -32,10 +39,43 @@ class PageController extends Controller
             return redirect()->route('pageStructure', [$project->id, $page->id]);
         }
 
+        $sections = $page->sections()
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        if (!empty($sections)) {
+            $fields = $sections[0]->fields()->orderBy('sort_order')->get();
+        }
+
         return Inertia::render('Projects/Page', [
             'project' => $project,
             'page' => $page,
-            'fields' => $page->fields()->orderBy('sort_order')->get()
+            'sections' => $sections,
+            'fields' => !empty($fields) ? $fields : null,
+            'selectedSection' => !empty($sections) ? $sections[0] : null
+        ]);
+    }
+
+    public function viewSection(Project $project, Page $page, Section $section)
+    {
+        if ($page->fields->isEmpty()) {
+            return redirect()->route('pageStructure', [$project->id, $page->id]);
+        }
+
+        $sections = $page->sections()
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        $fields = $section->fields()->orderBy('sort_order')->get();
+
+        return Inertia::render('Projects/Page', [
+            'project' => $project,
+            'page' => $page,
+            'sections' => $sections,
+            'fields' => $fields,
+            'selectedSection' => $section
         ]);
     }
 
@@ -46,11 +86,15 @@ class PageController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        if (!empty($sections)) {
+            $fields = $sections[0]->fields()->orderBy('sort_order')->get();
+        }
+
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
             'sections' => $sections,
-            'fields' => !empty($sections) ? $sections[0]->fields : null,
+            'fields' => !empty($fields) ? $fields : null,
             'selectedSection' => !empty($sections) ? $sections[0] : null
         ]);
     }
@@ -62,11 +106,13 @@ class PageController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        $fields = $section->fields()->orderBy('sort_order')->get();
+
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
             'sections' => $sections,
-            'fields' => $section->fields,
+            'fields' => $fields,
             'selectedSection' => $section
         ]);
     }

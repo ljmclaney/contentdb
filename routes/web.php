@@ -48,6 +48,7 @@ Route::controller(ProjectController::class)->middleware(['auth'])->prefix('proje
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
         Route::get('/{page}', 'view')->name('viewPage');
+        Route::get('/{page}/section/{section}', 'viewSection')->name('viewSection');
         Route::get('/{page}/structure', 'pageStructure')->name('pageStructure');
         Route::get('/{page}/structure/{section}', 'pageStructureSection')->name('pageStructureSection');
         Route::post('/{page}/fields', 'saveFields')->name('saveFields');
@@ -76,13 +77,47 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
             abort(404);
         }
 
+        $sections = $page->sections()
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        if (!empty($sections)) {
+            $fields = $sections[0]->fields()->orderBy('sort_order')->get();
+        }
+
         return Inertia::render('SharedProject/Page', [
             'project' => $project,
             'page' => $page,
-            'fields' => $page->fields()->orderBy('sort_order')->get(),
+            'sections' => $sections,
+            'fields' => !empty($fields) ? $fields : null,
+            'selectedSection' => !empty($sections) ? $sections[0] : null,
             'uuid' => $uuid
         ]);
     })->name('viewSharedPage');
+
+    Route::get('/page/{page}/section/{section}', function (\App\Models\Project $project, $uuid, \App\Models\Page $page, \App\Models\Section $section) {
+
+        if ($project->uuid !== $uuid) {
+            abort(404);
+        }
+
+        $sections = $page->sections()
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        $fields = $section->fields()->orderBy('sort_order')->get();
+
+        return Inertia::render('SharedProject/Page', [
+            'project' => $project,
+            'page' => $page,
+            'sections' => $sections,
+            'fields' => $fields,
+            'selectedSection' => $section,
+            'uuid' => $uuid
+        ]);
+    })->name('viewSharedSection');
 });
 
 Route::get('/dashboard', function () {

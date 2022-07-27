@@ -35,7 +35,6 @@
                 </div>
             </div>
 
-
             <div class="space-y-[30px]" id="fields">
 
                 <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.uuid" :data-id="field.uuid">
