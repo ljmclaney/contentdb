@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="max-w-3xl mx-auto px-4 relative pt-[50px] pb-[112px] ">
+        <div class="max-w-3xl mx-auto px-4 relative pt-[10px] pb-[100px] ">
 
             <div class="mb-10">
                 <div class="block">
