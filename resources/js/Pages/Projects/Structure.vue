@@ -15,6 +15,27 @@
                 </div>
             </div>
 
+            <div class="mb-10">
+                <div class="block">
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex justify-between items-center" aria-label="Tabs">
+                            <ul class="flex space-x-8">
+                                <li v-for="section in sections">
+                                    <Link :href="route('pageStructureSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
+                                </li>
+                            </ul>
+
+                            <div>
+                                <button @click="createSection = true" class="rounded-full bg-indigo-50 w-10 h-10 text-indigo-500 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="space-y-[30px]" id="fields">
 
                 <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.uuid" :data-id="field.uuid">
@@ -72,19 +93,25 @@
                         </div>
                     </button>
 
-                    <!--<button @click="addField('video')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-200 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
-                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
-                        </svg>
-                        <div id="tooltip-light" role="tooltip" class="inline-flex justify-center absolute -top-[50px] z-10 py-2 px-3 text-sm font-medium text-white bg-gray-800 rounded shadow-sm opacity-0 tooltip group-hover:opacity-100 w-[150px]">
-                            Video field
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
-                    </button>-->
-
                 </div>
             </div>
         </div>
+
+        <slide-over :open="createSection" @closeSlider="createSection = false" title="Create a page">
+
+            <div class="space-y-[15px]">
+                <div>
+                    <label for="page" class="block text-sm font-medium text-gray-700">Section name</label>
+                    <div class="mt-1">
+                        <input type="text" name="page" id="page" v-model="newSection" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                    </div>
+                </div>
+
+                <button @click="saveSection()" class="btn-primary">Save</button>
+            </div>
+
+        </slide-over>
+
     </Layout>
 </template>
 <script>
@@ -92,6 +119,8 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
 import TemplateField from '@/Components/TemplateField.vue'
+import SlideOver from '@/Components/SlideOver.vue'
+
 import Sortable from 'sortablejs';
 import {cloneDeep} from "lodash";
 import { v4 as uuidv4 } from 'uuid';
@@ -100,18 +129,23 @@ export default {
     components: {
         Link,
         Layout,
-        TemplateField
+        TemplateField,
+        SlideOver
     },
 
     props: {
         page: Object,
         project: Object,
-        fields: Object
+        sections: Object,
+        fields: Object,
+        selectedSection: Object
     },
 
     data() {
         return {
-            sortOrder: 0
+            sortOrder: 0,
+            createSection: false,
+            newSection: null,
         }
     },
 
@@ -179,10 +213,25 @@ export default {
 
             this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
                 {
+                    sectionID: this.selectedSection.id,
                     fields: this.fields
                 }
             )
-        }
+        },
+
+        saveSection() {
+            this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/sections',
+                {
+                    newSection: this.newSection
+                },
+                {
+                    preserveScroll: true
+                }
+            )
+
+            this.newSection = null
+            this.createSection = false
+        },
     }
 }
 </script>

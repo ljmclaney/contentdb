@@ -12,6 +12,7 @@ class Field extends Model
     protected $fillable = [
         'account_id',
         'page_id',
+        'section_id',
         'type',
         'uuid',
         'label',

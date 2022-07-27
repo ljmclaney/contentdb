@@ -49,7 +49,9 @@ Route::controller(ProjectController::class)->middleware(['auth'])->prefix('proje
         Route::post('/create', 'store')->name('storePage');
         Route::get('/{page}', 'view')->name('viewPage');
         Route::get('/{page}/structure', 'pageStructure')->name('pageStructure');
+        Route::get('/{page}/structure/{section}', 'pageStructureSection')->name('pageStructureSection');
         Route::post('/{page}/fields', 'saveFields')->name('saveFields');
+        Route::post('/{page}/sections', 'saveSection')->name('saveSection');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
     });
 });

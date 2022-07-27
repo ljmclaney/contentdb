@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Field;
 use App\Models\Page;
 use App\Models\Project;
+use App\Models\Section;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -40,34 +41,42 @@ class PageController extends Controller
 
     public function pageStructure(Project $project, Page $page)
     {
-
-        $fields = $page->fields()
-            ->select([
-                'id',
-                'label',
-                'instructions',
-                'html_content',
-                'json_content',
-                'sort_order',
-                'type',
-                'settings',
-                'uuid',
-            ])
+        $sections = $page->sections()
+            ->with('fields')
             ->orderBy('sort_order')
             ->get();
-
 
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
-            'fields' => $fields
+            'sections' => $sections,
+            'fields' => !empty($sections) ? $sections[0]->fields : null,
+            'selectedSection' => !empty($sections) ? $sections[0] : null
+        ]);
+    }
+
+    public function pageStructureSection(Project $project, Page $page, Section $section)
+    {
+        $sections = $page->sections()
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        return Inertia::render('Projects/Structure', [
+            'project' => $project,
+            'page' => $page,
+            'sections' => $sections,
+            'fields' => $section->fields,
+            'selectedSection' => $section
         ]);
     }
 
     public function saveFields(Request $request, Project $project, Page $page)
     {
 
-        $page->fields()->delete();
+        $section = Section::findOrFail($request->input('sectionID'));
+
+        $section->fields()->delete();
 
         foreach ($request->input('fields') as $field) {
 
@@ -75,6 +84,7 @@ class PageController extends Controller
                 [
                     'account_id' => auth()->user()->account_id,
                     'page_id' => $page->id,
+                    'section_id' => $section->id,
                     'type' => $field['type'],
                     'uuid' => $field['uuid'],
                     'label' => !empty($field['label']) ? $field['label'] : 'Enter content here',
@@ -93,6 +103,29 @@ class PageController extends Controller
         session()->flash('toast', [
             'title'   => 'Saved',
             'message' => 'Content fields saved.',
+            'type'    => 'success'
+        ]);
+
+        return back();
+    }
+
+    public function saveSection(Request $request, Project $project, Page $page)
+    {
+        $lastSection = $page->sections->last();
+
+        Section::create([
+            'account_id' => auth()->user()->id,
+            'page_id' => $page->id,
+            'name' => $request->input('newSection'),
+            'sort_order' => !empty($lastSection) ? $lastSection->sort_order + 1 : 0
+        ]);
+
+        $page->touch();
+        $project->touch();
+
+        session()->flash('toast', [
+            'title'   => 'Saved',
+            'message' => 'Section saved.',
             'type'    => 'success'
         ]);
 

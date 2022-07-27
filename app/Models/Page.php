@@ -26,6 +26,11 @@ class Page extends Model
         return $this->hasMany(Field::class);
     }
 
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
+
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->diffForHumans();
