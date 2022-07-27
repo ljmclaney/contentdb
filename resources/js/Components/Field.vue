@@ -14,7 +14,7 @@
                 <div class="flex flex-wrap">
 
 
-                    <a :href="file.file" :download="file.uuid" v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
+                    <a :href="'/storage' + file.file" :download="file.uuid" v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
 
                         <img v-if="file.type === 'image'" :src="file.file">
 
