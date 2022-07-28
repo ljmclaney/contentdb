@@ -35,6 +35,7 @@ class PageController extends Controller
 
     public function view(Project $project, Page $page)
     {
+
         if ($page->fields->isEmpty()) {
             return redirect()->route('pageStructure', [$project->id, $page->id]);
         }
@@ -59,7 +60,7 @@ class PageController extends Controller
 
     public function viewSection(Project $project, Page $page, Section $section)
     {
-        if ($page->fields->isEmpty()) {
+        if ($section->fields->isEmpty()) {
             return redirect()->route('pageStructure', [$project->id, $page->id]);
         }
 

@@ -45,6 +45,8 @@
                         @delete="deleteField(index)"
                         v-model="fields[index]"
                         :field-data="field"
+                        :ref="field.uuid"
+                        :id="'field-' + field.uuid"
                     />
                 </div>
 
@@ -177,15 +179,22 @@ export default {
     methods: {
 
         addField(type) {
+
+            let uuid = uuidv4();
+
             this.fields.push({
                 'type': type,
-                uuid: uuidv4(),
+                uuid: uuid,
                 sort_order: this.sortOrder,
                 settings: {
                     character_limit: null,
                     repeatable: false
                 },
                 html_content: null
+            })
+
+            this.$nextTick(()=> {
+                document.getElementById('field-' + uuid).scrollIntoView({behavior: 'smooth'});
             })
 
             this.sortOrder++
