@@ -10,7 +10,7 @@
 
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
                 <Link :href="route('viewPage', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Add content</Link>
-                <button @click="saveFields()" class="btn-primary">Save</button>
+                <button @click="saveFields()" class="btn-primary" :class="{ 'opacity-25': processing }" :disabled="processing">Save</button>
             </div>
         </div>
 
@@ -146,6 +146,7 @@ export default {
             sortOrder: 0,
             createSection: false,
             newSection: null,
+            processing: false
         }
     },
 
@@ -207,14 +208,17 @@ export default {
             this.fields.splice(index, 1)
         },
 
-        saveFields() {
+        async saveFields() {
 
-            console.log(this.fields)
+            this.processing = true
 
-            this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
+            await this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
                 {
                     sectionID: this.selectedSection.id,
                     fields: this.fields
+                },
+                {
+                    preserveState: false
                 }
             )
         },

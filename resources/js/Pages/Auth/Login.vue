@@ -44,6 +44,9 @@ const submit = () => {
             <div class="mt-4">
                 <BreezeLabel for="password" value="Password" />
                 <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+                <Link v-if="canResetPassword" :href="route('password.request')" class="mt-2 inline-flex text-sm text-gray-600 hover:text-gray-900">
+                    Forgot your password?
+                </Link>
             </div>
 
             <div class="block mt-4">
@@ -53,15 +56,18 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
-                </Link>
-
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <div class="mt-4">
+                <BreezeButton class="flex w-full justify-center" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </BreezeButton>
             </div>
+
+            <div class="text-center mt-6">
+                <Link v-if="canResetPassword" :href="route('register')" class="inline-flex font-medium text-sm text-gray-600 hover:text-gray-900">
+                    Don't have an account? <span class="text-indigo-500 ml-2">Sign up</span>
+                </Link>
+            </div>
+
         </form>
     </BreezeGuestLayout>
 </template>
