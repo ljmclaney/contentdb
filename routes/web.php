@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
@@ -118,6 +119,11 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
             'uuid' => $uuid
         ]);
     })->name('viewSharedSection');
+});
+
+Route::controller(FigmaController::class)->prefix('/figma')->group(function() {
+    Route::get('/', 'files')->name('figma');
+    Route::post('/oauth', 'figmaOauth')->name('figmaOauth');
 });
 
 Route::get('/dashboard', function () {
