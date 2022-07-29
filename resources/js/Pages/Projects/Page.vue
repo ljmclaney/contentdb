@@ -21,7 +21,7 @@
                         <nav class="-mb-px flex justify-between items-center" aria-label="Tabs">
                             <ul class="flex space-x-8">
                                 <li v-for="section in sections">
-                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
+                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-500 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
                                 </li>
                             </ul>
                         </nav>
