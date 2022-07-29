@@ -116,7 +116,7 @@ export default {
             ],
             editorProps: {
                 attributes: {
-                    class: 'prose p-0 focus:outline-none',
+                    class: 'prose p-0 focus:outline-none max-w-full',
                 },
             },
             content: this.modelValue,

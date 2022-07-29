@@ -33,7 +33,7 @@ class PageController extends Controller
         return back();
     }
 
-    public function view(Project $project, Page $page)
+    public function view(Request $request, Project $project, Page $page)
     {
 
         if ($page->fields->isEmpty()) {
@@ -209,6 +209,10 @@ class PageController extends Controller
             'json_content' => $images
         ]);
 
-        return back();
+        $field = Field::where('id', $request->input('field_id'))->first();
+
+        return response()->json([
+           'files' => $field->json_content
+        ]);
     }
 }

@@ -38,6 +38,7 @@
                         :field-data="field"
                         :page="page"
                         :project="project"
+                        :key="'field-' + field.uuid"
                     />
                 </div>
 

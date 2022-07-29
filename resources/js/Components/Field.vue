@@ -5,7 +5,7 @@
         </div>
         <div class="p-5" v-if="fieldData.type !== 'divider'">
 
-            <div class="space-y-2.5 max-w-lg" v-if="fieldData.type === 'text'">
+            <div class="space-y-2.5" v-if="fieldData.type === 'text'">
                 <editor v-model="fieldData.html_content" :character-limit="fieldData.settings.character_limit" />
             </div>
 
@@ -14,7 +14,7 @@
                 <div class="flex flex-wrap">
 
 
-                    <a :href="'/storage' + file.file" :download="file.uuid" v-if="fieldData.json_content" v-for="file in fieldData.json_content" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
+                    <a :href="'/storage' + file.file" :download="file.uuid" v-if="files" v-for="file in files" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
 
                         <img v-if="file.type === 'image'" :src="'/storage' + file.file">
 
@@ -26,7 +26,7 @@
                         </div>
                     </a>
 
-                    <form @submit.prevent="uploadImage" class="mb-[10px]">
+                    <form  @submit.prevent="uploadImage" class="mb-[10px]">
                         <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                             {{ form.progress.percentage }}%
                         </progress>
@@ -62,6 +62,7 @@
                 {{ fieldData.instructions }}
             </div>
         </div>
+
     </div>
 </template>
 
@@ -85,7 +86,13 @@ export default {
             form: this.$inertia.form({
                 image: null,
                 field_id: this.fieldData.id
-            }),
+            })
+        }
+    },
+
+    computed: {
+        files() {
+            return this.fieldData.json_content
         }
     },
 
@@ -102,7 +109,9 @@ export default {
                 uuid: this.fieldData.uuid,
                 sort_order: this.fieldData.sort_order,
                 label: this.label,
-                instructions: this.instructions
+                instructions: this.instructions,
+                html_content: this.html_content,
+                json_content: this.json_content
             });
         },
 
@@ -112,8 +121,19 @@ export default {
                 return
             }
 
-            this.form.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/upload-image', {
-                preserveScroll: true
+            let formData = new FormData
+
+            formData.append('image', this.form.image);
+            formData.append('field_id', this.fieldData.id);
+
+            let $this = this
+
+            axios.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/upload-image', formData)
+            .then(function (response) {
+                console.log(response)
+                $this.files = response.data.files
+
+                $this.fieldData.json_content =  response.data.files
             })
         },
     }
