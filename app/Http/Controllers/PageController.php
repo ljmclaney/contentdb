@@ -123,25 +123,29 @@ class PageController extends Controller
 
         $section = Section::findOrFail($request->input('sectionID'));
 
-        $section->fields()->delete();
-
         foreach ($request->input('fields') as $field) {
 
-            Field::create(
-                [
-                    'account_id' => auth()->user()->account_id,
-                    'page_id' => $page->id,
-                    'section_id' => $section->id,
-                    'type' => $field['type'],
-                    'uuid' => $field['uuid'],
-                    'label' => !empty($field['label']) ? $field['label'] : 'Enter content here',
-                    'instructions' => !empty($field['instructions']) ? $field['instructions'] : null,
-                    'sort_order'=> $field['sort_order'],
-                    'settings' => !empty($field['settings']) ? $field['settings'] : null,
-                    'json_content' => !empty($field['json_content']) ? $field['json_content'] : null,
-                    'html_content' => !empty($field['html_content']) ? ($field['html_content']) : null
-                ]
-            );
+            $data = [
+                'account_id' => auth()->user()->account_id,
+                'page_id' => $page->id,
+                'section_id' => $section->id,
+                'type' => $field['type'],
+                'uuid' => $field['uuid'],
+                'label' => !empty($field['label']) ? $field['label'] : 'Enter content here',
+                'instructions' => !empty($field['instructions']) ? $field['instructions'] : null,
+                'sort_order'=> $field['sort_order'],
+                'settings' => !empty($field['settings']) ? $field['settings'] : null,
+                'json_content' => !empty($field['json_content']) ? $field['json_content'] : null,
+                'html_content' => !empty($field['html_content']) ? ($field['html_content']) : null
+            ];
+
+            if (!empty($field['id'])) {
+                Field::where('id', $field['id'])
+                    ->update($data);
+                continue;
+            }
+
+            Field::create($data);
         }
 
         $page->touch();

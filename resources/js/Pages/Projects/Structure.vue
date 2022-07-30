@@ -1,6 +1,5 @@
 <template>
     <Layout>
-
         <div class="sticky top-0 z-40 bg-white rounded shadow border-b border-gray-200 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
             <ul class="text-2xl font-bold flex items-center space-x-[10px]">
                 <li><Link :href="route('viewProject', project.id)" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
@@ -9,7 +8,7 @@
             </ul>
 
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
-                <Link :href="route('viewPage', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Add content</Link>
+                <Link :href="route('viewPage', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Edit content</Link>
                 <button @click="saveFields()" class="btn-primary" :class="{ 'opacity-25': processing }" :disabled="processing">Save</button>
             </div>
         </div>
@@ -153,6 +152,12 @@ export default {
     },
 
     mounted() {
+
+        if (this.fields.length) {
+            this.sortOrder = this.fields.length + 1;
+        }
+
+
         let $this = this;
 
         var el = document.getElementById('fields');
@@ -160,8 +165,6 @@ export default {
             onChange: function (evt) {
 
                 let list = this.toArray();
-
-                console.log(list)
 
                 list.forEach(function (uuid, index) {
 
@@ -227,7 +230,8 @@ export default {
                     fields: this.fields
                 },
                 {
-                    preserveState: false
+                    preserveState: false,
+                    preserveScroll: true
                 }
             )
         },

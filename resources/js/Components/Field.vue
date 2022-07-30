@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white rounded shadow border border-gray-200">
-        <div class="flex items-center border-b border-gray-200 p-5 relative cursor-move">
+        <div class="flex items-center border-b border-gray-200 p-5 relative">
             <h3 class="text-lg font-bold">{{ fieldData.label }}</h3>
         </div>
         <div class="p-5" v-if="fieldData.type !== 'divider'">

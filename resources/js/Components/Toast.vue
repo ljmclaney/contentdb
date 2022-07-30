@@ -40,6 +40,14 @@ export default {
         }
     },
 
+    mounted() {
+        let $this = this
+
+        setTimeout(function () {
+            $this.showToast = false
+        }, 4000)
+    },
+
     methods: {
         closeToast() {
             this.showToast = false
