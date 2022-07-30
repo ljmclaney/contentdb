@@ -147,7 +147,8 @@ export default {
             sortOrder: 0,
             createSection: false,
             newSection: null,
-            processing: false
+            processing: false,
+            deletedFields: []
         }
     },
 
@@ -217,6 +218,11 @@ export default {
         },
 
         deleteField(index) {
+
+            if (this.fields[index].id) {
+                this.deletedFields.push(this.fields[index].id);
+            }
+
             this.fields.splice(index, 1)
         },
 
@@ -227,7 +233,8 @@ export default {
             await this.$inertia.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/fields',
                 {
                     sectionID: this.selectedSection.id,
-                    fields: this.fields
+                    fields: this.fields,
+                    deletedFields: this.deletedFields
                 },
                 {
                     preserveState: false,
