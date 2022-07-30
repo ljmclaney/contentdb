@@ -45,7 +45,7 @@ class PageController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        if (!empty($sections)) {
+        if (!$sections->isEmpty()) {
             $fields = $sections[0]->fields()->orderBy('sort_order')->get();
         }
 
@@ -87,7 +87,7 @@ class PageController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        if (!empty($sections)) {
+        if (!$sections->isEmpty()) {
             $fields = $sections[0]->fields()->orderBy('sort_order')->get();
         }
 
