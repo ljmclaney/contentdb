@@ -4,7 +4,7 @@
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
+                <div class="bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -12,7 +12,7 @@
                     </div>
                 </div>
 
-                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-200 py-5">
+                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-300 py-5">
 
                     <div class="px-5">
                         <div class="sm:flex sm:items-center">
@@ -30,27 +30,19 @@
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <thead>
                                         <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold  sm:pl-6 md:pl-0">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold ">Last updated</th>
-                                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 md:pr-0">
-                                                <span class="sr-only">Edit</span>
-                                            </th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6 md:pl-0 w-3/4">Name</th>
+                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-right">Last updated</th>
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
                                         <tr v-for="page in pages">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6 md:pl-0">
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 md:pl-0 w-3/4">
                                                 <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
                                             </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500 text-right">
                                                 {{ page.updated_at }}
                                             </td>
-                                            <!--<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
-                                                <Link :href="route('editProject', page.id )" class="text-indigo-600 hover:text-indigo-900">Edit</Link>
-                                            </td>-->
                                         </tr>
-
-                                        <!-- More people... -->
                                         </tbody>
                                     </table>
                                 </div>

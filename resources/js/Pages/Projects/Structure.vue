@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <div class="sticky top-0 z-40 bg-white rounded shadow border-b border-gray-200 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
+        <div class="sticky top-0 z-40 bg-white rounded shadow border-b border-gray-300 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
             <ul class="text-2xl font-bold flex items-center space-x-[10px]">
                 <li><Link :href="route('viewProject', project.id)" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
                 <li class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
@@ -17,7 +17,7 @@
 
             <div class="mb-10">
                 <div class="block">
-                    <div class="border-b border-gray-200">
+                    <div class="border-b border-gray-300">
                         <nav class="-mb-px flex justify-between items-center" aria-label="Tabs">
                             <ul class="flex space-x-8">
                                 <li v-for="section in sections">
@@ -68,9 +68,9 @@
                     </svg>
                 </div>
 
-                <div class="nav-bar shadow p-2 flex items-center space-x-3 border border-gray-200 rounded">
+                <div class="nav-bar shadow p-2 flex items-center space-x-3 border border-gray-300 rounded">
 
-                    <button @click="addField('text')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-200 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
+                    <button @click="addField('text')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-300 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z"/>
                         </svg>
@@ -81,7 +81,7 @@
                         </div>
                     </button>
 
-                    <button @click="addField('file')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-200 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
+                    <button @click="addField('file')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-indigo-50 border border-gray-300 hover:border-indigo-500 rounded text-gray-500 hover:text-indigo-500 transition-all relative group">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>

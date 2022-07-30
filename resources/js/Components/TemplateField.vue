@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white rounded shadow border border-gray-200">
-        <div class="flex items-center border-b border-gray-200 p-5 relative cursor-move">
+    <div class="bg-white rounded shadow border border-gray-300">
+        <div class="flex items-center border-b border-gray-300 p-5 relative cursor-move">
 
             <div class="absolute top-0 left-0 w-full flex flex-col items-center text-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
@@ -10,7 +10,7 @@
 
             <input v-model="label" @keyup="update()" type="text" class="border-0 hover:bg-gray-100 bg-gray-100 active:focus:outline-none focus:ring-0 w-full font-bold text-lg" placeholder="Enter a label">
         </div>
-        <div class="p-5 border-b border-gray-200" v-if="fieldData.type !== 'divider'">
+        <div class="p-5 border-b border-gray-300" v-if="fieldData.type !== 'divider'">
             <div class="space-y-2.5 max-w-lg" v-if="fieldData.type === 'text'">
                 <div class="flex items-center space-x-2 w-full">
                     <div class="h-2.5 bg-gray-200 rounded-full w-32"></div>
@@ -35,7 +35,7 @@
             </div>
 
             <div v-if="fieldData.type === 'file'">
-                <div class="w-40 h-40 border border-gray-200 rounded flex justify-center items-center text-gray-500">
+                <div class="w-40 h-40 border border-gray-300 rounded flex justify-center items-center text-gray-500">
 
                     <span>Upload file</span>
 
@@ -44,8 +44,8 @@
 
             <div v-if="fieldData.type === 'video'">
                 <div class="flex items-center">
-                    <input type="url" placeholder="Enter video URL" class="border border-r-0 border-gray-200 rounded-l w-full">
-                    <button class="border border-gray-200 rounded-r flex-shrink-0 inline-flex px-5 py-2 text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all">Add video</button>
+                    <input type="url" placeholder="Enter video URL" class="border border-r-0 border-gray-300 rounded-l w-full">
+                    <button class="border border-gray-300 rounded-r flex-shrink-0 inline-flex px-5 py-2 text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all">Add video</button>
                 </div>
             </div>
 

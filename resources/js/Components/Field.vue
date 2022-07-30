@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white rounded shadow border border-gray-200">
-        <div class="flex items-center border-b border-gray-200 p-5 relative">
+    <div class="bg-white rounded shadow border border-gray-300">
+        <div class="flex items-center border-b border-gray-300 p-5 relative">
             <h3 class="text-lg font-bold">{{ fieldData.label }}</h3>
         </div>
         <div class="p-5" v-if="fieldData.type !== 'divider'">
@@ -14,7 +14,7 @@
                 <div class="flex flex-wrap">
 
 
-                    <a :href="'/storage' + file.file" :download="file.uuid" v-if="files" v-for="file in files" class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
+                    <a :href="'/storage' + file.file" :download="file.uuid" v-if="files" v-for="file in files" class="w-40 h-40 bg-white border border-gray-300 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 mr-[10px] mb-[10px]">
 
                         <img v-if="file.type === 'image'" :src="'/storage' + file.file">
 
@@ -32,7 +32,7 @@
                         </progress>
 
                         <label class="relative overflow-hidden w-40 h-40 bg-white">
-                            <span class="w-40 h-40 bg-white border border-gray-200 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 cursor-pointer">Select file</span>
+                            <span class="w-40 h-40 bg-white border border-gray-300 rounded flex justify-center items-center text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 cursor-pointer">Select file</span>
                             <input type="file" @input="form.image = $event.target.files[0]" class="absolute z-10 top-0 opacity-0" />
                         </label>
 
@@ -44,20 +44,20 @@
 
             <div v-if="fieldData.type === 'video'">
                 <div class="flex items-center">
-                    <input type="url" placeholder="Enter video URL" class="border border-r-0 border-gray-200 rounded-l w-full">
-                    <button class="border border-gray-200 rounded-r flex-shrink-0 inline-flex px-5 py-2 text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all">Add video</button>
+                    <input type="url" placeholder="Enter video URL" class="border border-r-0 border-gray-300 rounded-l w-full">
+                    <button class="border border-gray-300 rounded-r flex-shrink-0 inline-flex px-5 py-2 text-gray-500 hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all">Add video</button>
                 </div>
             </div>
 
             <div v-if="fieldData.type === 'document'">
-                <div class="w-40 h-40 border border-gray-200 rounded flex justify-center items-center text-gray-500">
+                <div class="w-40 h-40 border border-gray-300 rounded flex justify-center items-center text-gray-500">
 
                     <span>Upload a file</span>
 
                 </div>
             </div>
         </div>
-        <div class="flex items-center p-5 border-t border-gray-200" v-if="fieldData.instructions">
+        <div class="flex items-center p-5 border-t border-gray-300" v-if="fieldData.instructions">
             <div class="w-full text-sm">
                 {{ fieldData.instructions }}
             </div>

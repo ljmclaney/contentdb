@@ -1,7 +1,7 @@
 <template>
     <Layout>
 
-        <div class="sticky top-0 z-40 bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between mb-[30px]">
+        <div class="sticky top-0 z-40 bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between mb-[30px]">
             <ul class="text-2xl font-bold flex items-center space-x-[10px]">
                 <li><Link :href="route('viewSharedProject', [project.id, uuid])" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
                 <li class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
@@ -17,11 +17,11 @@
 
             <div class="mb-10">
                 <div class="block">
-                    <div class="border-b border-gray-200">
+                    <div class="border-b border-gray-300">
                         <nav class="-mb-px flex justify-between items-center" aria-label="Tabs">
                             <ul class="flex space-x-8">
                                 <li v-for="section in sections">
-                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
+                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
                                 </li>
                             </ul>
                         </nav>

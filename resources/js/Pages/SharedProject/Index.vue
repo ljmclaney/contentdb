@@ -4,11 +4,11 @@
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div class="bg-white rounded shadow border border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
+                <div class="bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
                 </div>
 
-                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-200 py-5">
+                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-300 py-5">
 
                     <div class="px-5">
                         <div class="sm:flex sm:items-center">

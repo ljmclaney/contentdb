@@ -4,7 +4,7 @@
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div v-if="Object.keys(projects).length" class="bg-white rounded shadow border border-gray-200 py-5">
+                <div v-if="Object.keys(projects).length" class="bg-white rounded shadow border border-gray-300 py-5">
 
                     <div class="px-5">
                         <div class="sm:flex sm:items-center">
@@ -23,10 +23,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Last updated</th>
-                                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 md:pr-0">
-                                                <span class="sr-only">Edit</span>
-                                            </th>
+                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-3/4 text-right">Last updated</th>
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
@@ -34,15 +31,10 @@
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0">
                                                 <Link :href="route('viewProject', project.id )" class="text-indigo-600 hover:text-indigo-900">{{ project.name }}</Link>
                                             </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500 w-3/4 text-right">
                                                 {{ project.updated_at }}
                                             </td>
-                                            <!--<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
-                                                <Link :href="route('editProject', project.id )" class="text-indigo-600 hover:text-indigo-900">Edit</Link>
-                                            </td>-->
                                         </tr>
-
-                                        <!-- More people... -->
                                         </tbody>
                                     </table>
                                 </div>
