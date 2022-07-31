@@ -48,6 +48,8 @@ class HandleInertiaRequests extends Middleware
 
         if (auth()->check()) {
 
+            $planType = null;
+
             if ($request->user()->account->subscribed('default')) {
                 $price = $request->user()->account->subscription('default')->stripe_price;
 

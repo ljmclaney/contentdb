@@ -9,6 +9,8 @@
 
             <ul class="flex items-center space-x-[30px] text-indigo-500">
                 <li><Link href="/projects" class="hover:text-gray-800 transition-all font-medium" :class="{'text-gray-800': $page.url.startsWith('/projects') }">Projects</Link></li>
+                <li v-if="$page.props.subscription.onTrial"><Link href="/account/upgrade" class="hover:text-gray-800 transition-all font-medium" :class="{'text-gray-800': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link></li>
+                <li v-if="$page.props.subscription.subscribed"><a href="/billing-portal" class="hover:text-gray-800 transition-all font-medium">Manage subscription</a></li>
                 <li><Link href="/logout" class="hover:text-gray-800 transition-all font-medium">Logout</Link></li>
                 <li>
                     <button class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-500 text-sm text-indigo-500 flex justify-center items-center hover:bg-indigo-500 hover:text-white transition-all">

@@ -24,7 +24,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::controller(ProjectController::class)->middleware(['auth'])->prefix('projects')->group(function() {
+Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
         $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)->get();

@@ -8,7 +8,7 @@ if (! function_exists('planType')) {
             case $planPrice === env('STRIPE_FREELANCER_PLAN') || $planPrice === env('STRIPE_FREELANCER_ANNUAL_PLAN'):
                 $planType = 'freelancer';
                 break;
-            case $planPrice === env('STRIPE_AGENCY_ANNUAL_PLAN') || $planPrice === env('STRIPE_AGENCY_ANNUAL_PLAN'):
+            case $planPrice === env('STRIPE_AGENCY_PLAN') || $planPrice === env('STRIPE_AGENCY_ANNUAL_PLAN'):
                 $planType = 'agency';
                 break;
         };

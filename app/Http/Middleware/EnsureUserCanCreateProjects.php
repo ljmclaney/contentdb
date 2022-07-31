@@ -18,9 +18,10 @@ class EnsureUserCanCreateProjects
     {
         if ($request->user() && $request->user()->account->subscribed('default')) {
 
-            $planType = planType($request->user()->account->subscription('default')->stripe_prices);
+            $planType = planType($request->user()->account->subscription('default')->stripe_price);
 
-            $projectCount = Project::where('account_id', $request->user()->account->id)->count();
+            $projectCount = Project::where('account_id', $request->user()->account->id)
+                ->count();
 
             if ($planType === 'freelancer' && $projectCount >= 2) {
 
