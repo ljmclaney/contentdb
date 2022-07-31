@@ -19,7 +19,7 @@
                 </li>
             </ul>
 
-            <Link href="/account/upgrade" class="hidden lg:block absolute bg-indigo-600 text-white font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
+            <Link v-if="$page.props.subscription.trialEndsAt" href="/account/upgrade" class="hidden lg:block absolute bg-indigo-600 text-white font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
                 {{ $page.props.subscription.trialEndsAt }} days remaining
             </Link>
         </header>
