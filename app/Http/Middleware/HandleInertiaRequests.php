@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -55,11 +56,10 @@ class HandleInertiaRequests extends Middleware
 
                 $planType = planType($price);
             }
-
             $data = array_merge($data, [
                 'subscription' => [
                     'onTrial' =>    !empty($request->user()->account->subscription('default')) ? $request->user()->account->subscription('default')->onTrial() : $request->user()->account->onTrial(),
-                    'trialEndsAt' => !empty($trialDate = $request->user()->account->trialEndsAt()) ? $trialDate->format('jS F Y') : null,
+                    'trialEndsAt' => !empty($trialDate = $request->user()->account->trialEndsAt()) ? Carbon::now()->startOfDay()->diffInDays($trialDate->endOfDay(), false) : null,
                     'subscribed' => $request->user()->account->subscribed('default'),
                     'planType' => $planType
                 ]

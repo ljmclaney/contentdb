@@ -4,7 +4,7 @@
         <header class="bg-white py-4 px-10 border-b border-gray-300 shadow flex justify-between items-center relative z-30">
 
             <div class="flex items-center">
-                <span class="font-bold text-lg mr-[40px] uppercase font-extrabold">Author</span>
+                <Link href="/projects" class="font-bold text-lg mr-[40px] uppercase font-extrabold">Author</Link>
             </div>
 
             <ul class="flex items-center space-x-[30px] text-indigo-500">
@@ -18,6 +18,10 @@
                     </button>
                 </li>
             </ul>
+
+            <Link href="/account/upgrade" class="hidden lg:block absolute bg-indigo-600 text-white font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
+                {{ $page.props.subscription.trialEndsAt }} days remaining
+            </Link>
         </header>
 
         <slot />

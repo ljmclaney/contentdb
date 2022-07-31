@@ -39,6 +39,29 @@
 
             </div>
 
+            <div class="mt-24">
+                <h2 class="text-4xl font-extrabold text-gray-800 sm:text-center">Frequently asked questions</h2>
+
+                <div class="divide-y space-y-6 mt-12">
+
+                    <div class="pt-6">
+                        <h3 class="text-xl font-bold mb-2">Can I cancel my subscription anytime?</h3>
+                        <p>Yes! You can cancel or pause your subscription at anytime from your account page. When cancelling your subscription, you will retain access to Author until the end of your billing period.</p>
+                    </div>
+
+                    <div class="pt-6">
+                        <h3 class="text-xl font-bold mb-2">Who can I share a project with?</h3>
+                        <p>You can generate a secure shareable link to anyone that needs access to create or edit the content.</p>
+                    </div>
+
+                    <div class="pt-6">
+                        <h3 class="text-xl font-bold mb-2">Are there any storage limits?</h3>
+                        <p>Nope! Upload as much content as needed. We do have a 20MB file limit per file upload.</p>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </Layout>
 </template>
