@@ -8,6 +8,9 @@
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <svg v-if="data.type === 'success'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <svg v-if="data.type === 'error'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-red-500" viewBox="0 0 16 16">
+                                    <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                </svg>
                             </div>
                             <div class="ml-3 w-0 flex-1 pt-0.5">
                                 <p class="text-sm font-medium text-gray-900">{{ data.title }}</p>

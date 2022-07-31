@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Account;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         URL::forceScheme('https');
+
+        Cashier::useCustomerModel(Account::class);
     }
 }

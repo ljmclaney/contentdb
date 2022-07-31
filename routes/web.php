@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,17 +27,35 @@ Route::get('/', function () {
 Route::controller(ProjectController::class)->middleware(['auth'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
-
         $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)->get();
 
         return Inertia::render('Projects', [
             'projects' => $projects
         ]);
-    });
+    })->name('projects');
 
-    Route::post('/create', 'store')->name('storeProject');
+    Route::get('/archive', function () {
+        $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)
+            ->onlyTrashed()
+            ->get();
+
+        return Inertia::render('Projects/Archive', [
+            'projects' => $projects
+        ]);
+    })->name('viewArchivedProjects');
+
+    Route::post('/create', 'store')
+        ->middleware('ensureUserCanCreateProjects')
+        ->name('storeProject');
 
     Route::get('/edit/{project}', 'edit')->name('editProject');
+
+    Route::get('/archive/{project}', 'archive')->name('archiveProject');
+
+    Route::get('/restore/{project}', 'restore')
+        ->withTrashed()
+        ->middleware('ensureUserCanCreateProjects')
+        ->name('restoreProject');
 
     Route::get('/{project}', function (\App\Models\Project $project) {
 
@@ -128,6 +148,19 @@ Route::controller(FigmaController::class)->prefix('/figma')->group(function() {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::controller(AccountController::class)->middleware(['auth'])->prefix('account')->group(function() {
+    Route::get('/upgrade', 'upgradeAccount')->name('upgradeAccount');
+    Route::get('/upgrade/plan/{planName}', 'selectPlan')->name('selectPlan');
+});
+
+Route::get('/billing-portal', function (Request $request) {
+
+    $request->user()->account->createOrGetStripeCustomer();
+
+    return $request->user()->account->redirectToBillingPortal(route('projects'));
+
+})->middleware(['auth'])->name('billingPortal');
 
 require __DIR__.'/auth.php';

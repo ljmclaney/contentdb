@@ -7,7 +7,8 @@
                 <div class="bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
 
-                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-3">
+                        <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
                         <button @click="showShare = !showShare" class="btn-default">Share</button>
                     </div>
                 </div>

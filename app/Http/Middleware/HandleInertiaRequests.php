@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        return array_merge(parent::share($request), [
+        $data =  array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
             ],
@@ -45,5 +45,25 @@ class HandleInertiaRequests extends Middleware
             },
             'toast' => session()->get('toast', null)
         ]);
+
+        if (auth()->check()) {
+
+            if ($request->user()->account->subscribed('default')) {
+                $price = $request->user()->account->subscription('default')->stripe_price;
+
+                $planType = planType($price);
+            }
+
+            $data = array_merge($data, [
+                'subscription' => [
+                    'onTrial' => $request->user()->account->subscription('default')->onTrial(),
+                    'trialEndsAt' => !empty($trialDate = $request->user()->account->trialEndsAt()) ? $trialDate->format('jS F Y') : null,
+                    'subscribed' => $request->user()->account->subscribed('default'),
+                    'planType' => $planType
+                ]
+            ]);
+        }
+
+        return $data;
     }
 }

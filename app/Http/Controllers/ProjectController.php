@@ -18,4 +18,30 @@ class ProjectController extends Controller
 
         return back();
     }
+
+    public function archive(Project $project)
+    {
+        $project->delete();
+
+        session()->flash('toast', [
+            'title'   => 'Project archived!',
+            'message' => 'Your project has been archived.',
+            'type'    => 'success'
+        ]);
+
+        return redirect()->route('projects');
+    }
+
+    public function restore(Project $project)
+    {
+        $project->restore();
+
+        session()->flash('toast', [
+            'title'   => 'Project restored!',
+            'message' => 'Your project has been restored.',
+            'type'    => 'success'
+        ]);
+
+        return redirect()->route('projects');
+    }
 }

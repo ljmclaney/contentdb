@@ -47,6 +47,11 @@ class User extends Authenticatable
         'initials'
     ];
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
     public function getInitialsAttribute()
     {
         $words = explode(' ', $this->name);

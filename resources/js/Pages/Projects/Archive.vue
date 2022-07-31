@@ -9,12 +9,11 @@
                     <div class="px-5">
                         <div class="sm:flex sm:items-center">
                             <div class="sm:flex-auto">
-                                <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
+                                <h1 class="text-xl font-semibold text-gray-900">Archived projects</h1>
 
                             </div>
                             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-3">
-                                <Link :href="route('viewArchivedProjects')" class="btn-outline">View archive</Link>
-                                <button @click="createProject = true" class="btn-primary">Create a project</button>
+                                <Link :href="route('projects')" class="btn-outline">View all projects</Link>
                             </div>
                         </div>
                         <div class="mt-8 flex flex-col">
@@ -24,7 +23,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-3/4 text-right">Last updated</th>
+                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-3/4 text-right">Restore</th>
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
@@ -33,7 +32,7 @@
                                                 <Link :href="route('viewProject', project.id )" class="text-indigo-600 hover:text-indigo-900">{{ project.name }}</Link>
                                             </td>
                                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500 w-3/4 text-right">
-                                                {{ project.updated_at }}
+                                                <Link :href="route('restoreProject', project.id)" class="btn-primary">Restore</Link>
                                             </td>
                                         </tr>
                                         </tbody>

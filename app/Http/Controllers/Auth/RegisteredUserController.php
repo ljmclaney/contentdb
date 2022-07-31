@@ -41,7 +41,9 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $account = Account::create();
+        $account = Account::create([
+            'trial_ends_at' => now()->addDays(14),
+        ]);
 
         $user = User::create([
             'account_id' => $account->id,
