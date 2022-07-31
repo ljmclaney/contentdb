@@ -6,7 +6,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -162,5 +164,12 @@ Route::get('/billing-portal', function (Request $request) {
     return $request->user()->account->redirectToBillingPortal(route('projects'));
 
 })->middleware(['auth'])->name('billingPortal');
+
+Route::get('/storage/files/{account}/{file}', function ($account, $file) {
+
+    return Storage::disk('spaces')->response(
+        '/public/files/'. $account . '/' . $file);
+
+})->middleware(['auth'])->name('files');
 
 require __DIR__.'/auth.php';

@@ -226,5 +226,7 @@ class PageController extends Controller
         return response()->json([
            'files' => $field->json_content
         ]);
+
+
     }
 }

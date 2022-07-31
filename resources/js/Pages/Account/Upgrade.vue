@@ -91,6 +91,7 @@ export default {
                     includedFeatures: [
                         '2 active projects',
                         'Unlimited pages per project',
+                        'Unlimited content fields per page',
                         'Shareable client links'
                     ],
                 },
@@ -101,6 +102,7 @@ export default {
                     includedFeatures: [
                         'Unlimited active projects',
                         'Unlimited pages per project',
+                        'Unlimited content fields per page',
                         'Shareable client links'
                     ],
                 },
@@ -113,6 +115,7 @@ export default {
                     includedFeatures: [
                         '2 active projects',
                         'Unlimited pages per project',
+                        'Unlimited content fields per page',
                         'Shareable client links'
                     ],
                 },
@@ -123,6 +126,7 @@ export default {
                     includedFeatures: [
                         'Unlimited active projects',
                         'Unlimited pages per project',
+                        'Unlimited content fields per page',
                         'Shareable client links'
                     ],
                 },
