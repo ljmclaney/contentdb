@@ -10,6 +10,10 @@ class Account extends Model
 {
     use HasFactory, Billable;
 
+    protected $fillable = [
+        'trial_ends_at'
+    ];
+
     protected $casts = [
         'trial_ends_at' => 'datetime'
     ];

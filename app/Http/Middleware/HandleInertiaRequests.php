@@ -58,7 +58,7 @@ class HandleInertiaRequests extends Middleware
 
             $data = array_merge($data, [
                 'subscription' => [
-                    'onTrial' => $request->user()->account->subscription('default')->onTrial(),
+                    'onTrial' =>    !empty($request->user()->account->subscription('default')) ? $request->user()->account->subscription('default')->onTrial() : $request->user()->account->onTrial(),
                     'trialEndsAt' => !empty($trialDate = $request->user()->account->trialEndsAt()) ? $trialDate->format('jS F Y') : null,
                     'subscribed' => $request->user()->account->subscribed('default'),
                     'planType' => $planType
