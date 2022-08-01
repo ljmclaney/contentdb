@@ -44,6 +44,11 @@
                     <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
                 </svg>
             </button>
+            <button class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50" @click="viewHtml()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code" viewBox="0 0 16 16">
+                    <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z"/>
+                </svg>
+            </button>
         </div>
         </div>
         <editor-content :editor="editor" class="focus:ring-0"/>
@@ -52,6 +57,12 @@
             <div v-if="characterLimit">{{ editor.storage.characterCount.characters() }}/{{ characterLimit }} characters</div>
             {{ editor.storage.characterCount.words() }} words
         </div>
+
+        <modal :open="openModal" @closeModal="closeModal">
+            <div>{{ html }}</div>
+        </modal>
+
+
     </div>
 </template>
 <script>
@@ -60,10 +71,12 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import Placeholder from '@tiptap/extension-placeholder'
 import Link from '@tiptap/extension-link'
 import CharacterCount from '@tiptap/extension-character-count'
+import Modal from '@/Components/Modal.vue'
 
 export default {
     components: {
-        EditorContent
+        EditorContent,
+        Modal
     },
 
     props: {
@@ -81,6 +94,8 @@ export default {
     data() {
         return {
             editor: null,
+            html: null,
+            openModal: false
         }
     },
 
@@ -164,6 +179,15 @@ export default {
                 .setLink({ href: url })
                 .run()
         },
+
+        viewHtml() {
+            this.openModal = true
+            this.html = this.editor.getHTML()
+        },
+
+        closeModal() {
+            this.openModal = false
+        }
     }
 }
 </script>
