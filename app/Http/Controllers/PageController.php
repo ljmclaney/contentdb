@@ -137,10 +137,6 @@ class PageController extends Controller
 
         foreach ($request->input('fields') as $field) {
 
-            if (!empty($field['id'])) {
-                $existingFieldsIDs[] = $field['id'];
-            }
-
             $data = [
                 'account_id' => auth()->user()->account_id,
                 'page_id' => $page->id,

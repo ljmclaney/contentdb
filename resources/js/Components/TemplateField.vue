@@ -123,13 +123,14 @@ export default {
 
         update() {
             this.$emit("update:modelValue", {
+                id: this.fieldData.id ? this.fieldData.id : null,
                 type: this.fieldData.type,
                 uuid: this.fieldData.uuid,
                 sort_order: this.fieldData.sort_order,
                 label: this.label,
                 instructions: this.instructions,
                 settings: JSON.parse(JSON.stringify(this.fieldData.settings)),
-                html_content: this.fieldData.html_content
+                html_content: this.fieldData.html_content,
             });
         },
     }
