@@ -33,87 +33,99 @@ class PageController extends Controller
         return back();
     }
 
-    public function view(Request $request, Project $project, Page $page)
+    public function view(Request $request, Project $project, $pageID)
     {
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections.fields')
+            ->findOrFail($pageID);
 
         if ($page->fields->isEmpty()) {
             return redirect()->route('pageStructure', [$project->id, $page->id]);
         }
 
-        $sections = $page->sections()
-            ->with('fields')
-            ->orderBy('sort_order')
-            ->get();
-
-        if (!$sections->isEmpty()) {
-            $fields = $sections[0]->fields()->orderBy('sort_order')->get();
+        if (!$page->sections->isEmpty()) {
+            $fields = $page->sections[0]->fields->sortBy('sort_order')->values();
         }
+
+        $sections = $page->sections->sortBy('sort_order')->values();
 
         return Inertia::render('Projects/Page', [
             'project' => $project,
             'page' => $page,
             'sections' => $sections,
             'fields' => !empty($fields) ? $fields : null,
-            'selectedSection' => !empty($sections) ? $sections[0] : null
+            'selectedSection' => !$page->sections->isEmpty() ? $page->sections[0] : null
         ]);
     }
 
-    public function viewSection(Project $project, Page $page, Section $section)
+    public function viewSection(Project $project, $pageID, $sectionID)
     {
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections')->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->findOrFail($pageID);
+
+        $section = $page->sections->where('id', $sectionID)->first();
+
         if ($section->fields->isEmpty()) {
-            return redirect()->route('pageStructure', [$project->id, $page->id]);
+            return redirect()->route('pageStructureSection', [$project->id, $page->id, $sectionID]);
         }
-
-        $sections = $page->sections()
-            ->with('fields')
-            ->orderBy('sort_order')
-            ->get();
-
-        $fields = $section->fields()->orderBy('sort_order')->get();
 
         return Inertia::render('Projects/Page', [
             'project' => $project,
             'page' => $page,
-            'sections' => $sections,
-            'fields' => $fields,
+            'sections' => $page->sections,
+            'fields' => $section->fields,
             'selectedSection' => $section
         ]);
     }
 
-    public function pageStructure(Project $project, Page $page)
+    public function pageStructure(Project $project, $pageID)
     {
-        $sections = $page->sections()
-            ->with('fields')
-            ->orderBy('sort_order')
-            ->get();
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections')->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->findOrFail($pageID);
 
-        if (!$sections->isEmpty()) {
-            $fields = $sections[0]->fields()->orderBy('sort_order')->get();
+        if (!$page->sections->isEmpty()) {
+            $fields = $page->sections[0]->fields;
         }
 
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
-            'sections' => $sections,
+            'sections' => $page->sections,
             'fields' => !empty($fields) ? $fields : null,
-            'selectedSection' => !empty($sections) ? $sections[0] : null
+            'selectedSection' => !empty($page->sections) ? $page->sections[0] : null
         ]);
     }
 
-    public function pageStructureSection(Project $project, Page $page, Section $section)
+    public function pageStructureSection(Project $project,$pageID, $sectionID)
     {
-        $sections = $page->sections()
-            ->with('fields')
-            ->orderBy('sort_order')
-            ->get();
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections')->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->with('sections.fields', function($query) {
+                $query->orderBy('sort_order');
+            })
+            ->findOrFail($pageID);
 
-        $fields = $section->fields()->orderBy('sort_order')->get();
+        $section = $page->sections->where('id', $sectionID)->first();
 
         return Inertia::render('Projects/Structure', [
             'project' => $project,
             'page' => $page,
-            'sections' => $sections,
-            'fields' => $fields,
+            'sections' => $page->sections,
+            'fields' => $section->fields,
             'selectedSection' => $section
         ]);
     }

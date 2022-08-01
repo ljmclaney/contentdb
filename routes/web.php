@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
+use App\Models\Project;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -29,7 +30,7 @@ Route::get('/', function () {
 Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
-        $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)->get();
+        $projects = Project::where('account_id', auth()->user()->account_id)->get();
 
         return Inertia::render('Projects', [
             'projects' => $projects
@@ -37,7 +38,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     })->name('projects');
 
     Route::get('/archive', function () {
-        $projects = \App\Models\Project::where('account_id', auth()->user()->account_id)
+        $projects = Project::where('account_id', auth()->user()->account_id)
             ->onlyTrashed()
             ->get();
 
@@ -59,7 +60,11 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         ->middleware('ensureUserCanCreateProjects')
         ->name('restoreProject');
 
-    Route::get('/{project}', function (\App\Models\Project $project) {
+    Route::get('/{project}', function ($projectID) {
+
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->with('pages')
+            ->findOrFail($projectID);
 
         return Inertia::render('Projects/Index', [
             'project' => $project,
