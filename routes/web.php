@@ -137,6 +137,7 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
 
         $fields = $section->fields()->orderBy('sort_order')->get();
 
+
         return Inertia::render('SharedProject/Page', [
             'project' => $project,
             'page' => $page,
