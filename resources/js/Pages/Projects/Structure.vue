@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <slide-over :open="createSection" @closeSlider="createSection = false" title="Create a page">
+        <slide-over :open="createSection" @closeSlider="createSection = false" title="Create a section">
 
             <div class="space-y-[15px]">
                 <div>
