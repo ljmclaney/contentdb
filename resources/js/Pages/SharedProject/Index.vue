@@ -35,7 +35,7 @@
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6 md:pl-0">
                                                 <Link :href="route('viewSharedPage', [project.id, uuid, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
                                             </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-black">
                                                 {{ page.updated_at }}
                                             </td>
                                             <!--<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
@@ -57,7 +57,7 @@
 
                     <div class="mb-[30px]">
                         <h3 class="text-xl font-bold mb-[15px]">Nothing to see yet!</h3>
-                        <p class="text-gray-500">No pages have been added yet, please check back later.</p>
+                        <p class="text-black">No pages have been added yet, please check back later.</p>
                     </div>
 
                 </div>

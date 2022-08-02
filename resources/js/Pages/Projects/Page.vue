@@ -1,10 +1,10 @@
 <template>
     <Layout>
-        <div class="sticky top-0 z-40 bg-white rounded shadow border-b border-gray-300 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
+        <div class="sticky top-0 z-40 bg-white rounded border-b border-gray-300 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
             <ul class="text-xl md:text-2xl font-bold flex items-center space-x-[10px]">
-                <li class="truncate"><Link :href="route('viewProject', project.id)" class="text-gray-500 hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
-                <li class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
-                <li class="truncate">{{ page.name }}</li>
+                <li class="truncate"><Link :href="route('viewProject', project.id)" class="text-black hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
+                <li class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
+                <li class="truncate text-gray-600">{{ page.name }}</li>
             </ul>
 
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-[10px]">
@@ -21,7 +21,7 @@
                         <nav class="-mb-px flex justify-between items-center" aria-label="Tabs">
                             <ul class="flex space-x-8">
                                 <li v-for="section in sections">
-                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-500 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium" :class="{'border-indigo-500 text-indigo-600': selectedSection.id === section.id}">{{ section.name }}</Link>
+                                    <Link :href="route('viewSection', [project.id, page.id, section.id])" class="border-transparent hover:text-indigo-600 hover:border-indigo-500 whitespace-nowrap flex pt-4 pb-2 px-1 border-b-2 font-medium" :class="{'border-black text-black': selectedSection.id === section.id}">{{ section.name }}</Link>
                                 </li>
                             </ul>
                         </nav>
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="space-y-[30px]" id="fields">
+            <div class="space-y-10" id="fields">
 
                 <div v-if="Object.keys(fields).length" v-for="(field, index) in fields" :key="field.uuid" :data-id="field.uuid">
                     <input type="hidden" v-model="fields[index]['sort_order']">
@@ -42,11 +42,11 @@
                     />
                 </div>
 
-                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-gray-500 text-center">
+                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-black text-center">
 
                     <div>
                         <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>
-                        <p class="text-gray-500">Select a field from the bottom.</p>
+                        <p class="text-black">Select a field from the bottom.</p>
                     </div>
 
                 </div>

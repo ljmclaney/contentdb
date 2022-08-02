@@ -3,9 +3,9 @@
         <div class="max-w-3xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="sm:flex sm:flex-col sm:align-center">
-                <h1 class="text-5xl font-extrabold text-gray-800 sm:text-center">Upgrade your account</h1>
+                <h1 class="text-5xl font-extrabold text-black sm:text-center">Upgrade your account</h1>
                 <div class="relative self-center mt-6 bg-gray-100 rounded-lg p-0.5 flex sm:mt-8">
-                    <button @click="tiers = monthlyTiers" type="button" class="relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-800 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8">Monthly</button>
+                    <button @click="tiers = monthlyTiers" type="button" class="relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8">Monthly</button>
                     <button  @click="tiers = annualTiers" type="button" class="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8">Annual</button>
                 </div>
             </div>
@@ -14,16 +14,16 @@
 
                 <div v-for="tier in tiers" :key="tier.name" class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
                     <div class="p-6 text-center">
-                        <h2 class="text-2xl leading-6 font-extrabold text-gray-800">{{ tier.name }}</h2>
+                        <h2 class="text-2xl leading-6 font-extrabold text-black">{{ tier.name }}</h2>
                         <p class="mt-4">
-                            <span class="text-4xl font-extrabold text-gray-800">${{ tier.priceMonthly }}</span>
+                            <span class="text-4xl font-extrabold text-black">${{ tier.priceMonthly }}</span>
                             {{ ' ' }}
-                            <span class="text-base font-medium text-gray-500">/mo</span>
+                            <span class="text-base font-medium text-black">/mo</span>
                         </p>
                         <a :href="tier.href" class="mt-8 w-full btn-primary justify-center">Upgrade</a>
                     </div>
                     <div class="pt-6 pb-8 px-6">
-                        <h3 class="text-xs font-medium text-gray-800 tracking-wide uppercase">What's included</h3>
+                        <h3 class="text-xs font-medium text-black tracking-wide uppercase">What's included</h3>
                         <ul role="list" class="mt-6 space-y-4">
                             <li v-for="feature in tier.includedFeatures" :key="feature" class="flex space-x-3">
                                 <div class="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true">
@@ -31,7 +31,7 @@
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                     </svg>
                                 </div>
-                                <span class="text-sm text-gray-500">{{ feature }}</span>
+                                <span class="text-sm text-black">{{ feature }}</span>
                             </li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="mt-24">
-                <h2 class="text-4xl font-extrabold text-gray-800 sm:text-center">Frequently asked questions</h2>
+                <h2 class="text-4xl font-extrabold text-black sm:text-center">Frequently asked questions</h2>
 
                 <div class="divide-y space-y-6 mt-12">
 

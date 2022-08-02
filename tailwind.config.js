@@ -12,10 +12,18 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+                sans: ['Gilroy', ...defaultTheme.fontFamily.sans],
             },
             boxShadow: {
                 'DEFAULT': '0px 2px 7px rgba(0, 0, 0, 0.05)'
+            },
+            colors: {
+                'brand-grey': '#fbfbfb',
+                'brand-yellow': '#FFEBCC',
+                'brand-green': '#DAF2F0',
+                'brand-orange': '#FFE2D6',
+                'brand-blue': '#D7E1F9',
+                'brand-red': '#FAD8D6',
             }
         },
     },

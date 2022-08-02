@@ -4,19 +4,19 @@
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
 
-                <div class="bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
+                <div class="bg-white rounded border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-3">
                         <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
-                        <button @click="showShare = !showShare" class="btn-default">Share</button>
+                        <button @click="showShare = !showShare" class="btn-primary">Share</button>
                     </div>
                 </div>
 
-                <div v-if="Object.keys(pages).length" class="bg-white rounded shadow border border-gray-300 py-5">
+                <div v-if="Object.keys(pages).length" class="bg-white rounded border border-gray-300">
 
-                    <div class="px-5">
-                        <div class="sm:flex sm:items-center">
+                    <div>
+                        <div class="sm:flex sm:items-center p-5 border-b border-gray-300">
                             <div class="sm:flex-auto">
                                 <h1 class="text-xl font-bold ">Pages</h1>
 
@@ -25,22 +25,22 @@
                                 <button @click="createPage = true" class="btn-primary">Create a page</button>
                             </div>
                         </div>
-                        <div class="mt-8 flex flex-col">
+                        <div class="p-5 flex flex-col">
                             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <thead>
                                         <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6 md:pl-0 w-3/4">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-right">Last updated</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</th>
+                                            <th scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</th>
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
                                         <tr v-for="page in pages">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 md:pl-0 w-3/4">
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
                                                 <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
                                             </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500 text-right">
+                                            <td class="whitespace-nowrap py-4 px-3 text-black text-right">
                                                 {{ page.updated_at }}
                                             </td>
                                         </tr>
@@ -57,7 +57,7 @@
 
                     <div class="mb-[30px]">
                         <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
-                        <p class="text-gray-500">Add your content here. Start by creating your first page.</p>
+                        <p class="text-black">Add your content here. Start by creating your first page.</p>
                     </div>
 
                     <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>

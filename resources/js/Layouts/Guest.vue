@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/inertia-vue3';
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <Link href="/">
-                <span class="text-2xl font-extrabold text-gray-800 uppercase">
+                <span class="text-2xl font-extrabold text-black uppercase">
                     Author
                 </span>
             </Link>

@@ -19,7 +19,7 @@
                 <editor-content :editor="editor" class="focus:ring-0" />
             </div>
             <div class="flex items-center border-t border-gray-300 p-5">
-                <p class="text-sm text-gray-500">Useful help text</p>
+                <p class="text-sm text-black">Useful help text</p>
             </div>
         </div>
 

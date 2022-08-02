@@ -57,7 +57,7 @@
         </div>
         <editor-content v-if="!openFullscreen" :editor="editor" class="focus:ring-0"/>
 
-        <div class="text-gray-500 mt-3" v-if="editor">
+        <div class="text-black mt-3" v-if="editor">
             <div v-if="characterLimit">{{ editor.storage.characterCount.characters() }}/{{ characterLimit }} characters</div>
             {{ editor.storage.characterCount.words() }} words
         </div>
@@ -125,7 +125,7 @@
             </div>
 
             <editor-content :editor="editor" class="focus:ring-0"/>
-            <div class="text-gray-500 mt-3" v-if="editor">
+            <div class="text-black mt-3" v-if="editor">
                 <div v-if="characterLimit">{{ editor.storage.characterCount.characters() }}/{{ characterLimit }} characters</div>
                 {{ editor.storage.characterCount.words() }} words
             </div>
