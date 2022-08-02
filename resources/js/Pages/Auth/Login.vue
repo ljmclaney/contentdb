@@ -57,14 +57,14 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <BreezeButton class="btn-primary w-full justify-center" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <BreezeButton class="btn-primary w-full justify-center py-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </BreezeButton>
             </div>
 
             <div class="text-center mt-6">
-                <Link v-if="canResetPassword" :href="route('register')" class="inline-flex font-medium text-sm text-gray-600 hover:text-gray-900">
-                    <span class="underline">Don't have an account?</span> <span class="text-indigo-500 ml-2">Sign up</span>
+                <Link v-if="canResetPassword" :href="route('register')" class="inline-flex font-medium text-gray-600 hover:text-gray-900">
+                    <span class="underline">Don't have an account?</span> <span class="text-indigo-600 ml-2">Sign up</span>
                 </Link>
             </div>
 
