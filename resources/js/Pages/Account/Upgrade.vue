@@ -18,7 +18,7 @@
                         <p class="mt-4">
                             <span class="text-4xl font-extrabold text-black">${{ tier.priceMonthly }}</span>
                             {{ ' ' }}
-                            <span class="text-base font-medium text-black">/mo</span>
+                            <span class="text-base font-medium text-black">/{{ tier.type }}</span>
                         </p>
                         <a :href="tier.href" class="mt-8 w-full btn-primary justify-center">Upgrade</a>
                     </div>
@@ -88,6 +88,7 @@ export default {
                     name: 'Freelancer',
                     href: '/account/upgrade/plan/freelancer-monthly',
                     priceMonthly: 9,
+                    type: 'mo',
                     includedFeatures: [
                         '2 active projects',
                         'Unlimited pages per project',
@@ -99,6 +100,7 @@ export default {
                     name: 'Agency',
                     href: '/account/upgrade/plan/agency-monthly',
                     priceMonthly: 29,
+                    type: 'mo',
                     includedFeatures: [
                         'Unlimited active projects',
                         'Unlimited pages per project',
@@ -112,6 +114,7 @@ export default {
                     name: 'Freelancer',
                     href: '/account/upgrade/plan/freelancer-annual',
                     priceMonthly: 90,
+                    type: 'yr',
                     includedFeatures: [
                         '2 active projects',
                         'Unlimited pages per project',
@@ -123,6 +126,7 @@ export default {
                     name: 'Agency',
                     href: '/account/upgrade/plan/agency-annual',
                     priceMonthly: 290,
+                    type: 'yr',
                     includedFeatures: [
                         'Unlimited active projects',
                         'Unlimited pages per project',
