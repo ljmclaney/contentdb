@@ -49,7 +49,7 @@
                     />
                 </div>
 
-                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-black text-center">
+                <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[12vh] text-black text-center">
 
                     <div>
                         <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>

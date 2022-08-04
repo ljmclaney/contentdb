@@ -1,5 +1,18 @@
 <template>
     <Layout>
+
+        <header class="bg-black text-white py-4 px-10 flex justify-between items-center relative z-30">
+
+            <div class="flex items-center">
+                <a href="https://www.withauthor.com" class="text-2xl mr-10 font-bold">Author</a>
+            </div>
+
+            <ul class="flex items-center space-x-[30px]">
+                <li><Link :href="route('viewSharedProject', [project.id, uuid])" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Pages</Link></li>
+            </ul>
+
+        </header>
+
         <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="max-w-3xl mx-auto space-y-[30px]">
