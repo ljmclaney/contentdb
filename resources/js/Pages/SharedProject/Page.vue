@@ -13,7 +13,7 @@
 
         </header>
 
-        <div class="sticky top-0 z-40 bg-white rounded shadow border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between mb-[30px]">
+        <div class="sticky top-0 z-40 bg-white rounded shadow border border-gray-300 py-5 px-10 sm:flex sm:items-center sm:justify-between mb-[30px]">
             <ul class="text-2xl font-bold flex items-center space-x-[10px]">
                 <li><Link :href="route('viewSharedProject', [project.id, uuid])" class="text-black hover:text-indigo-500 transition-all">{{ project.name }}</Link></li>
                 <li class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
