@@ -13,7 +13,8 @@ class Page extends Model
     protected $fillable = [
         'account_id',
         'project_id',
-        'name'
+        'name',
+        'parent_id'
     ];
 
     public function project()
@@ -29,6 +30,11 @@ class Page extends Model
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Page::class, 'parent_id');
     }
 
     public function getUpdatedAtAttribute($value)

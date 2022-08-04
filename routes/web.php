@@ -63,12 +63,16 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     Route::get('/{project}', function ($projectID) {
 
         $project = Project::where('account_id', auth()->user()->account_id)
-            ->with('pages')
+            ->with(['pages' => function($query) {
+                $query->whereNull('parent_id');
+            }])
+            ->with('pages.children')
             ->findOrFail($projectID);
 
         return Inertia::render('Projects/Index', [
             'project' => $project,
-            'pages' => $project->pages
+            'pages' => $project->pages,
+            'parentPages' => $project->pages->pluck('name', 'id')
         ]);
 
     })->name('viewProject');

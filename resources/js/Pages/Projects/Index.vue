@@ -28,24 +28,34 @@
                         <div class="p-5 flex flex-col">
                             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
-                                    <table class="min-w-full divide-y divide-gray-300">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200">
-                                        <tr v-for="page in pages">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
+                                    <div class="min-w-full divide-y divide-gray-300">
+                                        <div>
+                                        <div>
+                                            <div scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</div>
+                                            <div scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</div>
+                                        </div>
+                                        </div>
+                                        <div class="divide-y divide-gray-200">
+                                        <div v-for="page in pages">
+                                            <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
                                                 <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
-                                            </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-black text-right">
+                                            </div>
+                                            <div class="whitespace-nowrap py-4 px-3 text-black text-right">
                                                 {{ page.updated_at }}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                            </div>
+
+                                            <div v-if="page.children" v-for="page in page.children">
+                                                <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
+                                                    <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
+                                                </div>
+                                                <div class="whitespace-nowrap py-4 px-3 text-black text-right">
+                                                    {{ page.updated_at }}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -75,6 +85,18 @@
                     <label for="page" class="block text-sm font-medium text-gray-700">Page name</label>
                     <div class="mt-1">
                         <input type="text" name="page" id="page" v-model="newPage" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="e.g. Home, About page, December Newsletter" />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="parent_page" class="block text-sm font-medium text-gray-700">Parent page (optional)</label>
+                    <div class="mt-1">
+                        <select type="text" name="parent_page" id="parent_page" v-model="parentPageId" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            <option value="">Select a page</option>
+                            <option v-for="(option, index) in parentPages" :value="index">
+                                {{ option }}
+                            </option>
+                        </select>
                     </div>
                 </div>
 
@@ -115,13 +137,15 @@ export default {
 
     props: {
         project: Object,
-        pages: Object
+        pages: Object,
+        parentPages: Object
     },
 
     data() {
         return {
             createPage: false,
             newPage: null,
+            parentPageId: null,
             showShare: false,
             shareText: 'Copy link'
         }
@@ -133,7 +157,8 @@ export default {
             this.$inertia.post('/projects/' + this.project.id + '/pages/create',
                 {
                     projectID: this.project.id,
-                    newPage: this.newPage
+                    newPage: this.newPage,
+                    parentPageId: this.parentPageId
                 },
                 {
                     preserveScroll: true
@@ -141,6 +166,7 @@ export default {
             )
 
             this.newPage = null
+            this.parentPageId = null
             this.createPage = false
         },
 

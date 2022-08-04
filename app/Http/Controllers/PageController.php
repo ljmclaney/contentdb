@@ -18,7 +18,8 @@ class PageController extends Controller
         $page = Page::create([
             'account_id' => auth()->user()->account_id,
             'project_id' => $project->id,
-            'name' => $request->input('newPage')
+            'name' => $request->input('newPage'),
+            'parent_id' => $request->input('parentPageId')
         ]);
 
         Section::create([
