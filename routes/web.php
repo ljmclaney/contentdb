@@ -149,6 +149,11 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
     })->name('viewSharedSection');
 });
 
+Route::controller(PageController::class)->prefix('/projects/{project}/pages')->group(function() {
+    Route::post('/{page}/fields', 'saveFields')->name('saveFields');
+    Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
+});
+
 Route::controller(FigmaController::class)->prefix('/figma')->group(function() {
     Route::get('/', 'files')->name('figma');
     Route::post('/oauth', 'figmaOauth')->name('figmaOauth');
@@ -176,6 +181,6 @@ Route::get('/storage/files/{account}/{file}', function ($account, $file) {
     return Storage::disk('spaces')->response(
         '/public/files/'. $account . '/' . $file);
 
-})->middleware(['auth'])->name('files');
+})->name('files');
 
 require __DIR__.'/auth.php';

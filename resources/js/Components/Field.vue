@@ -124,6 +124,7 @@ export default {
 
             formData.append('image', this.form.image);
             formData.append('field_id', this.fieldData.id);
+            formData.append('account_id', this.fieldData.account_id);
 
             let $this = this
 

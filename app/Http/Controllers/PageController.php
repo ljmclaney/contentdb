@@ -138,7 +138,7 @@ class PageController extends Controller
         foreach ($request->input('fields') as $field) {
 
             $data = [
-                'account_id' => auth()->user()->account_id,
+                'account_id' => !empty($field['account_id']) ? $field['account_id'] : auth()->user()->account_id,
                 'page_id' => $page->id,
                 'section_id' => $section->id,
                 'type' => $field['type'],
@@ -205,7 +205,7 @@ class PageController extends Controller
 
         $file = $request->file('image');
 
-        $image = $file->storeAs('/public/files/account-' . auth()->user()->account_id, $uuid . '.' . $file->extension());
+        $image = $file->storeAs('/public/files/account-' . $request->input('account_id'), $uuid . '.' . $file->extension());
 
         $field = Field::where('id', $request->input('field_id'))->first();
 
