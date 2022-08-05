@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
+use App\Models\Page;
 use App\Models\Project;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -63,15 +64,16 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     Route::get('/{project}', function ($projectID) {
 
         $project = Project::where('account_id', auth()->user()->account_id)
-            ->with(['pages' => function($query) {
-                $query->whereNull('parent_id');
-            }])
-            ->with('pages.children')
             ->findOrFail($projectID);
+
+        $pages = Page::tree()
+            ->get()
+            ->toTree()
+            ->toArray();
 
         return Inertia::render('Projects/Index', [
             'project' => $project,
-            'pages' => $project->pages,
+            'pages' => $pages,
             'parentPages' => $project->pages->pluck('name', 'id')
         ]);
 

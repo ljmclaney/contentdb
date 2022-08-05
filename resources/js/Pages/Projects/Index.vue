@@ -30,31 +30,14 @@
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
                                     <div class="min-w-full divide-y divide-gray-300">
                                         <div>
-                                        <div>
+                                        <div class="flex items-center justify-between">
                                             <div scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</div>
                                             <div scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</div>
                                         </div>
                                         </div>
-                                        <div class="divide-y divide-gray-200">
-                                        <div v-for="page in pages">
-                                            <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
-                                                <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
-                                            </div>
-                                            <div class="whitespace-nowrap py-4 px-3 text-black text-right">
-                                                {{ page.updated_at }}
-                                            </div>
-
-                                            <div v-if="page.children" v-for="page in page.children">
-                                                <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4">
-                                                    <Link :href="route('viewPage', [project.id, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
-                                                </div>
-                                                <div class="whitespace-nowrap py-4 px-3 text-black text-right">
-                                                    {{ page.updated_at }}
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        </div>
+                                        <ul class="divide-y divide-gray-200">
+                                            <page-item v-for="page in pages" :project="project" :node="page"></page-item>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +75,7 @@
                     <label for="parent_page" class="block text-sm font-medium text-gray-700">Parent page (optional)</label>
                     <div class="mt-1">
                         <select type="text" name="parent_page" id="parent_page" v-model="parentPageId" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                            <option value="">Select a page</option>
+                            <option value="" selected>No parent page</option>
                             <option v-for="(option, index) in parentPages" :value="index">
                                 {{ option }}
                             </option>
@@ -126,13 +109,15 @@ import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
 import SlideOver from '@/Components/SlideOver.vue'
 import Modal from '@/Components/Modal.vue'
+import PageItem from '@/Components/PageItem.vue'
 
 export default {
     components: {
         Link,
         Layout,
         SlideOver,
-        Modal
+        Modal,
+        PageItem
     },
 
     props: {

@@ -15,6 +15,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "mews/purifier": "^3.3",
         "sentry/sentry-laravel": "^2.13",
+        "staudenmeir/laravel-adjacency-list": "^1.0",
         "symfony/http-client": "^6.0",
         "symfony/postmark-mailer": "^6.0",
         "tightenco/ziggy": "^1.0"

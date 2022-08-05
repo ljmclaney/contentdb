@@ -5,10 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Page extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRecursiveRelationships;
 
     protected $fillable = [
         'account_id',
@@ -30,11 +31,6 @@ class Page extends Model
     public function sections()
     {
         return $this->hasMany(Section::class);
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Page::class, 'parent_id');
     }
 
     public function getUpdatedAtAttribute($value)
