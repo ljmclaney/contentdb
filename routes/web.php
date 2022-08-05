@@ -87,6 +87,8 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
             ->findOrFail($projectID);
 
         $pages = Page::tree()
+            ->where('project_id', $project->id)
+            ->where('account_id', auth()->user()->account_id)
             ->get()
             ->toTree()
             ->toArray();
