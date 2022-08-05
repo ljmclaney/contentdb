@@ -97,7 +97,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
             'parentPages' => $project->pages->pluck('name', 'id')
         ]);
 
-    })->name('viewProject');
+    })->name('testProject');
 
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
