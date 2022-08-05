@@ -66,10 +66,12 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         $project = Project::where('account_id', auth()->user()->account_id)
             ->findOrFail($projectID);
 
-        $pages = Page::tree()
+        /*$pages = Page::tree()
             ->get()
             ->toTree()
-            ->toArray();
+            ->toArray();*/
+
+        $pages = $project->pages;
 
         return Inertia::render('Projects/Index', [
             'project' => $project,
