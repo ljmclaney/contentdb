@@ -66,26 +66,6 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         $project = Project::where('account_id', auth()->user()->account_id)
             ->findOrFail($projectID);
 
-        /*$pages = Page::tree()
-            ->get()
-            ->toTree()
-            ->toArray();*/
-
-        $pages = $project->pages;
-
-        return Inertia::render('Projects/Index', [
-            'project' => $project,
-            'pages' => $pages,
-            'parentPages' => $project->pages->pluck('name', 'id')
-        ]);
-
-    })->name('viewProject');
-
-    Route::get('/test/{project}', function ($projectID) {
-
-        $project = Project::where('account_id', auth()->user()->account_id)
-            ->findOrFail($projectID);
-
         $pages = Page::tree()
             ->where('project_id', $project->id)
             ->where('account_id', auth()->user()->account_id)
@@ -99,7 +79,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
             'parentPages' => $project->pages->pluck('name', 'id')
         ]);
 
-    })->name('testProject');
+    })->name('viewProject');
 
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
