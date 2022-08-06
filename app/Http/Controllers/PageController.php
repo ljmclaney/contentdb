@@ -236,6 +236,42 @@ class PageController extends Controller
            'files' => $field->json_content
         ]);
 
+    }
 
+    public function update(Request $request, Project $project, $pageID)
+    {
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections.fields')
+            ->findOrFail($pageID);
+
+        $page->update([
+            'name' => $request->input('name'),
+            'parent_id' => $request->input('parent_id')
+        ]);
+
+        session()->flash('toast', [
+            'title'   => 'Updated',
+            'message' => 'Page updated.',
+            'type'    => 'success'
+        ]);
+
+        return back();
+    }
+
+    public function delete(Request $request, Project $project, $pageID)
+    {
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections.fields')
+            ->findOrFail($pageID);
+
+        $page->delete();
+
+        session()->flash('toast', [
+            'title'   => 'Deleted',
+            'message' => 'Page paged.',
+            'type'    => 'success'
+        ]);
+
+        return back();
     }
 }

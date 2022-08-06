@@ -84,6 +84,8 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
         Route::get('/{page}', 'view')->name('viewPage');
+        Route::post('/{page}', 'update')->name('updatePage');
+        Route::delete('/{page}', 'delete')->name('deletePage');
         Route::get('/{page}/section/{section}', 'viewSection')->name('viewSection');
         Route::get('/{page}/structure', 'pageStructure')->name('pageStructure');
         Route::get('/{page}/structure/{section}', 'pageStructureSection')->name('pageStructureSection');

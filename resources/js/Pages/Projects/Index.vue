@@ -36,7 +36,7 @@
                                         </div>
                                         </div>
                                         <ul class="divide-y divide-gray-200">
-                                            <page-item v-for="page in pages" :project="project" :node="page"></page-item>
+                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="parentPages"></page-item>
                                         </ul>
                                     </div>
                                 </div>
