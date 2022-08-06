@@ -12,8 +12,8 @@
                                 <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
 
                             </div>
-                            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-3">
-                                <Link :href="route('viewArchivedProjects')" class="btn-outline">View archive</Link>
+                            <div class="mt-4 sm:mt-0 sm:ml-16 flex-col sm:flex-none space-y-3 sm:space-y-0 sm:space-x-3">
+                                <Link :href="route('viewArchivedProjects')" class="btn-outline mr-3 sm:mr-0">View archive</Link>
                                 <button @click="createProject = true" class="btn-primary">Create a project</button>
                             </div>
                         </div>
