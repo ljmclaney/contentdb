@@ -75,8 +75,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 
         return Inertia::render('Projects/Index', [
             'project' => $project,
-            'pages' => $pages,
-            'parentPages' => $project->pages->pluck('name', 'id')
+            'pages' => $pages
         ]);
 
     })->name('viewProject');

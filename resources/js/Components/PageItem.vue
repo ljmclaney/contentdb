@@ -56,9 +56,7 @@
                     <div class="mt-1">
                         <select name="parent_id" id="parent_id" v-model="node.parent_id" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                             <option value="" selected>No parent page</option>
-                            <option v-for="(option, index) in pages" :value="index">
-                                {{ option }}
-                            </option>
+                            <page-option v-for="page in pages" :node="page"></page-option>
                         </select>
                     </div>
                 </div>
@@ -101,6 +99,7 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import SlideOver from '@/Components/SlideOver.vue';
 import Modal from '@/Components/Modal.vue';
+import PageOption from '@/Components/PageOption.vue';
 
 export default {
     name: "node",
@@ -108,7 +107,8 @@ export default {
     components: {
         Link,
         SlideOver,
-        Modal
+        Modal,
+        PageOption
     },
 
     props: {

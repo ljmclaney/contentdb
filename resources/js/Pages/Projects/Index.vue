@@ -36,7 +36,7 @@
                                         </div>
                                         </div>
                                         <ul class="divide-y divide-gray-200">
-                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="parentPages"></page-item>
+                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="pages"></page-item>
                                         </ul>
                                     </div>
                                 </div>
@@ -74,11 +74,9 @@
                 <div>
                     <label for="parent_page" class="block text-sm font-medium text-gray-700">Parent page (optional)</label>
                     <div class="mt-1">
-                        <select type="text" name="parent_page" id="parent_page" v-model="parentPageId" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        <select name="parent_page" id="parent_page" v-model="parentPageId" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                             <option value="" selected>No parent page</option>
-                            <option v-for="(option, index) in parentPages" :value="index">
-                                {{ option }}
-                            </option>
+                            <page-option v-for="page in pages" :node="page"></page-option>
                         </select>
                     </div>
                 </div>
@@ -119,6 +117,7 @@ import Layout from '@/Layouts/App.vue'
 import SlideOver from '@/Components/SlideOver.vue'
 import Modal from '@/Components/Modal.vue'
 import PageItem from '@/Components/PageItem.vue'
+import PageOption from '@/Components/PageOption.vue'
 
 export default {
     components: {
@@ -126,13 +125,13 @@ export default {
         Layout,
         SlideOver,
         Modal,
-        PageItem
+        PageItem,
+        PageOption
     },
 
     props: {
         project: Object,
-        pages: Object,
-        parentPages: Object
+        pages: Object
     },
 
     data() {
