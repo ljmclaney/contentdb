@@ -15,10 +15,15 @@ class PageController extends Controller
 {
     public function store(Request $request, Project $project)
     {
+
+        $request->validate([
+            'name' => ['required']
+        ]);
+
         $page = Page::create([
             'account_id' => auth()->user()->account_id,
             'project_id' => $project->id,
-            'name' => $request->input('newPage'),
+            'name' => $request->input('name'),
             'parent_id' => $request->input('parentPageId')
         ]);
 
@@ -240,6 +245,11 @@ class PageController extends Controller
 
     public function update(Request $request, Project $project, $pageID)
     {
+
+        $request->validate([
+            'name' => ['required']
+        ]);
+
         $page = Page::where('account_id', auth()->user()->account_id)
             ->with('sections.fields')
             ->findOrFail($pageID);

@@ -10,9 +10,13 @@ class ProjectController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => ['required']
+        ]);
+
         Project::create([
             'account_id' => auth()->user()->account_id,
-            'name' => $request->input('newProject'),
+            'name' => $request->input('name'),
             'uuid' => Str::uuid()->toString()
         ]);
 
