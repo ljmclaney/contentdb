@@ -2,7 +2,7 @@
     <li  class="relative">
         <div class="flex items-center justify-between" @mouseover="displayEdit = true" @mouseleave="displayEdit = false">
             <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4 truncate">
-                <Link :href="route('viewPage', [project.id, node.id])" class="text-indigo-600 hover:text-indigo-900 truncate inline-flex items-center">
+                <Link :href="route('viewSharedPage', [project.id, project.uuid, node.id])" class="text-indigo-600 hover:text-indigo-900 truncate inline-flex items-center">
 
                     <span v-if="node.depth" class="flex items-center mr-2">
                         <span v-for="n in node.depth">
