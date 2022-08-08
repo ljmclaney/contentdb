@@ -14,7 +14,8 @@ class Project extends Model
     protected $fillable = [
         'account_id',
         'name',
-        'uuid'
+        'uuid',
+        'password'
     ];
 
     public function pages()

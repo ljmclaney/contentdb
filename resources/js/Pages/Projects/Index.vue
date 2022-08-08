@@ -96,13 +96,57 @@
         </slide-over>
 
         <modal :open="showShare" @closeModal="showShare = false">
+            <div class="mb-5">
+                <label for="link" class="block font-medium">Share link</label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-5 w-5 text-gray-400" viewBox="0 0 16 16">
+                                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="link" id="link" :value="route('viewSharedProject', [project.id, project.uuid])" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300" placeholder="John Smith">
+                    </div>
+                    <button @click="copyLink(route('viewSharedProject', [project.id, project.uuid]))" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 bg-black text-sm font-medium rounded-r-md text-white hover:bg-indigo-700">
+                        <svg v-if="!copiedLink" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span v-if="copiedLink">Copied!</span>
+                    </button>
+                </div>
+            </div>
+
             <div>
-                <input type="text" :value="route('viewSharedProject', [project.id, project.uuid])" class="w-full border border-gray-300" readonly>
+                <label for="email" class="block font-medium">Password (optional)</label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-5 w-5 text-gray-400" viewBox="0 0 16 16">
+                                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="share_password" v-model="project.password" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300">
+                    </div>
+                    <button @click="copyPassword(project.password)" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 bg-black text-sm font-medium rounded-r-md text-white hover:bg-indigo-700">
+                        <svg v-if="!copiedPassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span v-if="copiedPassword">Copied!</span>
+                    </button>
+                </div>
             </div>
-            <div class="mt-5 sm:mt-6">
-                <button @click="copyShareLink(route('viewSharedProject', [project.id, project.uuid]))" type="button" class="btn-primary">
-                    {{ shareText }}</button>
+
+            <div class="flex justify-end items-center mt-10">
+                <button @click="savePassword()" type="button" class="btn-primary" :disabled="savingShareSettings">
+                    <span v-if="!savingShareSettings">Apply</span>
+                    <span v-if="savingShareSettings" class="flex items-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+                        Applying
+                    </span>
+                </button>
             </div>
+
         </modal>
 
 
@@ -140,8 +184,11 @@ export default {
             newPage: null,
             parentPageId: null,
             showShare: false,
-            shareText: 'Copy link',
-            newPageLoading: false
+            copiedLink: false,
+            copiedPassword: null,
+            newPageLoading: false,
+            sharePassword: null,
+            savingShareSettings: false
         }
     },
 
@@ -171,9 +218,31 @@ export default {
             )
         },
 
-        copyShareLink(link) {
+        copyLink(link) {
             navigator.clipboard.writeText(link)
-            this.shareText = 'Copied!'
+            this.copiedLink = true
+        },
+
+        copyPassword(link) {
+            navigator.clipboard.writeText(link)
+            this.copiedPassword = true
+        },
+
+        savePassword() {
+
+            this.savingShareSettings = true
+
+            this.$inertia.post(route('saveProjectPassword', this.project.id),
+                {
+                    password: this.project.password
+                },
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.savingShareSettings = false
+                    }
+                }
+            )
         }
     }
 }

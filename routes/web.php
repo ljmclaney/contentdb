@@ -53,13 +53,12 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         ->name('storeProject');
 
     Route::get('/edit/{project}', 'edit')->name('editProject');
-
     Route::get('/archive/{project}', 'archive')->name('archiveProject');
-
     Route::get('/restore/{project}', 'restore')
         ->withTrashed()
         ->middleware('ensureUserCanCreateProjects')
         ->name('restoreProject');
+    Route::post('/password/{id}', 'saveProjectPassword')->name('saveProjectPassword');
 
     Route::get('/{project}', function ($projectID) {
 
@@ -96,6 +95,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 });
 
 Route::prefix('share/{project}/{uuid}')->group(function() {
+
     Route::get('/', function (\App\Models\Project $project, $uuid) {
 
         if ($project->uuid !== $uuid) {

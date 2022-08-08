@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -47,5 +48,23 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('projects');
+    }
+
+    public function saveProjectPassword(Request $request, $id)
+    {
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->findOrFail($id);
+
+        $project->update([
+            'password' => $request->input('password')
+        ]);
+
+        session()->flash('toast', [
+            'title'   => 'Project updated!',
+            'message' => 'Sharing link password saved.',
+            'type'    => 'success'
+        ]);
+
+        return back();
     }
 }
