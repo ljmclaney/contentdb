@@ -284,4 +284,21 @@ class PageController extends Controller
 
         return back();
     }
+
+    public function markAsCompleted(Request $request, Project $project, $pageID)
+    {
+        $page = Page::findOrFail($pageID);
+
+        $page->update([
+            'status' => 'completed'
+        ]);
+
+        session()->flash('toast', [
+            'title'   => 'Page updated',
+            'message' => 'Page marked as completed.',
+            'type'    => 'success'
+        ]);
+
+        return back();
+    }
 }

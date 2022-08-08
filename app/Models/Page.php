@@ -16,7 +16,8 @@ class Page extends Model
         'account_id',
         'project_id',
         'name',
-        'parent_id'
+        'parent_id',
+        'status'
     ];
 
     public function project()

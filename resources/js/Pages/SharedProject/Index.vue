@@ -33,24 +33,17 @@
                         <div class="p-5 flex flex-col">
                             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
-                                    <table class="min-w-full divide-y divide-gray-300">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold  sm:pl-6 md:pl-0">Name</th>
-                                            <th scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200">
-                                        <tr v-for="page in pages">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium  sm:pl-6 md:pl-0">
-                                                <Link :href="route('viewSharedPage', [project.id, uuid, page.id])" class="text-indigo-600 hover:text-indigo-900">{{ page.name }}</Link>
-                                            </td>
-                                            <td class="whitespace-nowrap py-4 px-3 text-black text-right">
-                                                {{ page.updated_at }}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="min-w-full divide-y divide-gray-300">
+                                        <div>
+                                            <div class="flex items-center justify-between">
+                                                <div scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</div>
+                                                <div scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</div>
+                                            </div>
+                                        </div>
+                                        <ul class="divide-y divide-gray-200">
+                                            <shared-page-item v-for="page in pages" :project="project" :node="page" :pages="pages"></shared-page-item>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -76,11 +69,13 @@
 
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/Shared.vue'
+import SharedPageItem from "@/Components/SharedPageItem.vue";
 
 export default {
     components: {
         Link,
-        Layout
+        Layout,
+        SharedPageItem
     },
 
     props: {

@@ -91,6 +91,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         Route::post('/{page}/fields', 'saveFields')->name('saveFields');
         Route::post('/{page}/sections', 'saveSection')->name('saveSection');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
+        Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
     });
 });
 
@@ -101,9 +102,15 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
             abort(404);
         }
 
+        $pages = Page::tree()
+            ->where('project_id', $project->id)
+            ->get()
+            ->toTree()
+            ->toArray();
+
         return Inertia::render('SharedProject/Index', [
             'project' => $project,
-            'pages' => $project->pages,
+            'pages' => $pages,
             'uuid' => $uuid
         ]);
     })->name('viewSharedProject');
@@ -161,6 +168,7 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
 Route::controller(PageController::class)->prefix('/projects/{project}/pages')->group(function() {
     Route::post('/{page}/fields', 'saveFields')->name('saveFields');
     Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
+    Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
 });
 
 Route::controller(FigmaController::class)->prefix('/figma')->group(function() {
@@ -191,9 +199,5 @@ Route::get('/storage/files/{account}/{file}', function ($account, $file) {
         '/public/files/'. $account . '/' . $file);
 
 })->name('files');
-
-Route::get('/test', function (Request $request) {
-    dd(\DB::getPdo()->getAttribute(\PDO::ATTR_SERVER_VERSION));
-});
 
 require __DIR__.'/auth.php';
