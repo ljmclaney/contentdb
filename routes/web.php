@@ -190,7 +190,7 @@ Route::post('/check-password/{project}', function (Request $request, \App\Models
         return back();
     }
 
-    session()->put('project_' . $project->uuid . '_access', true);
+    session()->put('project_' . $project->uuid . '_has_access', true);
 
     return redirect()->route('viewSharedProject', [$project->id, $project->uuid]);
 

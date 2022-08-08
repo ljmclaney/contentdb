@@ -18,7 +18,7 @@ class EnsureUserCanAccessProject
     {
         $project = $request->route('project');
 
-        if (session()->has('project_' . $project->uuid . '_access')) {
+        if (session()->has('project_' . $project->uuid . '_has_access')) {
             return $next($request);
         }
 
