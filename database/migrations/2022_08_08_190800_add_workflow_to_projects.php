@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workflows', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('account_id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('projects', function (Blueprint $table) {
+            $table->unsignedInteger('workflow_id')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workflows');
+        Schema::table('projects', function (Blueprint $table) {
+            $table->dropColumn('workflow_id');
+        });
     }
 };
