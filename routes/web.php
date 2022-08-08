@@ -94,7 +94,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     });
 });
 
-Route::prefix('share/{project}/{uuid}')->group(function() {
+Route::prefix('share/{project}/{uuid}')->middleware(['ensureUserCanAccessProject'])->group(function() {
 
     Route::get('/', function (\App\Models\Project $project, $uuid) {
 
@@ -164,6 +164,37 @@ Route::prefix('share/{project}/{uuid}')->group(function() {
         ]);
     })->name('viewSharedSection');
 });
+
+Route::get('/password-protected/{project}/{uuid}', function (\App\Models\Project $project, $uuid) {
+
+    if ($project->uuid !== $uuid) {
+        abort(404);
+    }
+
+    return Inertia::render('SharedProject/Password', [
+        'project' => $project,
+        'uuid' => $uuid
+    ]);
+})->name('passwordProtected');
+
+Route::post('/check-password/{project}', function (Request $request, \App\Models\Project $project) {
+
+    if ($project->password !== $request->input('password')) {
+
+        session()->flash('toast', [
+            'title'   => 'Incorrect password!',
+            'message' => 'Please try again.',
+            'type'    => 'error'
+        ]);
+
+        return back();
+    }
+
+    session()->put('project_' . $project->uuid . '_access', true);
+
+    return redirect()->route('viewSharedProject', [$project->id, $project->uuid]);
+
+})->name('checkPassword');
 
 Route::controller(PageController::class)->prefix('/projects/{project}/pages')->group(function() {
     Route::post('/{page}/fields', 'saveFields')->name('saveFields');
