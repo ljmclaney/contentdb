@@ -192,4 +192,8 @@ Route::get('/storage/files/{account}/{file}', function ($account, $file) {
 
 })->name('files');
 
+Route::get('/test', function (Request $request) {
+    dd(\DB::getPdo()->getAttribute(\PDO::ATTR_SERVER_VERSION));
+});
+
 require __DIR__.'/auth.php';
