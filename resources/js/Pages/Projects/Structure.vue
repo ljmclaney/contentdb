@@ -161,8 +161,9 @@ export default {
 
         let $this = this;
 
-        var el = document.getElementById('fields');
-        var sortable = Sortable.create(el, {
+        const fieldsEl = document.getElementById('fields');
+
+        Sortable.create(fieldsEl, {
             onChange: function (evt) {
 
                 let list = this.toArray();
@@ -175,7 +176,7 @@ export default {
 
                     $this.fields[field].sort_order = index
                 })
-            },
+            }
         });
 
     },

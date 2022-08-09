@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/inertia-vue3';
         <div>
             <Link href="/">
                 <span class="text-2xl font-bold text-black">
-                    Author
+                    CollectContent
                 </span>
             </Link>
         </div>

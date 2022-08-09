@@ -46,7 +46,7 @@
 
                     <div class="pt-6">
                         <h3 class="text-xl font-bold mb-2">Can I cancel my subscription anytime?</h3>
-                        <p>Yes! You can cancel or pause your subscription at anytime from your account page. When cancelling your subscription, you will retain access to Author until the end of your billing period.</p>
+                        <p>Yes! You can cancel or pause your subscription at anytime from your account page. When cancelling your subscription, you will retain access to CollectContent until the end of your billing period.</p>
                     </div>
 
                     <div class="pt-6">

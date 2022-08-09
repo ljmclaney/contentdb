@@ -4,7 +4,7 @@
         <header class="bg-black text-white py-4 px-4 md:px-10 flex justify-between items-center relative z-30">
 
             <div class="flex items-center">
-                <Link href="/projects" class="text-2xl mr-10 font-bold">Author</Link>
+                <Link href="/projects" class="text-2xl mr-10 font-bold">CollectContent</Link>
             </div>
 
             <ul class="hidden sm:flex items-center space-x-[30px]">

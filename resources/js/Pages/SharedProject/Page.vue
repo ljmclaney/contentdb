@@ -4,7 +4,7 @@
         <header class="bg-black text-white py-4 px-10 flex justify-between items-center relative z-30">
 
             <div class="flex items-center">
-                <a href="https://www.withauthor.com" class="text-2xl mr-10 font-bold">Author</a>
+                <a href="https://www.withauthor.com" class="text-2xl mr-10 font-bold">CollectContent</a>
             </div>
 
             <ul class="flex items-center space-x-[30px]">
