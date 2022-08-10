@@ -36,7 +36,7 @@ class GoogleController extends Controller
 
             $newUser = new User;
 
-            $newUser->nam = $user->name;
+            $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->google_id = $user->id;
             $newUser->account_id = $account->id;
