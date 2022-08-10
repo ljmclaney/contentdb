@@ -43,24 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = [
-        'initials'
-    ];
-
     public function account()
     {
         return $this->belongsTo(Account::class);
-    }
-
-    public function getInitialsAttribute()
-    {
-        $words = explode(' ', $this->name);
-        $initials = null;
-
-        foreach ($words as $w) {
-            $initials .= $w[0];
-        }
-
-        return strtoupper($initials);
     }
 }
