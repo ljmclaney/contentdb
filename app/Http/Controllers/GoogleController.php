@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -28,10 +29,18 @@ class GoogleController extends Controller
         if($existingUser){
             auth()->login($existingUser, true);
         } else {
-            $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
+
+            $account = Account::create([
+                'trial_ends_at' => now()->addDays(14),
+            ]);
+
+            $newUser = new User;
+
+            $newUser->nam = $user->name;
+            $newUser->email = $user->email;
+            $newUser->google_id = $user->id;
+            $newUser->account_id = $account->id;
+
             $newUser->save();
 
             auth()->login($newUser, true);
