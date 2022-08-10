@@ -14,7 +14,7 @@
                 <li><Link href="/logout" class="hover:underline underline-offset-4 transition-all font-medium">Logout</Link></li>
                 <!--<li>
                     <button class="w-8 h-8 rounded bg-brand-blue text-sm text-indigo-600 flex justify-center items-center hover:bg-indigo-600 hover:text-white transition-all">
-                       
+
                     </button>
                 </li>-->
             </ul>
