@@ -26,7 +26,9 @@ class GoogleController extends Controller
             return redirect('/login');
         }
 
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $user->email)
+            ->where('google_id', $user->id)
+            ->first();
 
         if($existingUser){
             auth()->login($existingUser, true);
