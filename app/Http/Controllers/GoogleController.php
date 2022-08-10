@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
+use Illuminate\Support\Str;
 
 class GoogleController extends Controller
 {
@@ -40,6 +42,7 @@ class GoogleController extends Controller
             $newUser->email = $user->email;
             $newUser->google_id = $user->id;
             $newUser->account_id = $account->id;
+            $newUser->password = Hash::make(Str::uuid()->toString());
 
             $newUser->save();
 
