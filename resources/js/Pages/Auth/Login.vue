@@ -81,7 +81,7 @@ const submit = () => {
 
             <div class="text-center mt-6">
                 <Link v-if="canResetPassword" :href="route('register')" class="inline-flex font-medium text-gray-600 hover:text-gray-900">
-                    <span class="underline">Don't have an account?</span> <span class="text-indigo-600 ml-2">Sign up</span>
+                    <span class="underline">Don't have an account?</span> <span class="text-brand-dark-blue ml-2">Sign up</span>
                 </Link>
             </div>
 

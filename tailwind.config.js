@@ -18,12 +18,11 @@ module.exports = {
                 'DEFAULT': '0px 2px 7px rgba(0, 0, 0, 0.05)'
             },
             colors: {
-                'brand-grey': '#fbfbfb',
-                'brand-yellow': '#FFEBCC',
-                'brand-green': '#DAF2F0',
-                'brand-orange': '#FFE2D6',
-                'brand-blue': '#D7E1F9',
-                'brand-red': '#FAD8D6',
+                'brand-blue': '#7ED7FF',
+                'brand-dark-blue': '#33acfa',
+                'indigo-500': '#7ED7FF',
+                'indigo-600': '#7ED7FF',
+                'indigo-700': '#7ED7FF'
             }
         },
     },

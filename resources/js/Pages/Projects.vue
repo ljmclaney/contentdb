@@ -30,7 +30,7 @@
                                         <tbody class="divide-y divide-gray-200">
                                         <tr v-for="project in projects">
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-gray-900 sm:pl-6 md:pl-0">
-                                                <Link :href="route('viewProject', project.id )" class="text-indigo-600 hover:text-indigo-900">{{ project.name }}</Link>
+                                                <Link :href="route('viewProject', project.id )" class="text-black hover:text-brand-dark-blue">{{ project.name }}</Link>
                                             </td>
                                             <td class="whitespace-nowrap py-4 px-3 text-black w-3/4 text-right">
                                                 {{ project.updated_at }}
