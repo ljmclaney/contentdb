@@ -30,7 +30,7 @@
                 </svg>
             </button>
 
-            <Link v-if="$page.props.subscription.onTrial && $page.props.subscription.trialEndsAt" href="/account/upgrade" class="hidden lg:block absolute bg-brand-dark-blue text-black font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
+            <Link v-if="($page.props.subscription.onTrial && $page.props.subscription.trialEndsAt) && ($page.props.subscription.trialEndsAt <= 14)" href="/account/upgrade" class="hidden lg:block absolute bg-brand-dark-blue text-black font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
                 {{ $page.props.subscription.trialEndsAt }} days remaining
             </Link>
 
