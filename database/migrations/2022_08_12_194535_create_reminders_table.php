@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('client_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->date('reminder_date');
             $table->longText('reminder_message');
             $table->timestamps();

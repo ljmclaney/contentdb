@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PageController;
@@ -92,6 +93,14 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         Route::post('/{page}/sections', 'saveSection')->name('saveSection');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
         Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
+    });
+
+    Route::controller(ClientController::class)->prefix('/clients')->group(function() {
+        Route::get('/', 'index')->name('clients');
+        Route::post('/', 'createClient')->name('createClient');
+        Route::get('/{client}', 'viewClient')->name('viewClient');
+        Route::post('/{client}', 'updateClient')->name('updateClient');
+        Route::delete('/{client}', 'deleteClient')->name('deleteClient');
     });
 });
 

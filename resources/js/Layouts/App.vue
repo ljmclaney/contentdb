@@ -9,6 +9,7 @@
 
             <ul class="hidden sm:flex items-center space-x-[30px]">
                 <li><Link href="/projects" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Projects</Link></li>
+                <li><Link href="/clients" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/clients') }">Clients</Link></li>
                 <li v-if="$page.props.subscription.onTrial"><Link href="/account/upgrade" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link></li>
                 <li v-if="$page.props.subscription.subscribed"><a href="/billing-portal" class="hover:underline underline-offset-4 transition-all font-medium">Manage subscription</a></li>
                 <li><Link href="/logout" class="hover:underline underline-offset-4 transition-all font-medium">Logout</Link></li>
