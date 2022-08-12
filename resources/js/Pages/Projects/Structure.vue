@@ -62,7 +62,7 @@
 
             <div class="fixed bottom-[20px] left-0 w-full flex flex-col items-center justify-center pointer-events-none">
 
-                <div v-if="!Object.keys(fields).length" class="mb-[10px] animate-bounce rounded-full w-[50px] h-[50px] bg-brand-blue border border-indigo-600 text-indigo-600 flex justify-center items-center">
+                <div v-if="!Object.keys(fields).length" class="mb-[10px] animate-bounce rounded-full w-[50px] h-[50px] bg-brand-blue text-black flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                     </svg>
