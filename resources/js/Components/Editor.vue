@@ -1,6 +1,6 @@
 <template>
     <div class="h-full relative">
-        <div class="bg-white flex flex-wrap justify-center items-center sticky top-[90px] left-0 z-[999]" v-if="editor">
+        <div class="bg-white flex flex-wrap justify-center items-center sticky top-[235px] md:top-[83px] left-0 z-[999]" v-if="editor">
             <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'bg-gray-100': editor.isActive('heading', { level: 1 }) }">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
                     <path d="M8.637 13V3.669H7.379V7.62H2.758V3.67H1.5V13h1.258V8.728h4.62V13h1.259zm5.329 0V3.669h-1.244L10.5 5.316v1.265l2.16-1.565h.062V13h1.244z"/>
@@ -40,6 +40,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
                     <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
                     <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                </svg>
+            </button>
+            <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="openImageUploader = true" :class="{ 'bg-gray-100': openImageUploader }">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                 </svg>
             </button>
             <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="viewHtml()">
@@ -109,6 +115,12 @@
                             <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
                         </svg>
                     </button>
+                    <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="openImageUploader = true" :class="{ 'bg-gray-100': openImageUploader }">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                    </button>
                     <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="viewHtml()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
                             <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z"/>
@@ -129,6 +141,8 @@
             </div>
         </fullscreen>
 
+        <image-uploader :open="openImageUploader" @closeUploader="insertImage"></image-uploader>
+
 
     </div>
 </template>
@@ -138,14 +152,17 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import Placeholder from '@tiptap/extension-placeholder'
 import Link from '@tiptap/extension-link'
 import CharacterCount from '@tiptap/extension-character-count'
+import Image from '@tiptap/extension-image'
 import WideModal from '@/Components/WideModal.vue'
 import Fullscreen from '@/Components/Fullscreen.vue'
+import ImageUploader from "@/Components/ImageUploader.vue";
 
 export default {
     components: {
         EditorContent,
         WideModal,
-        Fullscreen
+        Fullscreen,
+        ImageUploader
     },
 
     props: {
@@ -165,7 +182,8 @@ export default {
             editor: null,
             html: null,
             openHtmlView: false,
-            openFullscreen: false
+            openFullscreen: false,
+            openImageUploader: false
         }
     },
 
@@ -198,6 +216,9 @@ export default {
                 CharacterCount.configure({
                     limit: this.characterLimit,
                 }),
+                Image.configure({
+                    allowBase64: true,
+                })
             ],
             editorProps: {
                 attributes: {
@@ -285,6 +306,12 @@ export default {
             });
 
             return result.substring(1, result.length-3);
+        },
+
+        insertImage(data) {
+            this.editor.chain().focus().setImage({ src: data }).run()
+
+            this.openImageUploader = false
         }
     }
 }

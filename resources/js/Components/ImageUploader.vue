@@ -68,12 +68,11 @@ export default {
     methods: {
         closeUploader() {
             this.$emit('closeUploader', this.base64)
+
+            this.base64 = null
         },
 
         async uploadImage(event) {
-
-            console.log(event);
-
             const file = event.target.files[0];
             this.base64 = await this.convertBase64(file);
         },

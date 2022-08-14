@@ -75,8 +75,6 @@
 
             </div>
         </div>
-
-        <image-uploader :open="true" @closeUploader="insertImage"></image-uploader>
     </Layout>
 </template>
 <script>
@@ -86,15 +84,13 @@ import Layout from '@/Layouts/App.vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Field from '@/Components/Field.vue'
-import ImageUploader from "@/Components/ImageUploader.vue";
 
 export default {
     components: {
         Link,
         Layout,
         EditorContent,
-        Field,
-        ImageUploader
+        Field
     },
 
     props: {
@@ -149,10 +145,6 @@ export default {
                 }
             )
         },
-
-        insertImage(data) {
-            alert(data)
-        }
     }
 }
 </script>
