@@ -12,11 +12,11 @@
                 <li v-if="$page.props.subscription.onTrial"><Link href="/account/upgrade" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link></li>
                 <li v-if="$page.props.subscription.subscribed"><a href="/billing-portal" class="hover:underline underline-offset-4 transition-all font-medium">Manage subscription</a></li>
                 <li><Link href="/logout" class="hover:underline underline-offset-4 transition-all font-medium">Logout</Link></li>
-                <li>
+                <!--<li>
                     <button class="w-8 h-8 rounded bg-brand-blue text-sm text-indigo-600 flex justify-center items-center hover:bg-indigo-600 hover:text-white transition-all">
-                        {{ $page.props.auth.user.initials }}
+
                     </button>
-                </li>
+                </li>-->
             </ul>
 
             <button class="sm:hidden text-white" @click="showMenu = !showMenu">
@@ -30,8 +30,8 @@
                 </svg>
             </button>
 
-            <Link v-if="$page.props.subscription.onTrial && $page.props.subscription.trialEndsAt" href="/account/upgrade" class="hidden lg:block absolute bg-indigo-600 text-white font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[140px] mx-auto text-xs">
-                {{ $page.props.subscription.trialEndsAt }} days remaining
+            <Link v-if="($page.props.subscription.onTrial && $page.props.subscription.trialEndsAt) && ($page.props.subscription.trialEndsAt <= 14)" href="/account/upgrade" class="hidden lg:block absolute bg-brand-dark-blue text-black font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[200px] mx-auto text-xs">
+                {{ $page.props.subscription.trialEndsAt }} days remaining - Upgrade
             </Link>
 
         </header>

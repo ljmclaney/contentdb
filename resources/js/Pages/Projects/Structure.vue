@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="max-w-3xl mx-auto px-4 relative pt-[10px] pb-[100px] ">
+        <div class="max-w-4xl mx-auto px-4 relative pt-[10px] pb-[100px] ">
 
             <div class="mb-10">
                 <div class="block">
@@ -26,7 +26,7 @@
                             </ul>
 
                             <div class="ml-5">
-                                <button @click="createSection = true" class="rounded-full bg-brand-blue w-10 h-10 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all">
+                                <button @click="createSection = true" class="rounded-full bg-brand-blue w-10 h-10 flex items-center justify-center hover:bg-indigo-600 hover:bg-brand-dark-blue transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                 </button>
                             </div>
@@ -62,7 +62,7 @@
 
             <div class="fixed bottom-[20px] left-0 w-full flex flex-col items-center justify-center pointer-events-none">
 
-                <div v-if="!Object.keys(fields).length" class="mb-[10px] animate-bounce rounded-full w-[50px] h-[50px] bg-brand-blue border border-indigo-600 text-indigo-600 flex justify-center items-center">
+                <div v-if="!Object.keys(fields).length" class="mb-[10px] animate-bounce rounded-full w-[50px] h-[50px] bg-brand-blue text-black flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                     </svg>
@@ -70,7 +70,7 @@
 
                 <div class="bg-white shadow-md p-2 flex items-center space-x-3 border border-gray-300 rounded">
 
-                    <button @click="addField('text')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-brand-blue border border-gray-300 hover:border-indigo-600 rounded text-black hover:text-indigo-600 transition-all relative group">
+                    <button @click="addField('text')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-brand-blue hover:text-black hover:border-brand-dark-blue border border-gray-300 rounded text-black transition-all relative group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z"/>
                         </svg>
@@ -81,7 +81,7 @@
                         </div>
                     </button>
 
-                    <button @click="addField('file')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-brand-blue border border-gray-300 hover:border-indigo-600 rounded text-black hover:text-indigo-600 transition-all relative group">
+                    <button @click="addField('file')" class="pointer-events-auto h-[50px] w-[50px] flex items-center justify-center bg-white hover:bg-brand-blue hover:text-black hover:border-brand-dark-blue border border-gray-300 rounded text-black transition-all relative group">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>

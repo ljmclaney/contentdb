@@ -25,6 +25,14 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
+    public function new()
+    {
+        return Inertia::render('Auth/LoginNew', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+        ]);
+    }
+
     /**
      * Handle an incoming authentication request.
      *

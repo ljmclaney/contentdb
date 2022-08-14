@@ -10,6 +10,15 @@
         @routes
         @vite('resources/js/app.js')
         @inertiaHead
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3DMNKRVBYW"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-3DMNKRVBYW');
+        </script>
     </head>
     <body class="font-sans antialiased text-black bg-white">
         @inertia

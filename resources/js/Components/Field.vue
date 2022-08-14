@@ -31,7 +31,7 @@
                         </progress>
 
                         <label class="relative overflow-hidden w-40 h-40 bg-white">
-                            <span class="w-40 h-40 bg-white border border-gray-300 rounded flex justify-center items-center text-black hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-500 transition-all relative z-20 cursor-pointer">Select file</span>
+                            <span class="w-40 h-40 bg-white border border-gray-300 rounded flex justify-center items-center text-black hover:bg-gray-50 hover:border-brand-dark-blue transition-all relative z-20 cursor-pointer">Select file</span>
                             <input type="file" @input="form.image = $event.target.files[0]" class="absolute z-10 top-0 opacity-0" />
                         </label>
 
