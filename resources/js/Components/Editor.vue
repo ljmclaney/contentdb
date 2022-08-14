@@ -135,7 +135,7 @@
             </div>
 
             <editor-content :editor="editor" class="focus:ring-0"/>
-            <div class="text-black max-w-4xl mx-auto text-indigo-600 font-medium sticky bottom-0 bg-white py-5 mt-5" v-if="editor">
+            <div class="text-black max-w-4xl mx-auto text-indigo-600 font-medium sticky bottom-0 bg-white py-5 mt-5 z-[999]" v-if="editor">
                 <div v-if="characterLimit">{{ editor.storage.characterCount.characters() }}/{{ characterLimit }} characters</div>
                 {{ editor.storage.characterCount.words() }} words
             </div>
@@ -217,7 +217,7 @@ export default {
                     limit: this.characterLimit,
                 }),
                 Image.configure({
-                    allowBase64: true,
+                    allowBase64: true
                 })
             ],
             editorProps: {

@@ -44,3 +44,11 @@
 .ProseMirror.ProseMirror-focused {
     outline: none;
 }
+
+.ProseMirror img {
+    border: 3px solid transparent;
+}
+
+img.ProseMirror-selectednode {
+    border: 3px solid #33acfa;
+}
