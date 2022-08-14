@@ -94,14 +94,13 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
         Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
     });
+});
 
-    Route::controller(ClientController::class)->prefix('/clients')->group(function() {
-        Route::get('/', 'index')->name('clients');
-        Route::post('/', 'createClient')->name('createClient');
-        Route::get('/{client}', 'viewClient')->name('viewClient');
-        Route::post('/{client}', 'updateClient')->name('updateClient');
-        Route::delete('/{client}', 'deleteClient')->name('deleteClient');
-    });
+Route::controller(ClientController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('/clients')->group(function() {
+    Route::get('/', 'index')->name('clients');
+    Route::post('/', 'createClient')->name('createClient');
+    Route::post('/{id}', 'updateClient')->name('updateClient');
+    Route::delete('/{id}', 'deleteClient')->name('deleteClient');
 });
 
 Route::prefix('share/{project}/{uuid}')->middleware(['ensureUserCanAccessProject'])->group(function() {
