@@ -15,7 +15,7 @@
 
         <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
-            <div class="max-w-3xl mx-auto space-y-[30px]">
+            <div class="max-w-4xl mx-auto space-y-[30px]">
 
                 <div class="bg-white rounded border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
