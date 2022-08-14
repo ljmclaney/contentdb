@@ -2,7 +2,7 @@
     <Layout>
         <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(projects).length}">
 
-            <div class="max-w-3xl mx-auto space-y-[30px]">
+            <div class="max-w-4xl mx-auto space-y-[30px]">
 
                 <div v-if="Object.keys(projects).length" class="bg-white rounded border border-gray-300">
 

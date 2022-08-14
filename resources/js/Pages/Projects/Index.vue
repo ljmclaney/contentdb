@@ -2,13 +2,14 @@
     <Layout>
         <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
-            <div class="max-w-3xl mx-auto space-y-[30px]">
+            <div class="max-w-4xl mx-auto space-y-[30px]">
 
                 <div class="bg-white rounded border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
                     <h3 class="text-2xl font-bold">{{ project.name }}</h3>
 
-                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none space-x-3">
+                    <div class="mt-4 sm:mt-0 sm:ml-16 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
                         <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
+                        <button @click="showCollaborators = true" class="btn-outline">Collaborators</button>
                         <button @click="showShare = !showShare" class="btn-primary">Share</button>
                     </div>
                 </div>
@@ -97,7 +98,7 @@
 
         <modal :open="showShare" @closeModal="showShare = false">
             <div class="mb-5">
-                <label for="link" class="block font-medium">Share link</label>
+                <label for="link" class="block font-medium mb-4 text-lg font-bold">Share a public link</label>
                 <div class="mt-1 flex rounded-md shadow-sm">
                     <div class="relative flex items-stretch flex-grow focus-within:z-10">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -106,7 +107,7 @@
                                 <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
                             </svg>
                         </div>
-                        <input type="text" name="link" id="link" :value="route('viewSharedProject', [project.id, project.uuid])" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300" placeholder="John Smith">
+                        <input type="text" name="link" id="link" :value="route('viewSharedProject', [project.id, project.uuid])" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300" readonly>
                     </div>
                     <button @click="copyLink(route('viewSharedProject', [project.id, project.uuid]))" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 bg-black text-sm font-medium rounded-r-md text-white hover:bg-indigo-700">
                         <svg v-if="!copiedLink" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -191,7 +192,8 @@ export default {
             copiedPassword: null,
             newPageLoading: false,
             sharePassword: null,
-            savingShareSettings: false
+            savingShareSettings: false,
+            showCollaborators: false
         }
     },
 
