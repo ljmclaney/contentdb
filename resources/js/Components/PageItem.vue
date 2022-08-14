@@ -41,7 +41,7 @@
             <node v-for="child in node.children" :project="project" :node="child" :pages="pages"></node>
         </ul>
 
-        <slide-over :open="editPage" @closeSlider="editPage = false" title="Create a page">
+        <slide-over :open="editPage" @closeSlider="editPage = false" title="Edit page">
 
             <div class="space-y-[15px]">
                 <div>
