@@ -85,7 +85,7 @@ export default {
             type: 'monthly',
             monthlyTiers: [
                 {
-                    name: 'Freelancer',
+                    name: 'Start',
                     href: '/account/upgrade/plan/freelancer-monthly',
                     priceMonthly: 9,
                     type: 'mo',
@@ -97,7 +97,7 @@ export default {
                     ],
                 },
                 {
-                    name: 'Agency',
+                    name: 'Pro',
                     href: '/account/upgrade/plan/agency-monthly',
                     priceMonthly: 29,
                     type: 'mo',
@@ -105,13 +105,14 @@ export default {
                         'Unlimited active projects',
                         'Unlimited pages per project',
                         'Unlimited content fields per page',
-                        'Shareable client links'
+                        'Shareable client links',
+                        'Dedicated support'
                     ],
                 },
             ],
             annualTiers: [
                 {
-                    name: 'Freelancer',
+                    name: 'Start',
                     href: '/account/upgrade/plan/freelancer-annual',
                     priceMonthly: 90,
                     type: 'yr',
@@ -123,7 +124,7 @@ export default {
                     ],
                 },
                 {
-                    name: 'Agency',
+                    name: 'Pro',
                     href: '/account/upgrade/plan/agency-annual',
                     priceMonthly: 290,
                     type: 'yr',
@@ -131,7 +132,8 @@ export default {
                         'Unlimited active projects',
                         'Unlimited pages per project',
                         'Unlimited content fields per page',
-                        'Shareable client links'
+                        'Shareable client links',
+                        'Dedicated support'
                     ],
                 },
             ],

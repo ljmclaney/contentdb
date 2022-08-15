@@ -1,9 +1,10 @@
 <template>
-    <div class="bg-white">
-        <div class="flex items-center relative border border-gray-300 rounded p-5 relative">
+    <div>
+        <div class="bg-white flex items-center relative border border-gray-300 rounded p-5 relative">
             <h3 class="text-lg font-bold">{{ fieldData.label }}</h3>
         </div>
-        <div class="p-5 pb-0 relative" v-if="fieldData.type !== 'divider'">
+
+        <div class="pt-5 relative" v-if="fieldData.type !== 'divider'">
 
             <div class="space-y-2.5" v-if="fieldData.type === 'text'">
                 <editor v-model="fieldData.html_content" :character-limit="fieldData.settings.character_limit" />

@@ -20,7 +20,7 @@
             gtag('config', 'G-3DMNKRVBYW');
         </script>
     </head>
-    <body class="font-sans antialiased text-black bg-white">
+    <body class="font-sans antialiased text-black bg-gray-50">
         @inertia
     </body>
 </html>

@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <Layout class="bg-gray-50">
 
         <header class="bg-black text-white py-4 px-10 flex justify-between items-center relative z-30">
 
