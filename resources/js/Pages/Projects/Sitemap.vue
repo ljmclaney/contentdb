@@ -38,8 +38,8 @@
         </div>
 
         <div class="py-10 px-4 md:px-10">
-            <div v-if="Object.keys(pages).length" >
-                <nav class="flex w-full h-screen overflow-x-auto">
+            <div v-if="Object.keys(pages).length" class="flex justify-center">
+                <nav class="flex h-screen overflow-x-auto">
                     <ul class="sitemap flex justify-start">
                         <sitemap-item  v-for="page in pages" :project="project" :node="page" :pages="pages"></sitemap-item>
                     </ul>
