@@ -1,6 +1,6 @@
 <template>
     <div class="h-full relative">
-        <div class="bg-white border border-gray-300 flex flex-wrap justify-center items-center sticky top-[235px] md:top-[82px] left-0 z-[999]" v-if="editor">
+        <div class="bg-white border border-gray-300 flex flex-wrap justify-center items-center sticky top-[235px] md:top-[82px] left-0 z-20" v-if="editor">
             <button class="inline-flex items-center px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-100" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'bg-gray-100': editor.isActive('heading', { level: 1 }) }">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
                     <path d="M8.637 13V3.669H7.379V7.62H2.758V3.67H1.5V13h1.258V8.728h4.62V13h1.259zm5.329 0V3.669h-1.244L10.5 5.316v1.265l2.16-1.565h.062V13h1.244z"/>

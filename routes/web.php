@@ -60,6 +60,9 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         ->middleware('ensureUserCanCreateProjects')
         ->name('restoreProject');
     Route::post('/password/{id}', 'saveProjectPassword')->name('saveProjectPassword');
+    Route::get('/content/{project}', 'viewAllContent')->name('viewAllContent');
+    Route::post('/content/{project}', 'saveAllContent')->name('saveAllContent');
+
 
     Route::get('/{project}', function ($projectID) {
 

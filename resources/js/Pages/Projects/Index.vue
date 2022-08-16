@@ -9,6 +9,7 @@
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
                         <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
+                        <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
                         <button @click="showShare = !showShare" class="btn-primary">Share</button>
                     </div>
                 </div>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Field;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
+use Batch;
 
 class ProjectController extends Controller
 {
@@ -62,6 +65,56 @@ class ProjectController extends Controller
         session()->flash('toast', [
             'title'   => 'Project updated!',
             'message' => 'Sharing link password saved.',
+            'type'    => 'success'
+        ]);
+
+        return back();
+    }
+
+    public function viewAllContent($id)
+    {
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->with('pages.sections.fields')
+            ->findOrFail($id);
+
+        return Inertia::render('Projects/Content', [
+            'project' => $project,
+            'pages' => $project->pages
+        ]);
+    }
+
+    public function saveAllContent(Request $request, $id)
+    {
+
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->with('pages.sections.fields')
+            ->findOrFail($id);
+
+        if (empty($request->input('pages'))) {
+            return back();
+        }
+
+        $fields = [];
+
+        foreach ($request->input('pages') as $page) {
+            foreach ($page['sections'] as $section) {
+                foreach ($section['fields'] as $field) {
+
+                    $fields[] = [
+                        'id' => $field['id'],
+                        'html_content' => $field['html_content']
+                    ];
+                }
+            }
+        }
+
+        $fieldInstance = new Field();
+
+        Batch::update($fieldInstance, $fields, 'id');
+
+        session()->flash('toast', [
+            'title'   => 'Saved',
+            'message' => 'Content fields saved.',
             'type'    => 'success'
         ]);
 

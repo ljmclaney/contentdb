@@ -81,15 +81,12 @@
 
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
-import { Editor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
 import Field from '@/Components/Field.vue'
 
 export default {
     components: {
         Link,
         Layout,
-        EditorContent,
         Field
     },
 
@@ -106,23 +103,6 @@ export default {
             editor: null,
             sortOrder: 0
         }
-    },
-
-    mounted() {
-        this.editor = new Editor({
-            content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-            extensions: [
-                StarterKit.configure({
-                    heading: {
-                        levels: [1, 2],
-                    }
-                })
-            ],
-        })
-    },
-
-    beforeUnmount() {
-        this.editor.destroy()
     },
 
     methods: {
