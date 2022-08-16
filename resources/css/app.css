@@ -76,7 +76,7 @@ img.ProseMirror-selectednode {
     z-index: 5;
 }
 
-.sitemap li:first-of-type {
+.sitemap > li:first-of-type {
     margin-left: 0;
 }
 
