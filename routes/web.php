@@ -83,6 +83,25 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 
     })->name('viewProject');
 
+    Route::get('/sitemap/{project}', function ($projectID) {
+
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->findOrFail($projectID);
+
+        $pages = Page::tree()
+            ->where('project_id', $project->id)
+            ->where('account_id', auth()->user()->account_id)
+            ->get()
+            ->toTree()
+            ->toArray();
+
+        return Inertia::render('Projects/Sitemap', [
+            'project' => $project,
+            'pages' => $pages
+        ]);
+
+    })->name('viewSitemap');
+
     Route::controller(PageController::class)->prefix('/{project}/pages')->group(function() {
         Route::post('/create', 'store')->name('storePage');
         Route::get('/{page}', 'view')->name('viewPage');

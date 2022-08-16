@@ -11,9 +11,10 @@
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
 
                 <div>
-                    <Link :href="route('viewSitemap', project.id)" class="btn-outline">
+                    <Link :href="route('viewProject', project.id)" class="btn-outline">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
                         </svg>
                     </Link>
                 </div>
@@ -36,48 +37,27 @@
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto px-4 relative pt-10 pb-[112px]">
-
-            <div class="max-w-4xl mx-auto space-y-[30px]">
-
-                <div v-if="Object.keys(pages).length" class="bg-white rounded border border-gray-300">
-
-                    <div>
-                        <div class="p-5 flex flex-col">
-                            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
-                                    <div class="min-w-full divide-y divide-gray-300">
-                                        <div>
-                                        <div class="flex items-center justify-between">
-                                            <div scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</div>
-                                            <div scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</div>
-                                        </div>
-                                        </div>
-                                        <ul class="divide-y divide-gray-200">
-                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="pages"></page-item>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div v-if="!Object.keys(pages).length" class="flex flex-col justify-center items-center text-center pt-[100px]">
-
-                    <div class="mb-[30px]">
-                        <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
-                        <p class="text-black">Add your content here. Start by creating your first page.</p>
-                    </div>
-
-                    <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
-
-                </div>
-
+        <div class="py-10 px-4 md:px-10">
+            <div v-if="Object.keys(pages).length" >
+                <nav class="flex w-full h-screen overflow-x-auto">
+                    <ul class="sitemap flex justify-start">
+                        <sitemap-item  v-for="page in pages" :project="project" :node="page" :pages="pages"></sitemap-item>
+                    </ul>
+                </nav>
             </div>
 
+            <div v-if="!Object.keys(pages).length" class="flex flex-col justify-center items-center text-center pt-[100px]">
+
+                <div class="mb-[30px]">
+                    <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
+                    <p class="text-black">Add your content here. Start by creating your first page.</p>
+                </div>
+
+                <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
+
+            </div>
         </div>
+
 
         <slide-over :open="createPage" @closeSlider="createPage = false" title="Create a page">
 
@@ -183,6 +163,7 @@ import SlideOver from '@/Components/SlideOver.vue'
 import Modal from '@/Components/Modal.vue'
 import PageItem from '@/Components/PageItem.vue'
 import PageOption from '@/Components/PageOption.vue'
+import SitemapItem from '@/Components/SitemapItem.vue'
 
 export default {
     components: {
@@ -191,7 +172,8 @@ export default {
         SlideOver,
         Modal,
         PageItem,
-        PageOption
+        PageOption,
+        SitemapItem
     },
 
     props: {
