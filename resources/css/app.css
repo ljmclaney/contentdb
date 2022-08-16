@@ -100,3 +100,7 @@ img.ProseMirror-selectednode {
     right: 0;
     z-index: 5;
 }
+
+.test {
+    background: #000;
+}

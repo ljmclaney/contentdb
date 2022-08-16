@@ -23,11 +23,11 @@
                 </div>
 
                 <div>
-                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
+                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
                 </div>
 
                 <div>
-                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
+                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
                 </div>
 
                 <div>

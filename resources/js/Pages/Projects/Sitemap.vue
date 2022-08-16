@@ -1,6 +1,5 @@
 <template>
     <Layout>
-
         <div class="sticky top-0 z-40 bg-white rounded border-b border-gray-300 py-5 px-4 md:px-10 md:flex md:items-center md:justify-between mb-[30px]">
             <ul class="text-xl md:text-2xl font-bold flex items-center space-x-[10px]">
                 <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">Projects</Link></li>
@@ -24,11 +23,11 @@
                 </div>
 
                 <div>
-                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
+                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
                 </div>
 
                 <div>
-                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
+                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
                 </div>
 
                 <div>
@@ -148,13 +147,9 @@
             </div>
 
         </modal>
-
-
     </Layout>
 </template>
 <script>
-
-import {cloneDeep} from "lodash";
 
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
