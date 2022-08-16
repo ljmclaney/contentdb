@@ -1,5 +1,22 @@
 <template>
     <Layout>
+
+        <div class="sticky top-0 z-40 bg-white rounded border-b border-gray-300 py-5 px-4 md:px-10 md:flex md:items-center md:justify-between mb-[30px]">
+            <ul class="text-xl md:text-2xl font-bold flex items-center space-x-[10px]">
+                <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">Projects</Link></li>
+            </ul>
+
+            <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
+                <div>
+                    <Link :href="route('viewArchivedProjects')" class="btn-outline mr-3 sm:mr-0">View archive</Link>
+                </div>
+
+                <div>
+                    <button @click="createProject = true" class="btn-primary">Create a project</button>
+                </div>
+            </div>
+        </div>
+
         <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(projects).length}">
 
             <div class="max-w-4xl mx-auto space-y-[30px]">
@@ -7,16 +24,6 @@
                 <div v-if="Object.keys(projects).length" class="bg-white rounded border border-gray-300">
 
                     <div>
-                        <div class="sm:flex sm:items-center border-b border-gray-300 p-5">
-                            <div class="sm:flex-auto">
-                                <h1 class="text-xl font-semibold text-gray-900">Projects</h1>
-
-                            </div>
-                            <div class="mt-4 sm:mt-0 sm:ml-16 flex-col sm:flex-none space-y-3 sm:space-y-0 sm:space-x-3">
-                                <Link :href="route('viewArchivedProjects')" class="btn-outline mr-3 sm:mr-0">View archive</Link>
-                                <button @click="createProject = true" class="btn-primary">Create a project</button>
-                            </div>
-                        </div>
                         <div class="p-5 flex flex-col">
                             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
@@ -53,7 +60,10 @@
                             To get started, create your first project.</p>
                     </div>
 
-                    <button @click="createProject = true" type="button" class="btn-primary">Create a project</button>
+                    <div class="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
+                        <Link :href="route('viewArchivedProjects')" class="btn-outline mr-3 sm:mr-0">View archive</Link>
+                        <button @click="createProject = true" type="button" class="btn-primary">Create a project</button>
+                    </div>
 
                 </div>
 

@@ -1,18 +1,31 @@
 <template>
     <Layout>
+
+        <div class="sticky top-0 z-40 bg-white rounded border-b border-gray-300 py-5 px-4 md:px-10 md:flex md:items-center md:justify-between mb-[30px]">
+            <ul class="text-xl md:text-2xl font-bold flex items-center space-x-[10px]">
+                <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">Projects</Link></li>
+                <li class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></li>
+                <li class="truncate text-gray-600">{{ project.name }}</li>
+            </ul>
+
+            <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
+                <div>
+                    <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
+                </div>
+
+                <div>
+                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
+                </div>
+
+                <div>
+                    <button @click="showShare = !showShare" class="btn-primary">Share</button>
+                </div>
+            </div>
+        </div>
+
         <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="max-w-4xl mx-auto space-y-[30px]">
-
-                <div class="bg-white rounded border border-gray-300 p-5 sm:flex sm:items-center sm:justify-between">
-                    <h3 class="text-2xl font-bold">{{ project.name }}</h3>
-
-                    <div class="mt-4 sm:mt-0 sm:ml-16 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-                        <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
-                        <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
-                        <button @click="showShare = !showShare" class="btn-primary">Share</button>
-                    </div>
-                </div>
 
                 <div v-if="Object.keys(pages).length" class="bg-white rounded border border-gray-300">
 
