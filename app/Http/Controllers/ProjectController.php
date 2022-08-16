@@ -67,4 +67,12 @@ class ProjectController extends Controller
 
         return back();
     }
+
+    public function exportPDF($id)
+    {
+        $project = Project::where('account_id', auth()->user()->account_id)
+            ->with('pages')
+            ->findOrFail($id);
+        
+    }
 }

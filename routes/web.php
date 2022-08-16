@@ -61,6 +61,8 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         ->name('restoreProject');
     Route::post('/password/{id}', 'saveProjectPassword')->name('saveProjectPassword');
 
+    Route::get('/export-pdf/{project}', 'exportPDF')->name('exportPDF');
+
     Route::get('/{project}', function ($projectID) {
 
         $project = Project::where('account_id', auth()->user()->account_id)
