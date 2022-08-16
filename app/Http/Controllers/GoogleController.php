@@ -27,29 +27,28 @@ class GoogleController extends Controller
         }
 
         $existingUser = User::where('email', $user->email)
-            ->where('google_id', $user->id)
             ->first();
 
-        if($existingUser){
+        if ($existingUser){
             auth()->login($existingUser, true);
-        } else {
-
-            $account = Account::create([
-                'trial_ends_at' => now()->addDays(14),
-            ]);
-
-            $newUser = new User;
-
-            $newUser->name = $user->name;
-            $newUser->email = $user->email;
-            $newUser->google_id = $user->id;
-            $newUser->account_id = $account->id;
-            $newUser->password = Hash::make(Str::uuid()->toString());
-
-            $newUser->save();
-
-            auth()->login($newUser, true);
+            return redirect()->to('/projects');
         }
+
+        $account = Account::create([
+            'trial_ends_at' => now()->addDays(14),
+        ]);
+
+        $newUser = new User;
+
+        $newUser->name = $user->name;
+        $newUser->email = $user->email;
+        $newUser->google_id = $user->id;
+        $newUser->account_id = $account->id;
+        $newUser->password = Hash::make(Str::uuid()->toString());
+
+        $newUser->save();
+
+        auth()->login($newUser, true);
 
         return redirect()->to('/projects');
     }
