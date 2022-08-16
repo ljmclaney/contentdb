@@ -27,8 +27,6 @@ class GoogleController extends Controller
         }
 
         $existingUser = User::where('email', $user->email)
-            ->where('google_id', $user->id)
-            ->orWhereNull('google_id')
             ->first();
 
         if ($existingUser){
