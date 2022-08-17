@@ -327,11 +327,11 @@ class PageController extends Controller
             foreach($newSection->fields as $key => $field) {
 
                 $fields[$key] = $field->replicate();
-
-
+                
                 $fields[$key]->section_id = $newSection->id;
                 $fields[$key]->page_id = $clone->id;
-                $fields[$key]['html_content'] = null;
+                $fields[$key]->html_content = null;
+                $fields[$key]->json_content = null;
 
                 $fields[$key]->save();
 
