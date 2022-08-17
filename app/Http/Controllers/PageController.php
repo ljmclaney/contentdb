@@ -301,4 +301,45 @@ class PageController extends Controller
 
         return back();
     }
+
+    public function clonePage(Request $request, Project $project, $pageID)
+    {
+        $page = Page::where('account_id', auth()->user()->account_id)
+            ->with('sections.fields')
+            ->findOrFail($pageID);
+
+        $clone = $page->replicate();
+
+        $clone->name .= ' (copy)';
+
+        $clone->save();
+
+        foreach ($page->sections as $section) {
+
+            $newSection = $section->replicate();
+
+            $newSection->page_id = $clone->id;
+
+            $newSection->save();
+
+            $fields = [];
+
+            foreach($newSection->fields as $key => $field) {
+
+                $fields[$key] = $field->replicate();
+
+
+                $fields[$key]->section_id = $newSection->id;
+                $fields[$key]->page_id = $clone->id;
+                $fields[$key]['html_content'] = null;
+
+                $fields[$key]->save();
+
+            }
+
+        }
+
+        return back();
+
+    }
 }

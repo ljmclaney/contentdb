@@ -107,6 +107,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         Route::get('/{page}', 'view')->name('viewPage');
         Route::post('/{page}', 'update')->name('updatePage');
         Route::delete('/{page}', 'delete')->name('deletePage');
+        Route::post('/{page}/clone', 'clonePage')->name('clonePage');
         Route::get('/{page}/section/{section}', 'viewSection')->name('viewSection');
         Route::get('/{page}/structure', 'pageStructure')->name('pageStructure');
         Route::get('/{page}/structure/{section}', 'pageStructureSection')->name('pageStructureSection');
