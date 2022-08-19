@@ -455,13 +455,13 @@
       "assets/app.5edc7745.css"
     ]
   },
-  "resources/js/Pages/Welcome.css": {
-    "file": "assets/Welcome.a442896b.css",
-    "src": "resources/js/Pages/Welcome.css"
-  },
   "Field.css": {
     "file": "assets/Field.41e23941.css",
     "src": "Field.css"
+  },
+  "resources/js/Pages/Welcome.css": {
+    "file": "assets/Welcome.a442896b.css",
+    "src": "resources/js/Pages/Welcome.css"
   },
   "resources/css/app.css": {
     "file": "assets/app.5edc7745.css",
