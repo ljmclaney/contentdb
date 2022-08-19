@@ -4,15 +4,15 @@
 
             <div class="sm:flex sm:flex-col sm:align-center">
                 <h1 class="text-5xl font-extrabold text-black sm:text-center">Upgrade your account</h1>
-                <div class="relative self-center mt-6 bg-gray-100 rounded-lg p-0.5 flex sm:mt-8">
-                    <button @click="tiers = monthlyTiers" type="button" class="relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8">Monthly</button>
-                    <button  @click="tiers = annualTiers" type="button" class="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8">Annual</button>
+                <div class="relative self-center mt-6 bg-gray-200 rounded-lg p-0.5 flex sm:mt-8">
+                    <button @click="tiers = monthlyTiers" type="button" class="relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-black whitespace-nowrap focus:outline-none focus:z-10 sm:w-auto sm:px-8">Monthly</button>
+                    <button  @click="tiers = annualTiers" type="button" class="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:z-10 sm:w-auto sm:px-8">Annual</button>
                 </div>
             </div>
 
             <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-6 lg:max-w-7xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
 
-                <div v-for="tier in tiers" :key="tier.name" class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                <div v-for="tier in tiers" :key="tier.name" class="border border-gray-200 bg-white rounded-lg shadow-sm divide-y divide-gray-200">
                     <div class="p-6 text-center">
                         <h2 class="text-2xl leading-6 font-extrabold text-black">{{ tier.name }}</h2>
                         <p class="mt-4">

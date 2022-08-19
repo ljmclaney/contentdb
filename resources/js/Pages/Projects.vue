@@ -96,14 +96,14 @@
         </slide-over>
 
         <modal-large :open="newUser" @closeModal="newUser = false">
-            <div class="py-10 px-20">
-                <h3 class="text-4xl font-extrabold mb-8">Experience all of CollectContent with a 14-day trial of Pro</h3>
+            <div class="p-5 md:py-10 md:px-20">
+                <h3 class="text-2xl md:text-4xl font-extrabold mb-8">Experience all of CollectContent with a 14-day trial of Pro</h3>
                 <p class="mb-5">We've upgraded you to a free 14-day trial of the Pro plan. Try the full range of features on CollectContent before deciding which plan is right for you.</p>
 
                 <p>At the end of your trial, we'll automatically move you to the Free plan unless you choose to upgrade</p>
 
                 <div class="flex justify-center mt-12">
-                    <img src="@/../img/upgrade.svg" width="300">
+                    <img src="@/../img/upgrade.svg" class="w-[200px] md:w-[300px]">
                 </div>
 
                 <div class="flex justify-center mt-12">
