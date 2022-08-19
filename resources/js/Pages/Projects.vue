@@ -94,6 +94,24 @@
             </div>
 
         </slide-over>
+
+        <modal-large :open="newUser" @closeModal="newUser = false">
+            <div class="py-10 px-20">
+                <h3 class="text-4xl font-extrabold mb-8">Experience all of CollectContent with a 14-day trial of Pro</h3>
+                <p class="mb-5">We've upgraded you to a free 14-day trial of the Pro plan. Try the full range of features on CollectContent before deciding which plan is right for you.</p>
+
+                <p>At the end of your trial, we'll automatically move you to the Free plan unless you choose to upgrade</p>
+
+                <div class="flex justify-center mt-12">
+                    <img src="@/../img/upgrade.svg" width="300">
+                </div>
+
+                <div class="flex justify-center mt-12">
+                    <button class="btn-secondary-large" @click="closeUpgrade">Get started</button>
+                </div>
+            </div>
+        </modal-large>
+
     </Layout>
 </template>
 <script>
@@ -103,16 +121,20 @@ import {cloneDeep} from "lodash";
 import { Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/App.vue'
 import SlideOver from '@/Components/SlideOver.vue'
+import ModalLarge from '@/Components/ModalLarge.vue'
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
     components: {
         Link,
         Layout,
-        SlideOver
+        SlideOver,
+        ModalLarge
     },
 
     props: {
-        projects: Object
+        projects: Object,
+        newUser: Boolean
     },
 
     data() {
@@ -147,6 +169,10 @@ export default {
             )
 
 
+        },
+
+        closeUpgrade() {
+            Inertia.visit('/projects')
         }
     }
 }

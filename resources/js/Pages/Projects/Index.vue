@@ -170,7 +170,6 @@
 
         </modal>
 
-
     </Layout>
 </template>
 <script>

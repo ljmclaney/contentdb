@@ -15,10 +15,6 @@ class EnsureUserIsSubscribed
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && !$request->user()->account->subscribed('default') && !$request->user()->account->onTrial()) {
-            return redirect()->route('upgradeAccount');
-        }
-
         return $next($request);
     }
 }

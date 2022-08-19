@@ -35,7 +35,8 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         $projects = Project::where('account_id', auth()->user()->account_id)->get();
 
         return Inertia::render('Projects', [
-            'projects' => $projects
+            'projects' => $projects,
+            'newUser' => (bool) request()->query('newUser', false)
         ]);
     })->name('projects');
 

@@ -39,6 +39,14 @@
     .btn-outline {
         @apply inline-flex items-center justify-center px-4 py-2 h-[42px] border border-gray-300 text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-100;
     }
+
+    .btn-primary-large {
+        @apply inline-flex items-center px-4 py-3 border border-transparent text-lg font-medium rounded text-white bg-black hover:bg-brand-dark-blue hover:text-black hover:border-transparent transition-all;
+    }
+
+    .btn-secondary-large {
+        @apply inline-flex items-center px-4 py-3 border border-transparent text-lg font-medium rounded bg-brand-dark-blue hover:bg-black hover:text-white hover:border-transparent transition-all;
+    }
 }
 
 .ProseMirror.ProseMirror-focused {

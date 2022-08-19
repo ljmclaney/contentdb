@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <div class="max-w-3xl mx-auto px-4 relative pt-[50px] pb-[112px]">
+        <div class="max-w-7xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="sm:flex sm:flex-col sm:align-center">
                 <h1 class="text-5xl font-extrabold text-black sm:text-center">Upgrade your account</h1>
@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
+            <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-6 lg:max-w-7xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
 
                 <div v-for="tier in tiers" :key="tier.name" class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
                     <div class="p-6 text-center">
@@ -85,12 +85,12 @@ export default {
             type: 'monthly',
             monthlyTiers: [
                 {
-                    name: 'Start',
+                    name: 'Starter',
                     href: '/account/upgrade/plan/freelancer-monthly',
-                    priceMonthly: 9,
+                    priceMonthly: 29,
                     type: 'mo',
                     includedFeatures: [
-                        '2 active projects',
+                        '3 active projects',
                         'Unlimited pages per project',
                         'Unlimited content fields per page',
                         'Shareable client links'
@@ -99,7 +99,20 @@ export default {
                 {
                     name: 'Pro',
                     href: '/account/upgrade/plan/agency-monthly',
-                    priceMonthly: 29,
+                    priceMonthly: 49,
+                    type: 'mo',
+                    includedFeatures: [
+                        '10 active projects',
+                        'Unlimited pages per project',
+                        'Unlimited content fields per page',
+                        'Shareable client links',
+                        'Dedicated support'
+                    ],
+                },
+                {
+                    name: 'Unlimited',
+                    href: '/account/upgrade/plan/unlimited-monthly',
+                    priceMonthly: 99,
                     type: 'mo',
                     includedFeatures: [
                         'Unlimited active projects',
@@ -112,9 +125,9 @@ export default {
             ],
             annualTiers: [
                 {
-                    name: 'Start',
+                    name: 'Starter',
                     href: '/account/upgrade/plan/freelancer-annual',
-                    priceMonthly: 90,
+                    priceMonthly: 290,
                     type: 'yr',
                     includedFeatures: [
                         '2 active projects',
@@ -126,7 +139,20 @@ export default {
                 {
                     name: 'Pro',
                     href: '/account/upgrade/plan/agency-annual',
-                    priceMonthly: 290,
+                    priceMonthly: 490,
+                    type: 'yr',
+                    includedFeatures: [
+                        '10 active projects',
+                        'Unlimited pages per project',
+                        'Unlimited content fields per page',
+                        'Shareable client links',
+                        'Dedicated support'
+                    ],
+                },
+                {
+                    name: 'Unlimited',
+                    href: '/account/upgrade/plan/unlimited-annual',
+                    priceMonthly: 990,
                     type: 'yr',
                     includedFeatures: [
                         'Unlimited active projects',
