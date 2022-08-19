@@ -49,8 +49,9 @@
                                     <div class="min-w-full divide-y divide-gray-300">
                                         <div>
                                         <div class="flex items-center justify-between">
-                                            <div scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-3/4">Name</div>
-                                            <div scope="col" class="py-3.5 px-3 text-left font-semibold text-right">Last updated</div>
+                                            <div class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-1/2">Name</div>
+                                            <div class="py-3.5 pl-4 pr-3 text-left font-semibold sm:pl-6 md:pl-0 w-1/4">Status</div>
+                                            <div class="py-3.5 px-3 text-left font-semibold text-right w-1/4">Last updated</div>
                                         </div>
                                         </div>
                                         <ul class="divide-y divide-gray-200">

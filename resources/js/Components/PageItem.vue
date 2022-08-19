@@ -1,7 +1,7 @@
 <template>
     <li  class="relative">
         <div class="flex items-center justify-between" @mouseover="displayEdit = true" @mouseleave="displayEdit = false">
-            <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-3/4 truncate">
+            <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-1/2 truncate">
                 <Link :href="route('viewPage', [project.id, node.id])" class="text-black hover:text-brand-dark-blue truncate inline-flex items-center">
 
                     <span v-if="node.depth" class="flex items-center mr-2">
@@ -15,12 +15,21 @@
                     {{ node.name }}
                 </Link>
             </div>
-            <div v-if="!displayEdit" class="whitespace-nowrap py-4 px-3 text-black text-right flex-shrink-0">
+
+            <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-1/4 flex-shrink-0">
+                <span class="rounded bg-yellow-100 px-1 py-1 text-sm text-yellow-800" v-if="node.status === null || node.status === 'Draft'">Draft</span>
+                <span class="rounded bg-blue-100 px-1 py-1 text-sm text-blue-800"  v-if="node.status === 'In Progress'">{{ node.status }}</span>
+                <span class="rounded bg-orange-100 px-1 py-1 text-sm text-orange-800"  v-if="node.status === 'Under Review'">{{ node.status }}</span>
+                <span class="rounded bg-purple-100 px-1 py-1 text-sm text-purple-800"  v-if="node.status === 'Ready To Publish'">{{ node.status }}</span>
+                <span class="rounded bg-green-100 px-1 py-1 text-sm text-green-800"  v-if="node.status === 'Published'">{{ node.status }}</span>
+            </div>
+
+            <div v-if="!displayEdit" class="whitespace-nowrap py-4 px-3 text-black text-right w-1/4 flex-shrink-0">
                 {{ node.updated_at }}
             </div>
 
-            <div v-if="displayEdit" class="bg-white">
-                <div class="bg-gray-100 rounded  z-20 flex items-center top-1.5 right-0">
+            <div v-if="displayEdit" class="bg-white w-1/4 flex justify-end">
+                <div class="bg-gray-100 rounded z-20 flex items-center top-1.5 right-0">
                     <button class="p-4 hover:bg-gray-200 transition-all" @click="editPage = true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 h-4" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>

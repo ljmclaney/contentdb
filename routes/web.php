@@ -116,6 +116,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
         Route::post('/{page}/sections', 'saveSection')->name('saveSection');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
         Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
+        Route::post('/{page}/status', 'changeStatus')->name('changeStatus');
     });
 });
 

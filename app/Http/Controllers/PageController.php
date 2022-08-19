@@ -285,17 +285,17 @@ class PageController extends Controller
         return back();
     }
 
-    public function markAsCompleted(Request $request, Project $project, $pageID)
+    public function changeStatus(Request $request, Project $project, $pageID)
     {
         $page = Page::findOrFail($pageID);
 
         $page->update([
-            'status' => 'completed'
+            'status' => $request->input('status')
         ]);
 
         session()->flash('toast', [
             'title'   => 'Page updated',
-            'message' => 'Page marked as completed.',
+            'message' => 'Page status updated.',
             'type'    => 'success'
         ]);
 
@@ -327,7 +327,7 @@ class PageController extends Controller
             foreach($newSection->fields as $key => $field) {
 
                 $fields[$key] = $field->replicate();
-                
+
                 $fields[$key]->section_id = $newSection->id;
                 $fields[$key]->page_id = $clone->id;
                 $fields[$key]->html_content = null;

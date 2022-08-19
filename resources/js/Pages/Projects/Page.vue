@@ -12,12 +12,10 @@
                     <Link :href="route('pageStructure', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Edit structure</Link>
                 </div>
 
-                <div v-if="page.status !== 'completed'">
-                    <button @click="markAsCompleted()" class="btn-outline">Mark as completed</button>
-                </div>
-
-                <div v-if="page.status === 'completed'">
-                    <div class="inline-flex items-center justify-center px-4 py-2 border border-green-700 bg-green-600 text-brand-green-700 text-base font-medium rounded">Completed</div>
+                <div>
+                    <select v-model="page.status" class="border-gray-300 rounded" @change="changeStatus()">
+                        <option v-for="option in statusOptions">{{ option }}</option>
+                    </select>
                 </div>
 
                 <div>
@@ -95,13 +93,20 @@ export default {
         project: Object,
         sections: Object,
         fields: Object,
-        selectedSection: Object
+        selectedSection: Object,
     },
 
     data() {
         return {
             editor: null,
-            sortOrder: 0
+            sortOrder: 0,
+            statusOptions: [
+                'Draft',
+                'In Progress',
+                'Under Review',
+                'Ready To Publish',
+                'Published'
+            ]
         }
     },
 
@@ -118,8 +123,10 @@ export default {
             )
         },
 
-        markAsCompleted() {
-            this.$inertia.post(route('markAsCompleted', [this.project.id, this.page.id]),
+        changeStatus() {
+            this.$inertia.post(route('changeStatus', [this.project.id, this.page.id]), {
+                status: this.page.status
+                },
                 {
                     preserveScroll: true
                 }
