@@ -8,7 +8,7 @@
 
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
                 <div>
-                    <button @click="createProject = true" class="btn-primary">Add a member</button>
+                    <button @click="inviteUser = true" class="btn-primary">Add a member</button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
 
         </div>
 
-        <slide-over :open="createProject" @closeSlider="createProject = false" title="Add a member">
+        <slide-over :open="inviteUser" @closeSlider="inviteUser = false" title="Add a member">
 
             <div class="space-y-[15px]">
                 <div>
@@ -115,7 +115,7 @@ export default {
 
     data() {
         return {
-            createProject: false,
+            inviteUser: false,
             inviteEmail: null,
             inviteMessage: null,
             inviteRole: '',
@@ -147,14 +147,16 @@ export default {
 
             this.inviteEmailLoading = true
 
-            this.$inertia.post('/projects/create',
+            this.$inertia.post(route('inviteMember'),
                 {
-                    name: this.inviteEmail
+                    inviteEmail: this.inviteEmail,
+                    inviteMessage: this.inviteMessage,
+                    inviteRole: this.inviteRole
                 },
                 {
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.createProject = false
+                        this.inviteUser = false
                         this.inviteEmail = null
                         this.inviteEmailLoading = false
                     },

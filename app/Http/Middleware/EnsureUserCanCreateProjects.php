@@ -16,14 +16,14 @@ class EnsureUserCanCreateProjects
      */
     public function handle($request, Closure $next)
     {
-        $projectCount = Project::where('account_id', $request->user()->account->id)
+        $projectCount = Project::where('account_id', session()->get('account')->id)
             ->count();
 
-        if ($request->user()->account->onTrial()) {
+        if (session()->get('account')->onTrial()) {
             return $next($request);
         }
 
-        if (empty($request->user()->account->subscribed('default')) && $projectCount >= 1) {
+        if (empty(session()->get('account')->subscribed('default')) && $projectCount >= 1) {
             session()->flash('toast', [
                 'title'   => 'Project limit reached',
                 'message' => 'You will need to archive a project before creating or restoring a project.',
@@ -33,9 +33,9 @@ class EnsureUserCanCreateProjects
             return back();
         }
 
-        if ($request->user() && $request->user()->account->subscribed('default')) {
+        if ($request->user() && session()->get('account')->subscribed('default')) {
 
-            $planType = planType($request->user()->account->subscription('default')->stripe_price);
+            $planType = planType(session()->get('account')->subscription('default')->stripe_price);
 
             if ($planType === 'freelancer' && $projectCount >= 3) {
 

@@ -26,7 +26,7 @@ class EnsureUserCanAccessProject
             return redirect()->route('passwordProtected', [$project->id, $project->uuid]);
         }
 
-        if (auth()->check() && $project->account_id === auth()->user()->account_id) {
+        if (auth()->check() && $project->account_id === session()->get('account')->id) {
             return $next($request);
         }
 

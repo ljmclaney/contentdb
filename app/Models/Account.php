@@ -11,7 +11,8 @@ class Account extends LaratrustTeam
     use HasFactory, Billable;
 
     protected $fillable = [
-        'trial_ends_at'
+        'trial_ends_at',
+        'name'
     ];
 
     protected $casts = [

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamMemberController;
@@ -263,8 +264,14 @@ Route::controller(GoogleController::class)->group(function(){
     Route::get('social/google/callback', 'googleCallback');
 });
 
-Route::controller(TeamMemberController::class)->group(function(){
-    Route::get('team-members', 'index')->name('viewTeamMembers');
+Route::controller(TeamMemberController::class)->prefix('team-members')->group(function(){
+    Route::get('/', 'index')->name('viewTeamMembers');
+    Route::post('/invite', 'inviteMember')->name('inviteMember');
+});
+
+Route::controller(InviteController::class)->prefix('invite')->group(function(){
+    Route::get('/{uuid}/{token}', 'viewInvite')->name('viewInvite');
+    Route::post('/{uuid}/{token}', 'acceptInvite')->name('acceptInvite');
 });
 
 Route::get('/temp/assign-roles', function() {

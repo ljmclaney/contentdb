@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InviteUser;
 use App\Models\Account;
+use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -49,22 +52,19 @@ class TeamMemberController extends Controller
         $user = User::where('email', $request->input('inviteEmail'))
             ->first();
 
-        if ($user) {
-            $account->users()->attach($user);
-
-            // send invite email
-
-            return back();
-        }
-
-        $user = User::create([
+        $invite = Invite::create([
+            'account_id' => $account->id,
+            'user_id' => !empty($user) ? $user->id : null,
+            'sender_user_id' => auth()->id(),
             'email' => $request->input('inviteEmail'),
-            'password' => Hash::make(Str::uuid()->toString()),
+            'message' => $request->input('inviteMessage'),
+            'role' => $request->input('inviteRole'),
+            'uuid' => Str::uuid()->toString(),
+            'token' => Str::uuid()->toString(),
+            'status' => 'pending'
         ]);
 
-        $account->users()->attach($user);
-
-        // send invite email
+        Mail::to($request->input('inviteEmail'))->send(new InviteUser($invite));
 
         return back();
     }
