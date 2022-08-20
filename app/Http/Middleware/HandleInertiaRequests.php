@@ -49,36 +49,27 @@ class HandleInertiaRequests extends Middleware
 
         if (auth()->check()) {
 
-            // todo - move to login, add a check here e.g. permission not set then set it here
-            $roles = auth()->user()->getRoles(session()->get('account')->name);
-            $permissions = auth()->user()->allPermissions(null, session()->get('account')->name);
-
-            $userPermissions = [];
-
-            if ($permissions->count()) {
-                foreach ($permissions as $permission) {
-                    $userPermissions[$permission->name] = true;
-                }
-            }
+            $roles = getRoles();
+            $permissions = getPermissions();
 
             $data = array_merge($data, [
                 'roles' => $roles,
-                'permissions' => $userPermissions
+                'permissions' => $permissions
             ]);
 
             $planType = null;
 
-            if ($request->user()->account->subscribed('default')) {
-                $price = $request->user()->account->subscription('default')->stripe_price;
+            if (session()->get('account')->subscribed('default')) {
+                $price = session()->get('account')->subscription('default')->stripe_price;
 
                 $planType = planType($price);
             }
 
             $data = array_merge($data, [
                 'subscription' => [
-                    'onTrial' =>    !empty($request->user()->account->subscription('default')) ? $request->user()->account->subscription('default')->onTrial() : $request->user()->account->onTrial(),
-                    'trialEndsAt' => !empty($trialDate = $request->user()->account->trialEndsAt()) ? Carbon::now()->startOfDay()->diffInDays($trialDate->endOfDay(), false) : null,
-                    'subscribed' => $request->user()->account->subscribed('default'),
+                    'onTrial' =>    !empty(session()->get('account')->subscription('default')) ? session()->get('account')->subscription('default')->onTrial() : session()->get('account')->onTrial(),
+                    'trialEndsAt' => !empty($trialDate = session()->get('account')->trialEndsAt()) ? Carbon::now()->startOfDay()->diffInDays($trialDate->endOfDay(), false) : null,
+                    'subscribed' => session()->get('account')->subscribed('default'),
                     'planType' => $planType
                 ]
             ]);

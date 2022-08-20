@@ -33,7 +33,7 @@ Route::get('/', function () {
 Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
-        $projects = Project::where('account_id', auth()->user()->account_id)->get();
+        $projects = Project::where('account_id', session()->get('account')->id)->get();
 
         return Inertia::render('Projects', [
             'projects' => $projects,
@@ -42,7 +42,7 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     })->name('projects');
 
     Route::get('/archive', function () {
-        $projects = Project::where('account_id', auth()->user()->account_id)
+        $projects = Project::where('account_id', session()->get('account')->id)
             ->onlyTrashed()
             ->get();
 
@@ -68,12 +68,12 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 
     Route::get('/{project}', function ($projectID) {
 
-        $project = Project::where('account_id', auth()->user()->account_id)
+        $project = Project::where('account_id', session()->get('account')->id)
             ->findOrFail($projectID);
 
         $pages = Page::tree()
             ->where('project_id', $project->id)
-            ->where('account_id', auth()->user()->account_id)
+            ->where('account_id', session()->get('account')->id)
             ->get()
             ->toTree()
             ->toArray();
@@ -87,12 +87,12 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 
     Route::get('/sitemap/{project}', function ($projectID) {
 
-        $project = Project::where('account_id', auth()->user()->account_id)
+        $project = Project::where('account_id', session()->get('account')->id)
             ->findOrFail($projectID);
 
         $pages = Page::tree()
             ->where('project_id', $project->id)
-            ->where('account_id', auth()->user()->account_id)
+            ->where('account_id', session()->get('account')->id)
             ->get()
             ->toTree()
             ->toArray();

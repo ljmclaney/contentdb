@@ -16,7 +16,7 @@ class ShareLinkController extends Controller
     public function store(Request $request, Project $project)
     {
         ShareLink::create([
-            'account_id' => auth()->user()->account_id,
+            'account_id' => session()->get('account')->id,
             'project_id' => $project->id,
             'uuid' => Str::uuid()->toString()
         ]);

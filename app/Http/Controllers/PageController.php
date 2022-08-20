@@ -21,14 +21,14 @@ class PageController extends Controller
         ]);
 
         $page = Page::create([
-            'account_id' => auth()->user()->account_id,
+            'account_id' => session()->get('account')->id,
             'project_id' => $project->id,
             'name' => $request->input('name'),
             'parent_id' => $request->input('parentPageId')
         ]);
 
         Section::create([
-            'account_id' => auth()->user()->account_id,
+            'account_id' => session()->get('account')->id,
             'page_id' => $page->id,
             'name' => 'Content',
             'sort_order' => 0
@@ -41,7 +41,7 @@ class PageController extends Controller
 
     public function view(Request $request, Project $project, $pageID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections.fields')
             ->findOrFail($pageID);
 
@@ -66,7 +66,7 @@ class PageController extends Controller
 
     public function viewSection(Project $project, $pageID, $sectionID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections')->with('sections.fields', function($query) {
                 $query->orderBy('sort_order');
             })
@@ -92,7 +92,7 @@ class PageController extends Controller
 
     public function pageStructure(Project $project, $pageID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections')->with('sections.fields', function($query) {
                 $query->orderBy('sort_order');
             })
@@ -116,7 +116,7 @@ class PageController extends Controller
 
     public function pageStructureSection(Project $project,$pageID, $sectionID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections')->with('sections.fields', function($query) {
                 $query->orderBy('sort_order');
             })
@@ -144,7 +144,7 @@ class PageController extends Controller
         foreach ($request->input('fields') as $field) {
 
             $data = [
-                'account_id' => !empty($field['account_id']) ? $field['account_id'] : auth()->user()->account_id,
+                'account_id' => !empty($field['account_id']) ? $field['account_id'] : session()->get('account')->id,
                 'page_id' => $page->id,
                 'section_id' => $section->id,
                 'type' => $field['type'],
@@ -250,7 +250,7 @@ class PageController extends Controller
             'name' => ['required']
         ]);
 
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections.fields')
             ->findOrFail($pageID);
 
@@ -270,7 +270,7 @@ class PageController extends Controller
 
     public function delete(Request $request, Project $project, $pageID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections.fields')
             ->findOrFail($pageID);
 
@@ -304,7 +304,7 @@ class PageController extends Controller
 
     public function clonePage(Request $request, Project $project, $pageID)
     {
-        $page = Page::where('account_id', auth()->user()->account_id)
+        $page = Page::where('account_id', session()->get('account')->id)
             ->with('sections.fields')
             ->findOrFail($pageID);
 

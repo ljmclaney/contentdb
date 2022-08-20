@@ -51,8 +51,9 @@ class AuthenticatedSessionController extends Controller
             $account = auth()->user()->accounts[0];
         } else {
 
-            // move account to many to many
             $account = auth()->user()->account;
+
+            $account->users()->attach(auth()->user());
         }
 
         session()->put('account', $account);

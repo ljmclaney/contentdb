@@ -19,7 +19,7 @@ class ProjectController extends Controller
         ]);
 
         Project::create([
-            'account_id' => auth()->user()->account_id,
+            'account_id' => session()->get('account')->id,
             'name' => $request->input('name'),
             'uuid' => Str::uuid()->toString()
         ]);
@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
     public function saveProjectPassword(Request $request, $id)
     {
-        $project = Project::where('account_id', auth()->user()->account_id)
+        $project = Project::where('account_id', session()->get('account')->id)
             ->findOrFail($id);
 
         $project->update([
@@ -73,7 +73,7 @@ class ProjectController extends Controller
 
     public function viewAllContent($id)
     {
-        $project = Project::where('account_id', auth()->user()->account_id)
+        $project = Project::where('account_id', session()->get('account')->id)
             ->with('pages.sections.fields')
             ->findOrFail($id);
 
@@ -86,7 +86,7 @@ class ProjectController extends Controller
     public function saveAllContent(Request $request, $id)
     {
 
-        $project = Project::where('account_id', auth()->user()->account_id)
+        $project = Project::where('account_id', session()->get('account')->id)
             ->with('pages.sections.fields')
             ->findOrFail($id);
 
