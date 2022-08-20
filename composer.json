@@ -17,6 +17,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "mavinoo/laravel-batch": "^2.3",
         "mews/purifier": "^3.3",
+        "santigarcor/laratrust": "^7.1",
         "sentry/sentry-laravel": "^2.13",
         "socialiteproviders/google": "^4.1",
         "staudenmeir/laravel-adjacency-list": "^1.0",

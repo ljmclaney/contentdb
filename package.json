@@ -33,6 +33,7 @@
         "@vue-hero-icons/outline": "^1.7.2",
         "click-outside-vue3": "^4.0.1",
         "sortablejs": "^1.15.0",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.2",
+        "v-click-outside": "^3.2.0"
     }
 }

@@ -49,6 +49,23 @@ class HandleInertiaRequests extends Middleware
 
         if (auth()->check()) {
 
+            // todo - move to login, add a check here e.g. permission not set then set it here
+            $roles = auth()->user()->getRoles(auth()->user()->account->name);
+            $permissions = auth()->user()->allPermissions(null, auth()->user()->account->name);
+
+            $userPermissions = [];
+
+            if ($permissions->count()) {
+                foreach ($permissions as $permission) {
+                    $userPermissions[$permission->name] = true;
+                }
+            }
+
+            $data = array_merge($data, [
+                'roles' => $roles,
+                'permissions' => $userPermissions
+            ]);
+
             $planType = null;
 
             if ($request->user()->account->subscribed('default')) {
@@ -56,6 +73,7 @@ class HandleInertiaRequests extends Middleware
 
                 $planType = planType($price);
             }
+
             $data = array_merge($data, [
                 'subscription' => [
                     'onTrial' =>    !empty($request->user()->account->subscription('default')) ? $request->user()->account->subscription('default')->onTrial() : $request->user()->account->onTrial(),
@@ -64,6 +82,7 @@ class HandleInertiaRequests extends Middleware
                     'planType' => $planType
                 ]
             ]);
+
         }
 
         return $data;

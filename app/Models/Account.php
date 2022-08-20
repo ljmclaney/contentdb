@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Laratrust\Models\LaratrustTeam;
 use Laravel\Cashier\Billable;
 
-class Account extends Model
+class Account extends LaratrustTeam
 {
     use HasFactory, Billable;
 
@@ -17,4 +17,10 @@ class Account extends Model
     protected $casts = [
         'trial_ends_at' => 'datetime'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }

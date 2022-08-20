@@ -1,7 +1,6 @@
 <template>
     <main>
-
-        <header class="bg-black text-white py-4 px-4 md:px-10 flex justify-between items-center relative z-30">
+        <header class="bg-black text-white py-4 px-4 md:px-10 flex justify-between items-center relative z-50">
 
             <div class="flex items-center">
                 <Link href="/projects" class="text-2xl mr-10 font-bold">CollectContent</Link>
@@ -9,14 +8,9 @@
 
             <ul class="hidden sm:flex items-center space-x-[30px]">
                 <li><Link href="/projects" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Projects</Link></li>
-                <li v-if="!$page.props.subscription.subscribed"><Link href="/account/upgrade" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link></li>
-                <li v-if="$page.props.subscription.subscribed"><a href="/billing-portal" class="hover:underline underline-offset-4 transition-all font-medium">Manage subscription</a></li>
-                <li><Link href="/logout" class="hover:underline underline-offset-4 transition-all font-medium">Logout</Link></li>
-                <!--<li>
-                    <button class="w-8 h-8 rounded bg-brand-blue text-sm text-indigo-600 flex justify-center items-center hover:bg-indigo-600 hover:text-white transition-all">
-
-                    </button>
-                </li>-->
+                <li>
+                    <user-dropdown :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>
+                </li>
             </ul>
 
             <button class="sm:hidden text-white" @click="showMenu = !showMenu">
@@ -55,11 +49,13 @@
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
 import Toast from '@/Components/Toast.vue'
+import UserDropdown from '@/Components/UserDropdown.vue'
 
 export default {
     components: {
         Link,
-        Toast
+        Toast,
+        UserDropdown
     },
 
     data() {

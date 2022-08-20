@@ -262,4 +262,21 @@ Route::controller(GoogleController::class)->group(function(){
     Route::get('social/google/callback', 'googleCallback');
 });
 
+Route::get('/temp/assign-roles', function() {
+
+    $accounts = \App\Models\Account::with('users')->get();
+
+    $owner = \App\Models\Role::where('name', 'owner')->first();
+
+    foreach ($accounts as $account) {
+
+        foreach ($account->users as $user) {
+
+            $user->attachRole($owner, $account);
+        }
+    }
+
+
+})->name('checkPassword');
+
 require __DIR__.'/auth.php';
