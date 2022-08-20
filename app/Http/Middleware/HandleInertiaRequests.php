@@ -50,8 +50,8 @@ class HandleInertiaRequests extends Middleware
         if (auth()->check()) {
 
             // todo - move to login, add a check here e.g. permission not set then set it here
-            $roles = auth()->user()->getRoles(auth()->user()->account->name);
-            $permissions = auth()->user()->allPermissions(null, auth()->user()->account->name);
+            $roles = auth()->user()->getRoles(session()->get('account')->name);
+            $permissions = auth()->user()->allPermissions(null, session()->get('account')->name);
 
             $userPermissions = [];
 

@@ -9,7 +9,7 @@
 
         <div v-if="open" class="origin-top-right absolute right-0 z-50 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1" role="none">
-                <Link v-if="!subscription.subscribed" href="/account/upgrade" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/team-members') }">Team members</Link>
+                <Link v-if="permissions['manage-team-members']" :href="route('viewTeamMembers')" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/team-members') }">Team members</Link>
                 <Link v-if="permissions['manage-billing'] && !subscription.subscribed" href="/account/upgrade" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link>
                 <a v-if="permissions['manage-billing'] && subscription.subscribed" href="/billing-portal" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Manage subscription</a>
                 <Link href="/logout" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Logout</Link>

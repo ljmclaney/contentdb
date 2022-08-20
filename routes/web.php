@@ -5,6 +5,7 @@ use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamMemberController;
 use App\Models\Page;
 use App\Models\Project;
 use Illuminate\Foundation\Application;
@@ -260,6 +261,10 @@ Route::get('/storage/files/{account}/{file}', function ($account, $file) {
 Route::controller(GoogleController::class)->group(function(){
     Route::get('social/google', 'redirect')->name('auth.google');
     Route::get('social/google/callback', 'googleCallback');
+});
+
+Route::controller(TeamMemberController::class)->group(function(){
+    Route::get('team-members', 'index')->name('viewTeamMembers');
 });
 
 Route::get('/temp/assign-roles', function() {
