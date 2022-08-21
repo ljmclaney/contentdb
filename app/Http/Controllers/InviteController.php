@@ -26,8 +26,6 @@ class InviteController extends Controller
 
         if ($invite->user) {
 
-
-
             $invite->user->attachRole($role, $invite->account);
 
             session()->flash('toast', [

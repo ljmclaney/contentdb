@@ -86,7 +86,6 @@ class RegisteredUserController extends Controller
 
         }
 
-
         return redirect('/projects');
     }
 }
