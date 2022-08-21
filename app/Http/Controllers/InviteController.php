@@ -26,7 +26,11 @@ class InviteController extends Controller
 
         if ($invite->user) {
 
+            $invite->account->users()->attach($invite->user);
+
             $invite->user->attachRole($role, $invite->account);
+
+            $invite->setRestrictedProjects($invite->user, $invite->account);
 
             session()->flash('toast', [
                 'title'   => 'Success!',

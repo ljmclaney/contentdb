@@ -24,12 +24,12 @@ if (! function_exists('getPermissions')) {
     function getPermissions()
     {
 
-        if (session()->has('permissions')) {
+        if (!empty(session()->get('permissions'))) {
 
             return session()->get('permissions');
         }
 
-        $permissions = auth()->user()->allPermissions(null, session()->get('account')->name);
+        $permissions = auth()->user()->allPermissions(null, session()->get('account'));
 
         $userPermissions = [];
 
@@ -49,12 +49,12 @@ if (! function_exists('getRoles')) {
     function getRoles()
     {
 
-        if (session()->has('roles')) {
+        if (session()->has('role')) {
 
-            return session()->get('roles');
+            return session()->get('role');
         }
 
-        $roles = auth()->user()->getRoles(session()->get('account')->name);
+        $roles = auth()->user()->getRoles(session()->get('account'));
 
         session()->put('role', $roles[0]);
 

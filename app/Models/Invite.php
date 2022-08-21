@@ -19,7 +19,12 @@ class Invite extends Model
         'email',
         'message',
         'role',
-        'status'
+        'status',
+        'projects'
+    ];
+
+    protected $casts = [
+        'projects' => 'json'
     ];
 
     public function account()
@@ -35,6 +40,23 @@ class Invite extends Model
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_user_id');
+    }
+
+    public function setRestrictedProjects(User $user, Account $account)
+    {
+        if (empty($this->projects)) {
+            return true;
+        }
+
+        foreach ($this->projects as $projectID) {
+            RestrictedProject::create([
+                'account_id' => $account->id,
+                'user_id' => $user->id,
+                'project_id' => $projectID
+            ]);
+        }
+
+        return true;
     }
 
 }

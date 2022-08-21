@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamMemberController;
 use App\Models\Page;
 use App\Models\Project;
+use App\Models\RestrictedProject;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -34,7 +35,22 @@ Route::get('/', function () {
 Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
-        $projects = Project::where('account_id', session()->get('account')->id)->get();
+
+        $restrictredProjects = RestrictedProject::where('user_id', auth()->id())
+            ->where('account_id', session()->get('account')->id)
+            ->get()
+            ->pluck('project_id');
+
+        if ($restrictredProjects->count()) {
+            $projects = Project::where('account_id', session()->get('account')->id)
+                ->whereIn('id', $restrictredProjects)
+                ->get();
+        }
+
+        if (!$restrictredProjects->count()) {
+            $projects = Project::where('account_id', session()->get('account')->id)
+                ->get();
+        }
 
         return Inertia::render('Projects', [
             'projects' => $projects,
@@ -69,8 +85,18 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
 
     Route::get('/{project}', function ($projectID) {
 
+        $restrictredProjects = RestrictedProject::where('user_id', auth()->id())
+            ->where('account_id', session()->get('account')->id)
+            ->get()
+            ->pluck('project_id')
+            ->toArray();
+
         $project = Project::where('account_id', session()->get('account')->id)
             ->findOrFail($projectID);
+
+        if (!empty($restrictredProjects) && !in_array($project->id, $restrictredProjects)) {
+            abort(404);
+        }
 
         $pages = Page::tree()
             ->where('project_id', $project->id)
@@ -242,6 +268,8 @@ Route::get('/dashboard', function () {
 Route::controller(AccountController::class)->middleware(['auth'])->prefix('account')->group(function() {
     Route::get('/upgrade', 'upgradeAccount')->name('upgradeAccount');
     Route::get('/upgrade/plan/{planName}', 'selectPlan')->name('selectPlan');
+    Route::get('/accounts', 'viewAccounts')->name('viewAccounts');
+    Route::get('/accounts/{accountID}', 'switchAccount')->name('switchAccount');
 });
 
 Route::get('/billing-portal', function (Request $request) {

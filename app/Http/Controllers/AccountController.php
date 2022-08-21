@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Field;
 use App\Models\Page;
 use App\Models\Project;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use function Clue\StreamFilter\fun;
 
 class AccountController extends Controller
 {
@@ -44,5 +46,24 @@ class AccountController extends Controller
             'success_url' => route('projects'),
             'cancel_url' => route('upgradeAccount'),
         ]);
+    }
+
+    public function viewAccounts()
+    {
+        return Inertia::render('Account/Index', [
+            'accounts' => auth()->user()->accounts,
+        ]);
+    }
+
+    public function switchAccount($accountID)
+    {
+        $account = Account::where('id', $accountID)
+            ->whereHas('users', function ($query) {
+                $query->where('user_id', auth()->id());
+            })->firstOrFail();
+
+        session()->put('account', $account);
+
+        return redirect()->route('projects');
     }
 }

@@ -13,6 +13,7 @@
                     {{ user.email }}
                 </div>
                 <Link v-if="permissions['manage-team-members']" :href="route('viewTeamMembers')" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/team-members') }">Team members & clients</Link>
+                <Link v-if="Object.keys(accounts).length > 1" :href="route('viewAccounts')" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Switch accounts</Link>
                 <Link v-if="permissions['manage-billing'] && !subscription.subscribed" href="/account/upgrade" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/account/upgrade') }">Upgrade account</Link>
                 <a v-if="permissions['manage-billing'] && subscription.subscribed" href="/billing-portal" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Manage subscription</a>
                 <Link href="/logout" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Logout</Link>
@@ -29,7 +30,8 @@ export default {
     props: {
         permissions: Object,
         subscription: Object,
-        user: Object
+        user: Object,
+        accounts: Object
     },
 
     components: {

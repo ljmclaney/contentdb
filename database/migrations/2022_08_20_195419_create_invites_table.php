@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('email');
             $table->longText('message')->nullable();
             $table->string('role');
+            $table->longText('projects')->nullable();
             $table->timestamps();
         });
     }

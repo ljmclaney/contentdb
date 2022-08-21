@@ -111,6 +111,19 @@
                     </select>
                 </div>
 
+                <div class="mt-5">
+                    <h3  class="block font-bold text-gray-700 mb-3">Restrict access to selected projects</h3>
+
+                    <div class="flex flex-wrap items-center">
+                        <div v-for="(project, projectID) in projects" class="mr-4 mb-4">
+                            <label class="flex items-center">
+                                <span class="mr-1">{{ project }}</span>
+                                <input type="checkbox" name="projects" id="projects" v-model="inviteProjects" :value="projectID" class="outline-none ring-0 focus:outline-none focus:ring-0 block sm:text-sm border-gray-300 rounded">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <button @click="saveProject()" class="btn-primary">
                     <span v-if="!inviteEmailLoading">Send invite</span>
                     <span v-if="inviteEmailLoading" class="flex items-center">
@@ -149,7 +162,8 @@ export default {
         users: Array,
         invites: Object,
         roles: Object,
-        selectableRoles: Object
+        selectableRoles: Object,
+        projects: Object
     },
 
     data() {
@@ -158,7 +172,8 @@ export default {
             inviteEmail: null,
             inviteMessage: null,
             inviteRole: '',
-            inviteEmailLoading: false
+            inviteEmailLoading: false,
+            inviteProjects: []
         }
     },
 
@@ -172,7 +187,8 @@ export default {
                 {
                     inviteEmail: this.inviteEmail,
                     inviteMessage: this.inviteMessage,
-                    inviteRole: this.inviteRole
+                    inviteRole: this.inviteRole,
+                    inviteProjects: this.inviteProjects
                 },
                 {
                     preserveScroll: true,
@@ -180,6 +196,7 @@ export default {
                         this.inviteUser = false
                         this.inviteEmail = null
                         this.inviteEmailLoading = false
+                        this.inviteProjects = []
                     },
                     onError: () => {
                         this.inviteEmailLoading = false

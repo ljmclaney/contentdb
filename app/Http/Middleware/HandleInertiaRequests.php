@@ -38,6 +38,8 @@ class HandleInertiaRequests extends Middleware
         $data =  array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'accounts' => !empty($request->user()) ? $request->user()->accounts : null,
+                'account' => session()->get('account')
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
@@ -49,11 +51,11 @@ class HandleInertiaRequests extends Middleware
 
         if (auth()->check()) {
 
-            $roles = getRoles();
+            $role = getRoles();
             $permissions = getPermissions();
 
             $data = array_merge($data, [
-                'roles' => $roles,
+                'userRole' => $role,
                 'permissions' => $permissions
             ]);
 

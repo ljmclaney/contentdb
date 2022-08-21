@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\InviteUser;
 use App\Models\Account;
 use App\Models\Invite;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,8 @@ use Inertia\Inertia;
 
 class TeamMemberController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         if (!array_key_exists('manage-team-members', session()->get('permissions'))) {
             abort(403);
@@ -28,7 +30,7 @@ class TeamMemberController extends Controller
 
         foreach ($account->users as $user) {
 
-            $roles = $user->getRoles($account->name);
+            $roles = $user->getRoles($account);
 
             $editAllowed = false;
 
@@ -77,12 +79,16 @@ class TeamMemberController extends Controller
             unset($selectableRoles['owner']);
         }
 
+        $projects = Project::where('account_id', session()->get('account')->id)
+            ->get()
+            ->pluck('name', 'id');
 
         return Inertia::render('TeamMembers/Index', [
             'users' => $users,
             'invites' => $invites,
             'roles' => $roles,
-            'selectableRoles' => $selectableRoles
+            'selectableRoles' => $selectableRoles,
+            'projects' => $projects
         ]);
     }
 
@@ -104,7 +110,8 @@ class TeamMemberController extends Controller
             'role' => $request->input('inviteRole'),
             'uuid' => Str::uuid()->toString(),
             'token' => Str::uuid()->toString(),
-            'status' => 'pending'
+            'status' => 'pending',
+            'projects' => $request->input('inviteProjects')
         ]);
 
         Mail::to($request->input('inviteEmail'))->send(new InviteUser($invite));

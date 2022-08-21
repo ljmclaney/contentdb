@@ -9,7 +9,7 @@
             <ul class="hidden sm:flex items-center space-x-[30px]">
                 <li><Link href="/projects" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Projects</Link></li>
                 <li>
-                    <user-dropdown :user="$page.props.auth.user" :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>
+                    <user-dropdown :accounts="$page.props.auth.accounts" :user="$page.props.auth.user" :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>
                 </li>
             </ul>
 
@@ -24,7 +24,7 @@
                 </svg>
             </button>
 
-            <Link v-if="($page.props.subscription.onTrial && $page.props.subscription.trialEndsAt) && ($page.props.subscription.trialEndsAt <= 14)" href="/account/upgrade" class="hidden lg:block absolute bg-brand-dark-blue text-black font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[200px] mx-auto text-xs">
+            <Link v-if="$page.props.userRole === 'owner' && ($page.props.subscription.onTrial && $page.props.subscription.trialEndsAt) && ($page.props.subscription.trialEndsAt <= 14)" href="/account/upgrade" class="hidden lg:block absolute bg-brand-dark-blue text-black font-bold text-center px-2 py-1 rounded-b top-0 right-0 left-0 w-[200px] mx-auto text-xs">
                 {{ $page.props.subscription.trialEndsAt }} days remaining - Upgrade
             </Link>
 

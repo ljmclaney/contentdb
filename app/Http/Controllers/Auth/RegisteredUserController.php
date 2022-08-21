@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'name' => optional($request->name)
+            'name' => !empty($request->name) ? $request->name : null
         ]);
 
         event(new Registered($user));
@@ -60,7 +60,13 @@ class RegisteredUserController extends Controller
                 'name' => 'acct-' . Str::uuid()->toString()
             ]);
 
+            $role = Role::where('name', 'owner')->first();
+
+            $account->users()->attach(auth()->user());
+
             session()->put('account', $account);
+
+            auth()->user()->attachRole($role, $account);
 
             return redirect('/projects?newUser=true');
         }
@@ -77,6 +83,8 @@ class RegisteredUserController extends Controller
             $invite->account->users()->attach(auth()->user());
 
             auth()->user()->attachRole($role, $invite->account);
+
+            $invite->setRestrictedProjects(auth()->user(), $invite->account);
 
             session()->put('account', $invite->account);
 

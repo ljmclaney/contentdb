@@ -100,7 +100,14 @@ class GoogleController extends Controller
 
         $account = Account::create([
             'trial_ends_at' => now()->addDays(14),
+            'acct-' . Str::uuid()->toString()
         ]);
+
+        $role = Role::where('name', 'owner')->first();
+
+        $account->users()->attach($newUser);
+
+        $newUser->attachRole($role, $account);
 
         session()->put('account', $account);
 
@@ -139,6 +146,8 @@ class GoogleController extends Controller
         $invite->account->users()->attach($invitedUser);
 
         $invitedUser->attachRole($role, $invite->account);
+
+        $invite->setRestrictedProjects($invitedUser, $invite->account);
 
         session()->put('account', $invite->account);
 
