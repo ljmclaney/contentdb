@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class LaratrustSetupTables extends Migration
@@ -80,6 +81,59 @@ class LaratrustSetupTables extends Migration
 
             $table->primary(['permission_id', 'role_id']);
         });
+
+        DB::table('roles')->insert([
+            [
+                'name' => 'owner',
+                'display_name' => 'Owner'
+            ],
+            [
+                'name' => 'team-member',
+                'display_name' => 'Team member'
+            ],
+            [
+                'name' => 'client',
+                'display_name' => 'Client'
+            ],
+        ]);
+
+        DB::table('permissions')->insert([
+            [
+                'name' => 'manage-billing',
+                'display_name' => 'Manage billing'
+            ],
+            [
+                'name' => 'manage-team-members',
+                'display_name' => 'Manage team member'
+            ],
+            [
+                'name' => 'create-projects',
+                'display_name' => 'Create projects'
+            ],
+        ]);
+
+        DB::table('permission_role')->insert([
+            [
+                'permission_id' => 1,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 2,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 2,
+                'role_id' => 2
+            ],
+            [
+                'permission_id' => 3,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 3,
+                'role_id' => 2
+            ],
+        ]);
     }
 
     /**
