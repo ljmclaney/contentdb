@@ -25,6 +25,9 @@ class InviteController extends Controller
         $role = Role::where('name', $invite->role)->first();
 
         if ($invite->user) {
+
+
+
             $invite->user->attachRole($role, $invite->account);
 
             session()->flash('toast', [
@@ -37,22 +40,11 @@ class InviteController extends Controller
         }
 
         return Inertia::render('Invite/Register', [
+            'sender' => $invite->sender->email,
             'email' => $invite->email,
             'uuid' => $invite->uuid,
             'token' => $invite->token
         ]);
 
-    }
-
-    public function acceptInvite(Request $request, $uuid, $token)
-    {
-        $invite = Invite::where('uuid', $uuid)
-            ->where('token', $token)
-            ->where('status', 'pending')
-            ->firstOrFail();
-
-        $user = User::firstOrCreate([
-            'email' => $invite->email
-        ]);
     }
 }

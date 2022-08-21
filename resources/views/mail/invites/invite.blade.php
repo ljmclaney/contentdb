@@ -1,6 +1,6 @@
 @component('mail::message')
 
-({{ $invite->sender->email }})[mailto:$invite->sender->email] has invited you to collaborate with them on their project in CollectContent
+[{{ $invite->sender->email }}](mailto:{{ $invite->sender->email }}) has invited you to collaborate with them on their project in CollectContent
 
 @component('mail::button', ['url' => route('acceptInvite', [$invite->uuid, $invite->token])])
 Accept Invite

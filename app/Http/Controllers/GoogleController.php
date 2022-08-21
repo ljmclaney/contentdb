@@ -15,6 +15,20 @@ class GoogleController extends Controller
 {
     public function redirect()
     {
+        if (!empty(request()->query('action'))) {
+
+            return Socialite::driver('google')
+                ->with([
+                    'redirect_uri' => route('googleCallback', [
+                        'action' => request()->query('action'),
+                        'uuid' => request()->query('uuid'),
+                        'token' => request()->query('token')
+                    ])
+                ])
+                ->redirect();
+
+        }
+
         return Socialite::driver('google')->redirect();
     }
 

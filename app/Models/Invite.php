@@ -18,7 +18,8 @@ class Invite extends Model
         'token',
         'email',
         'message',
-        'role'
+        'role',
+        'status'
     ];
 
     public function account()

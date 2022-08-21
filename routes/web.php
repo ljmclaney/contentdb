@@ -261,7 +261,7 @@ Route::get('/storage/files/{account}/{file}', function ($account, $file) {
 
 Route::controller(GoogleController::class)->group(function(){
     Route::get('social/google', 'redirect')->name('auth.google');
-    Route::get('social/google/callback', 'googleCallback');
+    Route::get('social/google/callback', 'googleCallback')->name('googleCallback');
 });
 
 Route::controller(TeamMemberController::class)->prefix('team-members')->group(function(){

@@ -20,6 +20,11 @@
                 <div class="bg-white rounded border border-gray-300">
 
                     <div>
+                        <div class="sm:flex sm:items-center p-5 border-b border-gray-300">
+                            <div class="sm:flex-auto">
+                                <h2 class="text-xl font-bold ">Team members & clients</h2>
+                            </div>
+                        </div>
                         <div class="p-5 flex flex-col">
                             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
@@ -32,11 +37,43 @@
                                                     <br><span>{{ user.email }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <select :disabled="!user.edit_allowed" v-model="user.role" class="border-gray-300 rounded" @change="changeRole()">
-                                                        <option v-for="(role, index) in roles" :value="index">{{ role.name }}</option>
+
+                                                    <input v-if="!user.edit_allowed" :disabled="true" class="border-gray-300 rounded w-[128px] bg-gray-200" type="text" :value="roles[user.role].name">
+
+                                                    <select v-if="user.edit_allowed" v-model="user.role" class="border-gray-300 rounded" @change="changeRole()">
+                                                        <option v-for="(role, index) in selectableRoles" :value="index">{{ role.name }}</option>
                                                     </select>
                                                 </td>
                                             </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div  v-if="Object.keys(invites).length" class="bg-white rounded border border-gray-300">
+                    <div>
+                        <div class="sm:flex sm:items-center p-5 border-b border-gray-300">
+                            <div class="sm:flex-auto">
+                                <h2 class="text-xl font-bold ">Pending invites</h2>
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col">
+                            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
+                                    <table class="min-w-full divide-y divide-gray-300">
+                                        <tbody class="divide-y divide-gray-200">
+                                        <tr v-for="invite in invites">
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-gray-900 sm:pl-6 md:pl-0">
+                                                <span class="font-bold">{{ invite.email }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <input :disabled="true" class="border-gray-300 rounded w-[128px] bg-gray-200" type="text" :value="roles[invite.role].name">
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -71,7 +108,7 @@
                     <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
                     <select v-model="inviteRole" id="role" class="border-gray-300 rounded">
                         <option value="" selected>Select a role</option>
-                        <option v-for="(role, index) in roles" :value="index">{{ role.name }}</option>
+                        <option v-for="(role, index) in selectableRoles" :value="index">{{ role.name }}</option>
                     </select>
                 </div>
 
@@ -110,7 +147,10 @@ export default {
     },
 
     props: {
-        users: Array
+        users: Array,
+        invites: Object,
+        roles: Object,
+        selectableRoles: Object
     },
 
     data() {
@@ -119,25 +159,7 @@ export default {
             inviteEmail: null,
             inviteMessage: null,
             inviteRole: '',
-            inviteEmailLoading: false,
-            roles: {
-                'owner': {
-                    'name': 'Owner',
-                    'description': 'Has full access to everything, can manage billing and team members'
-                },
-                'team-member': {
-                    'name': 'Member',
-                    'description': 'Can create and edit projects and pages. Can invite team members and clients'
-                },
-                'client': {
-                    'name': 'Client',
-                    'description': 'Can add content to pages and change page status'
-                },
-                'view': {
-                    'name': 'Read only',
-                    'description': 'Can only read content'
-                }
-            }
+            inviteEmailLoading: false
         }
     },
 

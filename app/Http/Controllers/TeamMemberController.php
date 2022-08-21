@@ -30,16 +30,58 @@ class TeamMemberController extends Controller
 
             $roles = $user->getRoles($account->name);
 
+            $editAllowed = false;
+
+            if (session()->get('role') === 'owner') {
+                $editAllowed = true;
+            }
+
+            if (session()->get('role') === 'team-member') {
+                $editAllowed = $roles[0] !== 'owner';
+            }
+
             $users[] = [
                 'name' => $user->name,
                 'email' => $user->email,
                 'role' => $roles[0],
-                'edit_allowed' => $user->id !== auth()->id()
+                'edit_allowed' => $editAllowed
             ];
         }
 
+        $invites = Invite::where('account_id', session()->get('account')->id)
+            ->where('status', 'pending')
+            ->get();
+
+        $roles = [
+            'owner' => [
+                'name' => 'Owner',
+                'description' => 'Has full access to everything, can manage billing and team members'
+            ],
+            'team-member'=> [
+                'name' => 'Member',
+                'description' => 'Can create and edit projects and pages. Can invite team members and clients'
+            ],
+            'client' => [
+                'name' => 'Client',
+                'description' => 'Can add content to pages and change page status'
+            ],
+            'view' => [
+                'name' => 'Read only',
+                'description' => 'Can only read content'
+            ]
+        ];
+
+        $selectableRoles = $roles;
+
+        if (session()->get('role') !== 'owner') {
+            unset($selectableRoles['owner']);
+        }
+
         return Inertia::render('TeamMembers/Index', [
-            'users' => $users
+            'users' => $users,
+            'invites' => $invites,
+            'roles' => $roles,
+            'selectableRoles' => $selectableRoles
         ]);
     }
 
