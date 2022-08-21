@@ -6,7 +6,7 @@
                 <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">Projects</Link></li>
             </ul>
 
-            <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
+            <div v-if="$page.props.permissions['create-projects']" class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
                 <div>
                     <Link :href="route('viewArchivedProjects')" class="btn-outline mr-3 sm:mr-0">View archive</Link>
                 </div>

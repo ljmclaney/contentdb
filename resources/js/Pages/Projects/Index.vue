@@ -18,19 +18,19 @@
                     </Link>
                 </div>
 
-                <div>
+                <div v-if="$page.props.permissions['create-projects']">
                     <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
                 </div>
 
-                <div>
+                <div v-if="$page.props.permissions['create-projects']">
                     <button @click="showShare = !showShare" class="btn-outline">Share</button>
                 </div>
 
-                <div>
+                <div v-if="Object.keys(pages).length">
                     <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
                 </div>
 
-                <div>
+                <div v-if="$page.props.permissions['create-projects']">
                     <button @click="createPage = true" class="btn-primary">Create a page</button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                                         </div>
                                         </div>
                                         <ul class="divide-y divide-gray-200">
-                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="pages"></page-item>
+                                            <page-item v-for="page in pages" :project="project" :node="page" :pages="pages" :permissions="$page.props.permissions"></page-item>
                                         </ul>
                                     </div>
                                 </div>
@@ -67,12 +67,23 @@
 
                 <div v-if="!Object.keys(pages).length" class="flex flex-col justify-center items-center text-center pt-[100px]">
 
-                    <div class="mb-[30px]">
-                        <h3 class="text-xl font-bold mb-[15px]">Let the fun begin!</h3>
-                        <p class="text-black">Add your content here. Start by creating your first page.</p>
+                    <div  v-if="$page.props.permissions['create-projects']">
+                        <div class="mb-[30px]">
+                            <h3 class="text-xl font-bold mb-[15px]">Add your pages!</h3>
+                            <p class="text-black">Start by creating your first page to organize and collect content.</p>
+                        </div>
+
+                        <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
+
                     </div>
 
-                    <button @click="createPage = true" type="button" class="btn-primary">Create a page</button>
+                    <div  v-if="!$page.props.permissions['create-projects']">
+                        <div class="mb-[30px]">
+                            <h3 class="text-xl font-bold mb-[15px]">No pages created yet!</h3>
+                            <p class="text-black">You will need to wait until your team members create pages for your project.</p>
+                        </div>
+
+                    </div>
 
                 </div>
 

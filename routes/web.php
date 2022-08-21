@@ -82,7 +82,6 @@ Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSu
     Route::get('/content/{project}', 'viewAllContent')->name('viewAllContent');
     Route::post('/content/{project}', 'saveAllContent')->name('saveAllContent');
 
-
     Route::get('/{project}', function ($projectID) {
 
         $restrictredProjects = RestrictedProject::where('user_id', auth()->id())

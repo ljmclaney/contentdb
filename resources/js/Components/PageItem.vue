@@ -1,6 +1,6 @@
 <template>
     <li  class="relative">
-        <div class="flex items-center justify-between" @mouseover="displayEdit = true" @mouseleave="displayEdit = false">
+        <div class="flex items-center justify-between" @mouseover="displayEdit = permissions['create-projects']" @mouseleave="displayEdit = false">
             <div class="whitespace-nowrap py-4 pl-4 pr-3 font-medium sm:pl-6 md:pl-0 w-1/2 truncate">
                 <Link :href="route('viewPage', [project.id, node.id])" class="text-black hover:text-brand-dark-blue truncate inline-flex items-center">
 
@@ -51,7 +51,7 @@
         </div>
 
         <ul v-if="node.children && node.children.length" class="border-t border-gray-200 divide-y divide-gray-200">
-            <node v-for="child in node.children" :project="project" :node="child" :pages="pages"></node>
+            <node v-for="child in node.children" :project="project" :node="child" :pages="pages" :permissions="permissions"></node>
         </ul>
 
         <slide-over :open="editPage" @closeSlider="editPage = false" title="Edit page">
@@ -127,7 +127,8 @@ export default {
     props: {
         node: Object,
         project: Object,
-        pages: Object
+        pages: Object,
+        permissions: Array
     },
 
     data() {
@@ -168,7 +169,7 @@ export default {
                     preserveScroll: true
                 }
             )
-        }
+        },
     }
 }
 </script>

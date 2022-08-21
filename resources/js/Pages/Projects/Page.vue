@@ -8,7 +8,7 @@
             </ul>
 
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
-                <div>
+                <div v-if="$page.props.permissions['create-projects']">
                     <Link :href="route('pageStructure', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-outline">Edit structure</Link>
                 </div>
 
@@ -19,7 +19,7 @@
                 </div>
 
                 <div>
-                    <button @click="saveFields()" class="btn-primary">Save</button>
+                    <button :disabled="!Object.keys(fields).length" @click="saveFields()" class="btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -55,23 +55,28 @@
 
                 <div v-if="!Object.keys(fields).length" class="flex flex-col justify-center items-center pt-[100px] text-black text-center">
 
-                    <div>
-                        <h3 class="text-xl font-bold mb-[15px]">Let's start building your page structure!</h3>
-                        <p class="text-black">Select a field from the bottom.</p>
+                    <div  v-if="$page.props.permissions['create-projects']">
+                        <div class="mb-[30px]">
+                            <h3 class="text-xl font-bold mb-[15px]">Page missing content fields</h3>
+                            <p class="text-black">Start by adding content fields to your page.</p>
+                        </div>
+
+                        <Link :href="route('pageStructure', [project.id, page.id])" v-if="Object.keys(fields).length" class="btn-primary">Create structure</Link>
+
+                    </div>
+
+                    <div  v-if="!$page.props.permissions['create-projects']">
+                        <div class="mb-[30px]">
+                            <h3 class="text-xl font-bold mb-[15px]">Page missing content fields</h3>
+                            <p class="text-black">Please wait for your team members to add content fields to the page.</p>
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="fixed bottom-[20px] left-0 w-full flex flex-col items-center justify-center">
-                <div v-if="!Object.keys(fields).length" class="mb-[30px] animate-bounce rounded-full w-[50px] h-[50px] bg-indigo-50 border border-indigo-500 text-indigo-500 flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                    </svg>
-                </div>
-
-            </div>
         </div>
     </Layout>
 </template>

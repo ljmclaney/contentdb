@@ -45,7 +45,7 @@ class PageController extends Controller
             ->with('sections.fields')
             ->findOrFail($pageID);
 
-        if ($page->fields->isEmpty()) {
+        if ($page->fields->isEmpty() && auth()->user()->isAbleTo('create-projects', session()->get('account'))) {
             return redirect()->route('pageStructure', [$project->id, $page->id]);
         }
 
