@@ -9,7 +9,7 @@
             <ul class="hidden sm:flex items-center space-x-[30px]">
                 <li><Link href="/projects" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Projects</Link></li>
                 <li>
-                    <user-dropdown :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>
+                    <user-dropdown :user="$page.props.auth.user" :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>
                 </li>
             </ul>
 

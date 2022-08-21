@@ -40,10 +40,14 @@ class TeamMemberController extends Controller
                 $editAllowed = $roles[0] !== 'owner';
             }
 
+            if ($user->id === auth()->id()) {
+                $editAllowed = false;
+            }
+
             $users[] = [
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $roles[0],
+                'role' => !empty($roles) ? $roles[0] : 'member',
                 'edit_allowed' => $editAllowed
             ];
         }
@@ -64,10 +68,6 @@ class TeamMemberController extends Controller
             'client' => [
                 'name' => 'Client',
                 'description' => 'Can add content to pages and change page status'
-            ],
-            'view' => [
-                'name' => 'Read only',
-                'description' => 'Can only read content'
             ]
         ];
 
@@ -76,6 +76,7 @@ class TeamMemberController extends Controller
         if (session()->get('role') !== 'owner') {
             unset($selectableRoles['owner']);
         }
+
 
         return Inertia::render('TeamMembers/Index', [
             'users' => $users,
@@ -107,6 +108,28 @@ class TeamMemberController extends Controller
         ]);
 
         Mail::to($request->input('inviteEmail'))->send(new InviteUser($invite));
+
+        return back();
+    }
+
+    public function changeRole(Request $request)
+    {
+
+        $user = User::where('email', $request->input('user.email'))
+            ->whereHas('accounts', function ($query) {
+                $query->where('account_id', session('account')->id);
+            })
+            ->firstOrFail();
+
+        $user->detachRole($user->role, session('account'));
+
+        $user->attachRole($request->input('user.role'), session('account'));
+
+        session()->flash('toast', [
+            'title'   => 'User updated',
+            'message' => 'The users role has been updated.',
+            'type'    => 'success'
+        ]);
 
         return back();
     }

@@ -30,18 +30,17 @@
                                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <tbody class="divide-y divide-gray-200">
-                                            <tr v-for="user in users">
+                                            <tr v-for="(user, index) in users">
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-gray-900 sm:pl-6 md:pl-0">
                                                     <span class="font-bold" v-if="user.name">{{ user.name }}</span>
                                                     <span class="font-bold"  v-if="!user.name">Name not set</span>
                                                     <br><span>{{ user.email }}</span>
                                                 </td>
                                                 <td class="text-right">
-
                                                     <input v-if="!user.edit_allowed" :disabled="true" class="border-gray-300 rounded w-[128px] bg-gray-200" type="text" :value="roles[user.role].name">
 
-                                                    <select v-if="user.edit_allowed" v-model="user.role" class="border-gray-300 rounded" @change="changeRole()">
-                                                        <option v-for="(role, index) in selectableRoles" :value="index">{{ role.name }}</option>
+                                                    <select v-if="user.edit_allowed" v-model="users[index].role" class="border-gray-300 rounded" @change="changeRole(user)">
+                                                        <option v-for="(role, roleKey) in selectableRoles" :value="roleKey">{{ role.name }}</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -191,8 +190,15 @@ export default {
 
         },
 
-        changeRole() {
-
+        changeRole(user, role) {
+            this.$inertia.post(route('changeRole'), {
+                    user: user,
+                    role: role
+                },
+                {
+                    preserveScroll: true
+                }
+            )
         }
     }
 }

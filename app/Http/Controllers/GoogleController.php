@@ -46,9 +46,10 @@ class GoogleController extends Controller
         $state = request()->input('state');
 
         if (!empty($state)) {
+
             $state = explode(',', base64_decode(request()->input('state')));
 
-            if (is_array($state)) {
+            if (is_array($state) && $state[0] === 'connect') {
 
                 $invite = Invite::where('uuid', $state[1])
                     ->where('token', $state[2])

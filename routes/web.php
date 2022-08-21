@@ -267,6 +267,7 @@ Route::controller(GoogleController::class)->group(function(){
 Route::controller(TeamMemberController::class)->prefix('team-members')->group(function(){
     Route::get('/', 'index')->name('viewTeamMembers');
     Route::post('/invite', 'inviteMember')->name('inviteMember');
+    Route::post('/role', 'changeRole')->name('changeRole');
 });
 
 Route::controller(InviteController::class)->prefix('invite')->group(function(){
