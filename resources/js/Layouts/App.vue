@@ -43,6 +43,44 @@
 
         <toast :show="showToast" :data="toast" :key="toast"></toast>
 
+        <modal v-if="$page.props.accountIncomplete" :open="true">
+
+            <h3 class="text-xl mb-5 font-bold">Final step!</h3>
+
+            <form @submit.prevent="form.post(route('accountDetails'))" class="space-y-[30px]">
+
+                <div class="space-y-5">
+                    <div>
+                        <label for="name" class="block font-medium text-gray-700">Your name</label>
+                        <div class="mt-1">
+                            <input type="text" name="name" id="name" v-model="form.userName" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" required />
+                            <div v-if="form.errors.userName" class="text-sm mt-2 text-red-600">{{ form.errors.userName }}</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="account_name" class="block font-medium text-gray-700">Business or account name</label>
+                        <div class="mt-1">
+                            <input type="text" name="account_name" id="account_name" v-model="form.accountName" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" required />
+                            <div v-if="form.errors.accountName" class="text-sm mt-2 text-red-600">{{ form.errors.accountName }}</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" :disabled="accountDetailsLoading">
+                        <span v-if="!accountDetailsLoading">Save</span>
+                        <span v-if="accountDetailsLoading" class="flex items-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+                            Saving
+                        </span>
+                    </button>
+                </div>
+
+            </form>
+        </modal>
+
     </main>
 </template>
 
@@ -50,17 +88,28 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import Toast from '@/Components/Toast.vue'
 import UserDropdown from '@/Components/UserDropdown.vue'
+import Modal from '@/Components/Modal.vue'
 
 export default {
     components: {
         Link,
         Toast,
-        UserDropdown
+        UserDropdown,
+        Modal
+    },
+
+    props: {
+        errors: Object,
     },
 
     data() {
         return {
-            showMenu: false
+            showMenu: false,
+            form: this.$inertia.form({
+                userName: null,
+                accountName: null
+            }),
+            accountDetailsLoading: false
         }
     },
 
@@ -71,7 +120,7 @@ export default {
 
         showToast() {
             return this.$page.props.toast !== null
-        }
-    }
+        },
+    },
 }
 </script>

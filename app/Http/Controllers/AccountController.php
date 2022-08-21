@@ -66,4 +66,27 @@ class AccountController extends Controller
 
         return redirect()->route('projects');
     }
+
+    public function accountDetails(Request $request)
+    {
+        $request->validate([
+            'userName' => ['required'],
+            'accountName' => ['required']
+        ]);
+
+        $account = Account::where('id', session()->get('account')->id)
+            ->firstOrFail();
+
+        $account = tap($account)->update([
+            'name' => $request->input('accountName')
+        ]);
+
+        session()->put('account', $account);
+
+        auth()->user()->update([
+            'name' => $request->input('userName')
+        ]);
+
+        return back();
+    }
 }

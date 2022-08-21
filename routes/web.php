@@ -269,6 +269,7 @@ Route::controller(AccountController::class)->middleware(['auth'])->prefix('accou
     Route::get('/upgrade/plan/{planName}', 'selectPlan')->name('selectPlan');
     Route::get('/accounts', 'viewAccounts')->name('viewAccounts');
     Route::get('/accounts/{accountID}', 'switchAccount')->name('switchAccount');
+    Route::post('/accounts-details', 'accountDetails')->name('accountDetails');
 });
 
 Route::get('/billing-portal', function (Request $request) {

@@ -9,8 +9,9 @@
 
         <div v-if="open" class="origin-top-right absolute right-0 z-50 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1" role="none">
-                <div class="text-black block px-4 py-2 text-sm border-b border-gray-300">
-                    {{ user.email }}
+                <div class="text-black block px-4 py-2 border-b border-gray-300">
+                    <strong class="block">{{ $page.props.auth.account.name }}</strong>
+                    <span>{{ user.email }}</span>
                 </div>
                 <Link v-if="permissions['manage-team-members']" :href="route('viewTeamMembers')" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium" :class="{'bg-gray-100': $page.url.startsWith('/team-members') }">Team members & clients</Link>
                 <Link v-if="Object.keys(accounts).length > 1" :href="route('viewAccounts')" class="text-black block px-4 py-2 text-sm hover:bg-gray-100 font-medium">Switch accounts</Link>

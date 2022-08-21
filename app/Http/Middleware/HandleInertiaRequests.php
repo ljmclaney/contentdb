@@ -78,6 +78,13 @@ class HandleInertiaRequests extends Middleware
 
         }
 
+        if (session()->get('role') === 'owner' && empty(session()->get('account')->name)) {
+
+            $data = array_merge($data, [
+                'accountIncomplete' => true
+            ]);
+        }
+
         return $data;
     }
 }

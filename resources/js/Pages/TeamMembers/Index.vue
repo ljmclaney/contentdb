@@ -3,7 +3,8 @@
 
         <div class="sticky top-0 z-40 bg-white rounded border-b border-gray-300 py-5 px-4 md:px-10 md:flex md:items-center md:justify-between mb-[30px]">
             <ul class="text-xl md:text-2xl font-bold flex items-center space-x-[10px]">
-                <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">Team members & clients</Link></li>
+                <li class="truncate"><Link href="/projects" class="text-black hover:text-indigo-500 transition-all">
+                    {{  $page.props.auth.account.name }}</Link></li>
             </ul>
 
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
