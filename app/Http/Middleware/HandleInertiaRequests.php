@@ -48,6 +48,10 @@ class HandleInertiaRequests extends Middleware
 
         if (auth()->check()) {
 
+            if (!session()->has('account') && !empty(auth()->user()->account)) {
+                session()->put('account', auth()->user()->account);
+            }
+
             // get fresh account data e.g subscription
             $account = Account::where('id', session()->get('account')->id)
                 ->first();
