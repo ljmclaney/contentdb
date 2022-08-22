@@ -56,8 +56,7 @@ class RegisteredUserController extends Controller
 
         if (empty($request->input('action'))) {
             $account = Account::create([
-                'trial_ends_at' => now()->addDays(14),
-                'name' => 'acct-' . Str::uuid()->toString()
+                'trial_ends_at' => now()->addDays(14)
             ]);
 
             $role = Role::where('name', 'owner')->first();

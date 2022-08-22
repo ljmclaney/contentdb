@@ -99,8 +99,7 @@ class GoogleController extends Controller
         auth()->login($newUser, true);
 
         $account = Account::create([
-            'trial_ends_at' => now()->addDays(14),
-            'acct-' . Str::uuid()->toString()
+            'trial_ends_at' => now()->addDays(14)
         ]);
 
         $role = Role::where('name', 'owner')->first();

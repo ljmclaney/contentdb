@@ -37,17 +37,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
 
-        // get fresh account data e.g subscription
-        $account = Account::where('id', session()->get('account')->id)
-            ->first();
-
-        session()->put('account', $account);
-
         $data =  array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'accounts' => !empty($request->user()) ? $request->user()->accounts : null,
-                'account' => $account
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
@@ -58,6 +50,19 @@ class HandleInertiaRequests extends Middleware
         ]);
 
         if (auth()->check()) {
+
+            // get fresh account data e.g subscription
+            $account = Account::where('id', session()->get('account')->id)
+                ->first();
+
+            session()->put('account', $account);
+
+            $data = array_merge($data, [
+                'auth' => [
+                    'accounts' => !empty($request->user()) ? $request->user()->accounts : null,
+                    'account' => $account
+                ]
+            ]);
 
             $role = getRoles();
             $permissions = getPermissions();
