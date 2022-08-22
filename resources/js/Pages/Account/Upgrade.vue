@@ -67,7 +67,7 @@
 
                     <div class="pt-6">
                         <h3 class="text-xl font-bold mb-2">Are there any storage limits?</h3>
-                        <p>Nope! Upload as much content as needed. We do have a 20MB file limit per file upload.</p>
+                        <p>Nope! Upload as much content as needed.</p>
                     </div>
                 </div>
 
