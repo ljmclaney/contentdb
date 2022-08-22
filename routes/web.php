@@ -32,7 +32,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::controller(ProjectController::class)->middleware(['auth', 'ensureUserIsSubscribed'])->prefix('projects')->group(function() {
+Route::controller(ProjectController::class)->middleware(['auth'])->prefix('projects')->group(function() {
 
     Route::get('/', function () {
 
@@ -292,9 +292,9 @@ Route::controller(GoogleController::class)->group(function(){
     Route::get('social/google/callback', 'googleCallback')->name('googleCallback');
 });
 
-Route::controller(TeamMemberController::class)->prefix('team-members')->group(function(){
+Route::controller(TeamMemberController::class)->middleware(['auth'])->prefix('team-members')->group(function(){
     Route::get('/', 'index')->name('viewTeamMembers');
-    Route::post('/invite', 'inviteMember')->name('inviteMember');
+    Route::post('/invite', 'inviteMember')->middleware(['EnsureUserCanAddTeamMembers'])->name('inviteMember');
     Route::post('/role', 'changeRole')->name('changeRole');
 });
 

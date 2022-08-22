@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Account;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -35,11 +36,18 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+
+        // get fresh account data e.g subscription
+        $account = Account::where('id', session()->get('account')->id)
+            ->first();
+
+        session()->put('account', $account);
+
         $data =  array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
                 'accounts' => !empty($request->user()) ? $request->user()->accounts : null,
-                'account' => session()->get('account')
+                'account' => $account
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
@@ -61,24 +69,24 @@ class HandleInertiaRequests extends Middleware
 
             $planType = null;
 
-            if (session()->get('account')->subscribed('default')) {
-                $price = session()->get('account')->subscription('default')->stripe_price;
+            if ($account->subscribed('default')) {
+                $price = $account->subscription('default')->stripe_price;
 
                 $planType = planType($price);
             }
 
             $data = array_merge($data, [
                 'subscription' => [
-                    'onTrial' =>    !empty(session()->get('account')->subscription('default')) ? session()->get('account')->subscription('default')->onTrial() : session()->get('account')->onTrial(),
-                    'trialEndsAt' => !empty($trialDate = session()->get('account')->trialEndsAt()) ? Carbon::now()->startOfDay()->diffInDays($trialDate->endOfDay(), false) : null,
-                    'subscribed' => session()->get('account')->subscribed('default'),
+                    'onTrial' =>    !empty($account->subscription('default')) ? $account->subscription('default')->onTrial() : $account->onTrial(),
+                    'trialEndsAt' => !empty($trialDate = $account->trialEndsAt()) ? Carbon::now()->startOfDay()->diffInDays($trialDate->endOfDay(), false) : null,
+                    'subscribed' => $account->subscribed('default'),
                     'planType' => $planType
                 ]
             ]);
 
         }
 
-        if (session()->get('role') === 'owner' && empty(session()->get('account')->name)) {
+        if (session()->get('role') === 'owner' && empty($account->name)) {
 
             $data = array_merge($data, [
                 'accountIncomplete' => true
