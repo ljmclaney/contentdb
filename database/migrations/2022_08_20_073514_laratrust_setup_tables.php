@@ -34,6 +34,7 @@ class LaratrustSetupTables extends Migration
 
         // Create table for storing teams
         Schema::table('accounts', function (Blueprint $table) {
+            $table->string('name')->nullable()->after('id');
             $table->string('display_name')->nullable()->after('name');
             $table->string('description')->nullable()->after('display_name');
         });
@@ -46,11 +47,6 @@ class LaratrustSetupTables extends Migration
             $table->string('user_type');
             $table->unsignedBigInteger('account_id')->nullable();
 
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('account_id')->references('id')->on('accounts')
-                ->onUpdate('cascade')->onDelete('cascade');
-
             $table->unique(['user_id', 'role_id', 'user_type', 'account_id'], 'role_user_unique');
         });
 
@@ -62,11 +58,6 @@ class LaratrustSetupTables extends Migration
             $table->string('user_type');
             $table->unsignedBigInteger('account_id')->nullable();
 
-            $table->foreign('permission_id')->references('id')->on('permissions')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('account_id')->references('id')->on('accounts')
-                ->onUpdate('cascade')->onDelete('cascade');
-
             $table->unique(['user_id', 'permission_id', 'user_type', 'account_id'], 'permission_user_unique');
         });
 
@@ -75,13 +66,6 @@ class LaratrustSetupTables extends Migration
             $table->id();
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('role_id');
-
-            $table->foreign('permission_id')->references('id')->on('permissions')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['permission_id', 'role_id']);
         });
 
         DB::table('roles')->insert([
