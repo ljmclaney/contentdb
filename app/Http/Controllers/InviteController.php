@@ -32,6 +32,10 @@ class InviteController extends Controller
 
             $invite->setRestrictedProjects($invite->user, $invite->account);
 
+            $invite->update([
+                'status' => 'accepted'
+            ]);
+
             session()->flash('toast', [
                 'title'   => 'Success!',
                 'message' => 'Invitation accepted.',

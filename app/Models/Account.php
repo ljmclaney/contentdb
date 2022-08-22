@@ -24,4 +24,9 @@ class Account extends LaratrustTeam
         return $this->belongsToMany(User::class);
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
 }

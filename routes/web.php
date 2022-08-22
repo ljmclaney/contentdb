@@ -143,7 +143,6 @@ Route::controller(ProjectController::class)->middleware(['auth'])->prefix('proje
         Route::post('/{page}/sections', 'saveSection')->name('saveSection');
         Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
         Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
-        Route::post('/{page}/status', 'changeStatus')->name('changeStatus');
     });
 });
 
@@ -253,6 +252,7 @@ Route::controller(PageController::class)->prefix('/projects/{project}/pages')->g
     Route::post('/{page}/fields', 'saveFields')->name('saveFields');
     Route::post('/{page}/upload-image', 'uploadImage')->name('uploadImage');
     Route::post('/{page}/completed', 'markAsCompleted')->name('markAsCompleted');
+    Route::post('/{page}/status', 'changeStatus')->name('changeStatus');
 });
 
 Route::controller(FigmaController::class)->prefix('/figma')->group(function() {
@@ -305,15 +305,13 @@ Route::controller(InviteController::class)->prefix('invite')->group(function(){
 
 Route::get('/temp/assign-roles', function() {
 
-    $accounts = \App\Models\Account::with('users')->get();
+    $accounts = \App\Models\Account::with('user')->get();
 
     $owner = \App\Models\Role::where('name', 'owner')->first();
 
     foreach ($accounts as $account) {
-
-        foreach ($account->users as $user) {
-
-            $user->attachRole($owner, $account);
+        if ($account->user) {
+            $account->user->attachRole($owner, $account);
         }
     }
 
