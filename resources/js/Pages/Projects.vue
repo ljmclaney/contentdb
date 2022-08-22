@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-[50px] pb-[112px]': Object.keys(projects).length}">
+        <div class="max-w-5xl mx-auto px-4 relative" :class="{'pt-10 pb-[112px]': Object.keys(projects).length}">
 
             <div class="max-w-4xl mx-auto space-y-[30px]">
 
