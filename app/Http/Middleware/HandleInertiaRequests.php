@@ -38,9 +38,6 @@ class HandleInertiaRequests extends Middleware
     {
 
         $data =  array_merge(parent::share($request), [
-            'auth' => [
-                'user' => $request->user(),
-            ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
@@ -59,6 +56,7 @@ class HandleInertiaRequests extends Middleware
 
             $data = array_merge($data, [
                 'auth' => [
+                    'user' => $request->user(),
                     'accounts' => !empty($request->user()) ? $request->user()->accounts : null,
                     'account' => $account
                 ]
