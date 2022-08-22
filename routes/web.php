@@ -303,19 +303,4 @@ Route::controller(InviteController::class)->prefix('invite')->group(function(){
     Route::post('/{uuid}/{token}', 'acceptInvite')->name('acceptInvite');
 });
 
-Route::get('/temp/assign-roles', function() {
-
-    $accounts = \App\Models\Account::with('user')->get();
-
-    $owner = \App\Models\Role::where('name', 'owner')->first();
-
-    foreach ($accounts as $account) {
-        if ($account->user) {
-            $account->user->attachRole($owner, $account);
-        }
-    }
-
-
-});
-
 require __DIR__.'/auth.php';

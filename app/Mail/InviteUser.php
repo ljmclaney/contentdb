@@ -31,6 +31,7 @@ class InviteUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.invites.invite');
+        return $this->subject($this->invite->sender->name . ' invited you to collaborate in their workspace ' . $this->invite->account->name)->
+            markdown('mail.invites.invite');
     }
 }
