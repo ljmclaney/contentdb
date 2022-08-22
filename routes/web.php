@@ -303,4 +303,9 @@ Route::controller(InviteController::class)->prefix('invite')->group(function(){
     Route::post('/{uuid}/{token}', 'acceptInvite')->name('acceptInvite');
 });
 
+Route::controller(BrandAssetController::class)->middleware(['auth'])->prefix('brand-assets/{projectID}')->group(function(){
+    Route::get('/', 'index')->name('brandAssets');
+});
+
+
 require __DIR__.'/auth.php';

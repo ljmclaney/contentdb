@@ -26,6 +26,10 @@
                     <button @click="showShare = !showShare" class="btn-outline">Share</button>
                 </div>
 
+                <div>
+                    <Link :href="route('brandAssets', project.id)" class="btn-outline">Brand assets</Link>
+                </div>
+
                 <div v-if="Object.keys(pages).length">
                     <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
                 </div>
