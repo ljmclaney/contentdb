@@ -316,6 +316,6 @@ Route::get('/temp/assign-roles', function() {
     }
 
 
-})->name('checkPassword');
+});
 
 require __DIR__.'/auth.php';
