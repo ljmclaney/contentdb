@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BrandAssetController;
 use App\Http\Controllers\FigmaController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InviteController;
@@ -146,7 +147,7 @@ Route::controller(ProjectController::class)->middleware(['auth'])->prefix('proje
     });
 });
 
-Route::prefix('share/{project}/{uuid}')->middleware(['ensureUserCanAccessProject'])->group(function() {
+Route::prefix('share/{project}/{uuid}')->middleware(['ensureUserCanAccessProject', 'PublicSharedLink'])->group(function() {
 
     Route::get('/', function (\App\Models\Project $project, $uuid) {
 
@@ -303,9 +304,10 @@ Route::controller(InviteController::class)->prefix('invite')->group(function(){
     Route::post('/{uuid}/{token}', 'acceptInvite')->name('acceptInvite');
 });
 
-Route::controller(BrandAssetController::class)->middleware(['auth'])->prefix('brand-assets/{projectID}')->group(function(){
+Route::controller(BrandAssetController::class)->prefix('projects/{projectID}/brand-assets/')->group(function(){
     Route::get('/', 'index')->name('brandAssets');
+    Route::post('/upload', 'uploadFile')->name('uploadFile');
+    Route::delete('/delete/{fileID}', 'deleteFile')->name('deleteFile');
 });
-
 
 require __DIR__.'/auth.php';

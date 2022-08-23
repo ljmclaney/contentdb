@@ -131,7 +131,6 @@ export default {
 
             axios.post('/projects/' + this.project.id + '/pages/' + this.page.id + '/upload-image', formData)
             .then(function (response) {
-                console.log(response)
                 $this.files = response.data.files
 
                 $this.fieldData.json_content =  response.data.files

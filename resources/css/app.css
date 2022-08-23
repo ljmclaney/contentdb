@@ -47,6 +47,10 @@
     .btn-secondary-large {
         @apply inline-flex items-center px-4 py-3 border border-transparent text-lg font-medium rounded bg-brand-dark-blue hover:bg-black hover:text-white hover:border-transparent transition-all;
     }
+
+    .btn-red {
+        @apply inline-flex items-center justify-center px-4 py-2 h-[42px] border border-transparent text-base font-medium rounded text-white bg-red-600 hover:bg-red-700 hover:text-white transition-all disabled:bg-gray-200 disabled:text-gray-600 disabled:cursor-not-allowed;
+    }
 }
 
 .ProseMirror.ProseMirror-focused {

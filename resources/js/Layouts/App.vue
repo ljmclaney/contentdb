@@ -6,7 +6,7 @@
                 <Link href="/projects" class="text-xl mr-10 font-bold">CollectContent</Link>
             </div>
 
-            <ul class="hidden sm:flex items-center space-x-[30px]">
+            <ul class="hidden sm:flex items-center space-x-[30px]" v-if="$page.props.auth">
                 <li><Link href="/projects" class="hover:underline underline-offset-4 transition-all font-medium" :class="{'underline': $page.url.startsWith('/projects') }">Projects</Link></li>
                 <li>
                     <user-dropdown :accounts="$page.props.auth.accounts" :user="$page.props.auth.user" :permissions="$page.props.permissions" :subscription="$page.props.subscription"></user-dropdown>

@@ -18,6 +18,11 @@ class Project extends Model
         'password'
     ];
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
     public function pages()
     {
         return $this->hasMany(Page::class);

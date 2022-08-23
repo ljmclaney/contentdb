@@ -36,7 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\HandleInertiaRequests::class,
+            \App\Http\Middleware\HandleInertiaRequests::class
         ],
 
         'api' => [
@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ensureUserCanCreateProjects' => \App\Http\Middleware\EnsureUserCanCreateProjects::class,
         'ensureUserCanAccessProject' => \App\Http\Middleware\EnsureUserCanAccessProject::class,
-        'EnsureUserCanAddTeamMembers' => \App\Http\Middleware\EnsureUserCanAddTeamMembers::class
+        'EnsureUserCanAddTeamMembers' => \App\Http\Middleware\EnsureUserCanAddTeamMembers::class,
+        'PublicSharedLink' => \App\Http\Middleware\PublicSharedLink::class
     ];
 }

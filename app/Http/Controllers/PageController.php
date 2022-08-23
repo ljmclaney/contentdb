@@ -278,7 +278,7 @@ class PageController extends Controller
 
         session()->flash('toast', [
             'title'   => 'Deleted',
-            'message' => 'Page paged.',
+            'message' => 'Page deleted.',
             'type'    => 'success'
         ]);
 

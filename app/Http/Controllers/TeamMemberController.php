@@ -17,7 +17,6 @@ class TeamMemberController extends Controller
 {
     public function index()
     {
-
         if (!array_key_exists('manage-team-members', session()->get('permissions'))) {
             abort(403);
         }
