@@ -1,71 +1,45 @@
-<script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-
-const props = defineProps({
-    align: {
-        default: 'right'
-    },
-    width: {
-        default: '48'
-    },
-    contentClasses: {
-        default: () => ['py-1', 'bg-white']
-    }
-});
-
-const closeOnEscape = (e) => {
-    if (open.value && e.key === 'Escape') {
-        open.value = false;
-    }
-};
-
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
-onUnmounted(() => document.removeEventListener('keydown', closeOnEscape));
-
-const widthClass = computed(() => {
-    return {
-        '48': 'w-48',
-    }[props.width.toString()];
-});
-
-const alignmentClasses = computed(() => {
-    if (props.align === 'left') {
-        return 'origin-top-left left-0';
-    } else if (props.align === 'right') {
-        return 'origin-top-right right-0';
-    } else {
-        return 'origin-top';
-    }
-});
-
-const open = ref(false);
-</script>
-
 <template>
     <div class="relative">
-        <div @click="open = ! open">
-            <slot name="trigger" />
-        </div>
+        <button v-click-outside="onClickOutside" @click="open = !open" class="btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+            </svg>
+        </button>
 
-        <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="open = false"></div>
-
-        <transition
-            enter-active-class="transition ease-out duration-200"
-            enter-from-class="transform opacity-0 scale-95"
-            enter-to-class="transform opacity-100 scale-100"
-            leave-active-class="transition ease-in duration-75"
-            leave-from-class="transform opacity-100 scale-100"
-            leave-to-class="transform opacity-0 scale-95">
-            <div v-show="open"
-                    class="absolute z-50 mt-2 rounded-md shadow-lg"
-                    :class="[widthClass, alignmentClasses]"
-                    style="display: none;"
-                    @click="open = false">
-                <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
-                    <slot name="content" />
-                </div>
+        <div v-if="open" class="origin-top-right absolute right-0 z-50 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div class="py-1" role="none">
+                <slot/>
             </div>
-        </transition>
+        </div>
     </div>
 </template>
+
+<script>
+import {Link} from "@inertiajs/inertia-vue3";
+
+export default {
+
+    props: {
+        permissions: Object,
+        subscription: Object,
+        user: Object,
+        accounts: Object
+    },
+
+    components: {
+        Link,
+    },
+
+    data() {
+        return {
+            open: false
+        }
+    },
+
+    methods: {
+        onClickOutside() {
+            this.open = false
+        }
+    }
+}
+</script>

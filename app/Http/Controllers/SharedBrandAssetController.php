@@ -11,39 +11,42 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
-class BrandAssetController extends Controller
+class SharedBrandAssetController extends Controller
 {
-    public function index($projectID)
+    public function index(Project $project, $uuid)
     {
-        $project = Project::where('account_id', session()->get('account')->id)
-            ->findOrFail($projectID);
+        if ($project->account_id !== session()->get('account')->id) {
+            abort(403);
+        }
 
         $brandAssets = BrandAsset::where('account_id', session()->get('account')->id)
             ->where('project_id', $project->id)
             ->orderBy('name', 'desc')
             ->paginate(20);
 
-        return Inertia::render('BrandAssets/Index', [
+        return Inertia::render('SharedBrandAssets/Index', [
             'project' => $project,
-            'brandAssets' => $brandAssets
+            'uuid' => $uuid,
+            'brandAssets' => $brandAssets,
         ]);
     }
 
-    public function uploadFile(Request $request, $projectID)
+    public function uploadFile(Request $request, Project $project)
     {
         $request->validate([
             'name' => ['required'],
             'file' => [
                 'required',
                 File::types([
-                    'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', 'avif', 'mp4', 'mp3', 'mp4', 'wav', 'doc', 'docx', 'pdf',
+                    'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', 'image/avif', 'mp4', 'mp3', 'mp4', 'wav', 'doc', 'docx', 'pdf',
                     'xls', 'xlsx', 'csv'
                 ])
             ]
         ]);
 
-        $project = Project::where('account_id', session()->get('account')->id)
-            ->findOrFail($projectID);
+        if ($project->account_id !== session()->get('account')->id) {
+            abort(403);
+        }
 
         $uuid = Str::uuid()->toString();
 
@@ -70,13 +73,14 @@ class BrandAssetController extends Controller
 
     }
 
-    public function deleteFile($projectID, $fileID)
+    public function deleteFile(Project $project, $uuid, $fileID)
     {
-        $project = Project::where('account_id', session()->get('account')->id)
-            ->findOrFail($projectID);
+        if ($project->account_id !== session()->get('account')->id) {
+            abort(403);
+        }
 
         $file = BrandAsset::where('account_id', session()->get('account')->id)
-            ->where('project_id', $projectID)
+            ->where('project_id', $project->id)
             ->findOrFail($fileID);
 
         $file->delete();

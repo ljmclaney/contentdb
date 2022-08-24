@@ -7,6 +7,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SharedBrandAssetController;
 use App\Http\Controllers\TeamMemberController;
 use App\Models\Page;
 use App\Models\Project;
@@ -216,6 +217,12 @@ Route::prefix('share/{project}/{uuid}')->middleware(['ensureUserCanAccessProject
             'uuid' => $uuid
         ]);
     })->name('viewSharedSection');
+
+    Route::controller(SharedBrandAssetController::class)->prefix('/brand-assets')->group(function(){
+        Route::get('/', 'index')->name('sharedBrandAssets');
+        Route::post('/upload', 'uploadFile')->name('sharedUploadFile');
+        Route::delete('/delete/{fileID}', 'deleteFile')->name('sharedDeleteFile');
+    });
 });
 
 Route::get('/password-protected/{project}/{uuid}', function (\App\Models\Project $project, $uuid) {
@@ -304,7 +311,7 @@ Route::controller(InviteController::class)->prefix('invite')->group(function(){
     Route::post('/{uuid}/{token}', 'acceptInvite')->name('acceptInvite');
 });
 
-Route::controller(BrandAssetController::class)->prefix('projects/{projectID}/brand-assets/')->group(function(){
+Route::controller(BrandAssetController::class)->prefix('projects/{projectID}/brand-assets/')->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('brandAssets');
     Route::post('/upload', 'uploadFile')->name('uploadFile');
     Route::delete('/delete/{fileID}', 'deleteFile')->name('deleteFile');

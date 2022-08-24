@@ -1,14 +1,6 @@
 <template>
     <Layout>
 
-        <header class="bg-black text-white py-4 px-10 flex justify-between items-center relative z-30">
-
-            <div class="flex items-center">
-                <a href="https://www.withauthor.com" class="text-2xl mr-10 font-bold">CollectContent</a>
-            </div>
-
-        </header>
-
         <div class="max-w-5xl mx-auto px-4 relative pt-[50px] pb-[112px]">
 
             <div class="max-w-3xl mx-auto space-y-[30px]">

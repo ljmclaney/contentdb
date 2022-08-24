@@ -10,31 +10,37 @@
 
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
 
+                <div class="relative">
+                    <dropdown>
+                        <ul>
+
+                            <li v-if="Object.keys(pages).length">
+                                <Link :href="route('viewAllContent', project.id)" class="text-black block px-4 py-2 hover:bg-gray-100 font-medium">View all content</Link>
+                            </li>
+
+                            <li v-if="$page.props.permissions['create-projects']">
+                                <button @click="showShare = !showShare" class="text-black block w-full text-left px-4 py-2 hover:bg-gray-100 font-medium">Share</button>
+                            </li>
+
+                            <li v-if="$page.props.permissions['create-projects']">
+                                <Link :href="route('archiveProject', project.id)" class="text-black block px-4 py-2 hover:bg-gray-100 font-medium">Archive project</Link>
+                            </li>
+
+                        </ul>
+                    </dropdown>
+                </div>
+
                 <div>
                     <Link :href="route('viewSitemap', project.id)" class="btn-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
-                        </svg>
+                        Sitemap
                     </Link>
-                </div>
-
-                <div v-if="$page.props.permissions['create-projects']">
-                    <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
-                </div>
-
-                <div v-if="$page.props.permissions['create-projects']">
-                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
                 </div>
 
                 <div>
                     <Link :href="route('brandAssets', project.id)" class="btn-outline">Brand assets</Link>
                 </div>
 
-                <div v-if="Object.keys(pages).length">
-                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
-                </div>
-
-                <div v-if="$page.props.permissions['create-projects']">
+                <div v-if="$page.props.permissions['create-projects']" class="hover:text-brand-blue">
                     <button @click="createPage = true" class="btn-primary">Create a page</button>
                 </div>
             </div>
@@ -198,9 +204,11 @@ import SlideOver from '@/Components/SlideOver.vue'
 import Modal from '@/Components/Modal.vue'
 import PageItem from '@/Components/PageItem.vue'
 import PageOption from '@/Components/PageOption.vue'
+import Dropdown from "@/Components/Dropdown.vue";
 
 export default {
     components: {
+        Dropdown,
         Link,
         Layout,
         SlideOver,
@@ -225,7 +233,8 @@ export default {
             newPageLoading: false,
             sharePassword: null,
             savingShareSettings: false,
-            showCollaborators: false
+            showCollaborators: false,
+            displayDropdown: true
         }
     },
 
