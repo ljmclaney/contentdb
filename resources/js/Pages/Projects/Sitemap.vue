@@ -9,28 +9,37 @@
 
             <div class="mt-4 md:mt-0 md:ml-16 flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
 
+                <div class="relative">
+                    <dropdown>
+                        <ul>
+
+                            <li v-if="Object.keys(pages).length">
+                                <Link :href="route('viewAllContent', project.id)" class="text-black block px-4 py-2 hover:bg-gray-100 font-medium">View all content</Link>
+                            </li>
+
+                            <li v-if="$page.props.permissions['create-projects']">
+                                <button @click="showShare = !showShare" class="text-black block w-full text-left px-4 py-2 hover:bg-gray-100 font-medium">Share</button>
+                            </li>
+
+                            <li v-if="$page.props.permissions['create-projects']">
+                                <Link :href="route('archiveProject', project.id)" class="text-black block px-4 py-2 hover:bg-gray-100 font-medium">Archive project</Link>
+                            </li>
+
+                        </ul>
+                    </dropdown>
+                </div>
+
                 <div>
                     <Link :href="route('viewProject', project.id)" class="btn-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
-                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                            <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                        </svg>
+                        Pages
                     </Link>
                 </div>
 
-                <div v-if="$page.props.permissions['create-projects']">
-                    <Link :href="route('archiveProject', project.id)" class="btn-outline">Archive</Link>
+                <div>
+                    <Link :href="route('brandAssets', project.id)" class="btn-outline">Brand assets</Link>
                 </div>
 
-                <div v-if="$page.props.permissions['create-projects']">
-                    <button @click="showShare = !showShare" class="btn-outline">Share</button>
-                </div>
-
-                <div v-if="Object.keys(pages).length">
-                    <Link :href="route('viewAllContent', project.id)" class="btn-outline">Edit all content</Link>
-                </div>
-
-                <div v-if="$page.props.permissions['create-projects']">
+                <div v-if="$page.props.permissions['create-projects']" class="hover:text-brand-blue">
                     <button @click="createPage = true" class="btn-primary">Create a page</button>
                 </div>
             </div>
@@ -169,6 +178,7 @@ import Modal from '@/Components/Modal.vue'
 import PageItem from '@/Components/PageItem.vue'
 import PageOption from '@/Components/PageOption.vue'
 import SitemapItem from '@/Components/SitemapItem.vue'
+import Dropdown from "@/Components/Dropdown.vue";
 
 export default {
     components: {
@@ -178,7 +188,8 @@ export default {
         Modal,
         PageItem,
         PageOption,
-        SitemapItem
+        SitemapItem,
+        Dropdown
     },
 
     props: {
@@ -197,7 +208,8 @@ export default {
             newPageLoading: false,
             sharePassword: null,
             savingShareSettings: false,
-            showCollaborators: false
+            showCollaborators: false,
+            displayDropdown: false
         }
     },
 

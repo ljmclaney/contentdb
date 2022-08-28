@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper.cdc0426e.js";import{o,d as t}from"./app.6055333d.js";const c={},r={class:"text-2xl font-extrabold text-black uppercase"};function s(n,a){return o(),t("div",r," Author ")}const i=e(c,[["render",s]]);export{i as B};

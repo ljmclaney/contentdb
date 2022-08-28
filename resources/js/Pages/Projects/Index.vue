@@ -234,7 +234,7 @@ export default {
             sharePassword: null,
             savingShareSettings: false,
             showCollaborators: false,
-            displayDropdown: true
+            displayDropdown: false
         }
     },
 
