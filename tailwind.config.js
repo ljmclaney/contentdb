@@ -12,7 +12,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Gilroy', ...defaultTheme.fontFamily.sans],
+                sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
             },
             boxShadow: {
                 'DEFAULT': '0px 2px 7px rgba(0, 0, 0, 0.05)'
